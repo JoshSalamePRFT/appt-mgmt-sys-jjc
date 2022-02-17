@@ -8,11 +8,11 @@
         <version>2.6.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.dpfb</groupId>
-    <artifactId>dpfb</artifactId>
+    <groupId>com.apptGroup</groupId>
+    <artifactId>apptGroup</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>dpfb</name>
-    <description>Demo project for Perficient</description>
+    <name>apptGroup</name>
+    <description>Appointment part of demo project for Perficient</description>
     <properties>
         <java.version>17</java.version>
     </properties>

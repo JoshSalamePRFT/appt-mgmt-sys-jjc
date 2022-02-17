@@ -1,24 +1,33 @@
-package model;
+package com.apptGroup.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Time;
 
 @Data
 @Entity
-@Table
 public class Appointment {
 
     @Id
+    @GeneratedValue
+    private long appt_id;
+
+    @Column(name="appt_name")
     private String apptName;
+
+    @Column(name="appt_type")
     private String apptType;
+
     private String description;
+
+    @Column(name="start_time")
     private Time startTime;
+
+    @Column(name="end_time")
     private Time endTime;
+
+    @Column(name="meta_data")
     private String metaData;
 
 }

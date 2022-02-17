@@ -1,6 +1,6 @@
-package repository;
+package com.apptGroup.repository;
 
-import model.Appointment;
+import com.apptGroup.model.Appointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ApptRepository extends JpaRepository<Appointment, Long> {
