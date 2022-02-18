@@ -1,6 +1,6 @@
-package service;
+package com.example.userservice.service;
 
-import model.User;
+import com.example.userservice.model.User;
 
 import java.util.List;
 
