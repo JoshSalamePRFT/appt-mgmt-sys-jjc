@@ -3,16 +3,24 @@ package com.apptGroup.service;
 import com.apptGroup.model.Appointment;
 import com.apptGroup.repository.ApptRepository;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @Service
 public class ApptServiceImpl implements ApptService{
     //TODO: Implement all of these.
+    @Autowired
     private ApptRepository apptRepo;
+
+    public ApptServiceImpl(ApptRepository apptRepo) {
+        super();
+        this.apptRepo = apptRepo;
+    }
 
     @Override
     public Appointment saveAppt(Appointment appt) {
@@ -77,5 +85,10 @@ public class ApptServiceImpl implements ApptService{
     @Override
     public void deleteApptsByEnd(Time end) {
 
+    }
+
+    @Override
+    public Optional<Appointment> findById(long appt_id) {
+        return apptRepo.findById(appt_id);
     }
 }

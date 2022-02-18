@@ -1,6 +1,6 @@
 package com.apptGroup.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -11,9 +11,10 @@ public class Appointment {
 
     @Id
     @GeneratedValue
+    @Column(nullable = false)
     private long appt_id;
 
-    @Column(name="appt_name")
+    @Column(name="appt_name", nullable = false)
     private String apptName;
 
     @Column(name="appt_type")

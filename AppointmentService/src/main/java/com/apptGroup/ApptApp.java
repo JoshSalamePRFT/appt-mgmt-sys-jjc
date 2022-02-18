@@ -1,4 +1,4 @@
-package com.apptGroup.app;
+package com.apptGroup;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

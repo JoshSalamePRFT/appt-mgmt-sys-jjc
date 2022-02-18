@@ -4,6 +4,7 @@ import com.apptGroup.model.Appointment;
 
 import java.sql.Time;
 import java.util.List;
+import java.util.Optional;
 
 public interface ApptService {
     Appointment saveAppt(Appointment appt);
@@ -21,4 +22,6 @@ public interface ApptService {
     void deleteApptsByType(String apptType);
     void deleteApptsByStart(Time start);
     void deleteApptsByEnd(Time end);
+
+    Optional<Appointment> findById(long appt_id);
 }
