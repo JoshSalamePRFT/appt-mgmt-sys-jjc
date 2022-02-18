@@ -10,7 +10,7 @@ import java.sql.Time;
 public class Appointment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(nullable = false)
     private long appt_id;
 
