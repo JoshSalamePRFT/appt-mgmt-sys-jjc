@@ -23,13 +23,30 @@ public class ApptController {
         this.apptService = apptService;
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<Appointment> saveAppointment(@RequestBody Appointment appt) {
+        if (appt.getApptName() == null) {
+            throw new IllegalArgumentException("appt.apptName is Null");
+        }
         return new ResponseEntity<>(apptService.saveAppt(appt), HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @PutMapping("/update")
+    public ResponseEntity<Appointment> updateAppointment(@RequestBody Appointment appt) {
+        if (appt.getApptName() == null) {
+            throw new IllegalArgumentException("appt.apptName is Null");
+        }
+        return new ResponseEntity<>(apptService.saveAppt(appt), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/getAll")
     public ResponseEntity<List<Appointment>> getAppointment() {
         return new ResponseEntity<>(apptService.findAll(), HttpStatus.FOUND);
+    }
+
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<List<Appointment>> deleteAllAppointments() {
+        apptService.deleteAllAppt();
+        return new ResponseEntity<>(apptService.findAll(), HttpStatus.GONE);
     }
 }

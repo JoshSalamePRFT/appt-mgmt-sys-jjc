@@ -22,6 +22,4 @@ public interface ApptService {
     void deleteApptsByType(String apptType);
     void deleteApptsByStart(Time start);
     void deleteApptsByEnd(Time end);
-
-    Optional<Appointment> findById(long appt_id);
 }

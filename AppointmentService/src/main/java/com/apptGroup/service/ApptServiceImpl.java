@@ -29,7 +29,7 @@ public class ApptServiceImpl implements ApptService{
 
     @Override
     public Appointment updateAppt(Appointment appt) {
-        return null;
+        return apptRepo.save(appt);
     }
 
     @Override
@@ -87,8 +87,4 @@ public class ApptServiceImpl implements ApptService{
 
     }
 
-    @Override
-    public Optional<Appointment> findById(long appt_id) {
-        return apptRepo.findById(appt_id);
-    }
 }
