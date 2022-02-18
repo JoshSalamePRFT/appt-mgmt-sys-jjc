@@ -4,11 +4,14 @@ import com.apptGroup.model.Appointment;
 
 import java.sql.Time;
 import java.util.List;
-import java.util.Optional;
 
 public interface ApptService {
-    Appointment saveAppt(Appointment appt);
-    Appointment updateAppt(Appointment appt);
+
+    Appointment createAppt(Appointment appt);
+    Appointment readApptById(long id);
+    Appointment updateApptById(Appointment appt, long id);
+    void deleteApptById(long id);
+
     Appointment getApptByName(String apptName);
 
     List<Appointment> findAll();

@@ -2,14 +2,12 @@ package com.apptGroup.controller;
 
 import com.apptGroup.model.Appointment;
 import com.apptGroup.service.ApptService;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -23,30 +21,35 @@ public class ApptController {
         this.apptService = apptService;
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<Appointment> saveAppointment(@RequestBody Appointment appt) {
+    @PostMapping("/create")
+    public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appt) {
         if (appt.getApptName() == null) {
             throw new IllegalArgumentException("appt.apptName is Null");
         }
-        return new ResponseEntity<>(apptService.saveAppt(appt), HttpStatus.CREATED);
+        return new ResponseEntity<>(apptService.createAppt(appt), HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Appointment> updateAppointment(@RequestBody Appointment appt) {
+    @GetMapping("/read/{id}")
+    public ResponseEntity<Appointment> readAppointmentById(@PathVariable long id) {
+        return new ResponseEntity<>(apptService.readApptById(id), HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Appointment> updateAppointmentById(@RequestBody Appointment appt, @PathVariable long id) {
         if (appt.getApptName() == null) {
             throw new IllegalArgumentException("appt.apptName is Null");
         }
-        return new ResponseEntity<>(apptService.saveAppt(appt), HttpStatus.CREATED);
+        return new ResponseEntity<>(apptService.updateApptById(appt, id), HttpStatus.OK);
     }
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<Appointment>> getAppointment() {
-        return new ResponseEntity<>(apptService.findAll(), HttpStatus.FOUND);
+    @DeleteMapping("/delete/{id}")
+    public String deleteAppointmentById(@PathVariable long id) {
+        apptService.deleteApptById(id);
+        return "Successfully Deleted";
     }
 
-    @DeleteMapping("/deleteAll")
-    public ResponseEntity<List<Appointment>> deleteAllAppointments() {
-        apptService.deleteAllAppt();
-        return new ResponseEntity<>(apptService.findAll(), HttpStatus.GONE);
+    @GetMapping("/findAll")
+    public ResponseEntity<List<Appointment>> findAll() {
+        return new ResponseEntity<>(apptService.findAll(), HttpStatus.OK);
     }
 }

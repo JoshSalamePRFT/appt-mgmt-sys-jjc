@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Time;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Data
@@ -23,23 +24,49 @@ public class ApptServiceImpl implements ApptService{
     }
 
     @Override
-    public Appointment saveAppt(Appointment appt) {
+    public Appointment createAppt(Appointment appt) {
         return apptRepo.save(appt);
     }
 
     @Override
-    public Appointment updateAppt(Appointment appt) {
-        return apptRepo.save(appt);
+    public Appointment readApptById(long id) {
+        Optional<Appointment> appt = apptRepo.findById(id);
+        if (appt.isPresent()) {
+            return appt.get();
+        } else {
+            throw new NoSuchElementException("The appt_id: " + id + " does not exist.");
+        }
     }
 
     @Override
-    public Appointment getApptByName(String apptName) {
-        return null;
+    public Appointment updateApptById(Appointment appt, long id) {
+        Optional<Appointment> apptOpt = apptRepo.findById(id);
+        if (apptOpt.isPresent()) {
+            appt.setAppt_id(id);
+            return apptRepo.save(appt);
+        } else {
+            throw new NoSuchElementException("The appt_id: " + id + " does not exist.");
+        }
+    }
+
+    @Override
+    public void deleteApptById(long id) {
+        Optional<Appointment> apptOpt = apptRepo.findById(id);
+        if (apptOpt.isPresent()) {
+            apptRepo.deleteById(id);
+        } else {
+            throw new NoSuchElementException("The appt_id: " + id + " does not exist.");
+        }
     }
 
     @Override
     public List<Appointment> findAll() {
         return apptRepo.findAll();
+    }
+
+    @Override
+    public Appointment getApptByName(String apptName) {
+        return null;
     }
 
     @Override
