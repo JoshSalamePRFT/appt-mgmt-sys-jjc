@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public void createUser(User user) {
-        userRepository.save(user);
+    public User createUser(User user) {
+        return userRepository.save(user);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(User user, long user_id) {
+    public User updateUser(User user, long user_id) {
         //Check whether that entry actually exists. If not, throw an error.
         User oldUser = userRepository.findById(user_id).orElseThrow();
 
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
         oldUser.setEmailAddress(user.getEmailAddress());
         oldUser.setPhoneNumber(user.getPhoneNumber());
 
-        userRepository.save(oldUser);
+        return userRepository.save(oldUser);
     }
 
     @Override

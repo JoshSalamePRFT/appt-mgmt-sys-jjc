@@ -4,6 +4,8 @@ import com.example.userservice.model.User;
 import com.example.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,30 +15,35 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    //@Autowired
+    //@Autowired autowired doesn't seem necessary.
     private final UserService userService;
 
     @GetMapping("/get/{user_id}")
+    @ResponseStatus(HttpStatus.OK)
     public User getUser(@PathVariable("user_id") long user_id) {
         return userService.readUser(user_id);
     }
 
     @PostMapping("/post")
-    public void postUser(@RequestBody User user) {
-        userService.createUser(user);
+    @ResponseStatus(HttpStatus.CREATED)
+    public User postUser(@RequestBody User user) {
+        return userService.createUser(user);
     }
 
     @PutMapping("/put/{user_id}")
-    public void putUser(@RequestBody User user, @PathVariable("user_id") long user_id) {
-        userService.updateUser(user, user_id);
+    @ResponseStatus(HttpStatus.OK)
+    public User putUser(@RequestBody User user, @PathVariable("user_id") long user_id) {
+        return userService.updateUser(user, user_id);
     }
 
     @DeleteMapping("/delete/{user_id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable("user_id") long user_id) {
         userService.deleteUser(user_id);
     }
 
     @GetMapping("/getAll")
+    @ResponseStatus(HttpStatus.OK)
     public List<User> getAllUsers() {
         return userService.listUsers();
     }
