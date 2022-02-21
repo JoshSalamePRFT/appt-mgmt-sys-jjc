@@ -1,41 +1,122 @@
 package com.example.userservice.service;
 
+import com.example.userservice.model.User;
+import com.example.userservice.phoneHandling.PhoneNumber;
 import com.example.userservice.repository.UserRepository;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
-    //TODO
+    //TODO add tests?
+    //Delete test not mocked, since the return value is null. There's nothing to check.
 
-    @Autowired
+    @Mock
     private UserRepository userRepository;
 
-    @Test
-    void createUser() {
+    @Autowired
+    @InjectMocks
+    private UserServiceImpl userService;
+    private User user1;
+    private User user2;
+    List<User> userList;
 
+    @BeforeEach
+    public void setUp() {
+        userList = new ArrayList<>();
+        user1 = User.builder()
+                .user_id(1)
+                .firstName("Johnny?")
+                .lastName("Doe")
+                .age(24)
+                .gender("Male")
+                .emailAddress("john.doe@fakeemail.com")
+                .phoneNumber(new PhoneNumber("6465491234", "US"))
+                .build();
+
+        user2 = User.builder()
+                .user_id(2)
+                .firstName("notJohn")
+                .lastName("notDoe")
+                .age(25)
+                .gender("notMale")
+                .emailAddress("notjohndoe@fakeemail.com")
+                .phoneNumber(new PhoneNumber("6465471234", "US"))
+                .build();
+
+        userList.add(user1);
+        userList.add(user2);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        user1 = user2 = null;
+        userList = null;
     }
 
     @Test
-    void readUser() {
-
+    void createUserTest() {
+        when(userRepository.save(any())).thenReturn(user1);
+        userService.createUser(user1);
+        verify(userRepository, times(1)).save(any());
     }
 
     @Test
-    void updateUser() {
-
+    void readUserTest() {
+        when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(user1));
+        /* check that user object is the same as what you asked it to get by ID.
+           Will fail if you don't create the original user with an ID in this test,
+           because calling its getUser_id() method would return 0 (or null?, whichever is the default for a long),
+           but the auto-generated one will have an ID of 1, and get a mismatch.
+        */
+        assertThat(userService.readUser(user1.getUser_id())).isEqualTo(user1);
     }
 
     @Test
-    void deleteUser() {
+    void updateUserTest() {
+        //TODO create test
+    }
 
+    //TODO fix test
+    @Test
+    void deleteUserTest() {
+        //Only testing delete service function, so service is bypassed and repo is called directly.
+        userRepository.save(user1);
+        //Test service delete function. Just checks that it doesn't throw an error
+        userService.deleteUser(user1.getUser_id());
     }
 
     @Test
-    void listUsers() {
+    void listUsersTest() {
+        userRepository.save(user1);
 
+        //stubbing mock to return specific data
+        when(userRepository.findAll()).thenReturn(userList);
+
+        //service method call
+        List<User> userList1 = userService.listUsers();
+
+        //check return value is correct
+        assertEquals(userList1, userList);
+
+        //Make sure the save call worked properly
+        verify(userRepository, times(1)).save(user1);
+        //Make sure that when the listUsers() method was called from the service, it called findAll in the repository
+        verify(userRepository, times(1)).findAll();
     }
 }

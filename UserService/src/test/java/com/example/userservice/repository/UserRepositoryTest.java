@@ -73,4 +73,12 @@ class UserRepositoryTest {
 
         Assertions.assertThat(userRepository.findById(this.id).isPresent()).isFalse();
     }
+
+    @Test
+    @Transactional
+    public void getAllUsersTest() {
+        //TODO create proper test
+        //userRepository.findAll();
+        //Assertions.assert
+    }
 }

@@ -1,81 +1,116 @@
 package com.example.userservice.controller;
 
+//CREDIT TO SPRINGFRAMEWORKGURU: https://springframework.guru/testing-spring-boot-restful-services/
+
 import com.example.userservice.model.User;
-//import com.example.userservice.phoneHandling.PhoneNumber;
-//import com.google.i18n.phonenumbers.Phonenumber;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
+import com.example.userservice.phoneHandling.PhoneNumber;
+import com.example.userservice.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.List;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@ExtendWith(MockitoExtension.class)
 class UserControllerTest {
-    //TODO
+    //TODO add more tests
 
-    @Autowired
+    @Mock
+    private UserService userService;
+
+    private User user;
+    private List<User> userList; //not used?
+
+    @InjectMocks //injects the userService mock into the controller
     private UserController userController;
 
+    @Autowired
+    private MockMvc mockMvc;
+
     @BeforeEach
-    void setUp() {
-
-    }
-
-    //make dependent on post perhaps?
-    @Test
-    void getUser(@Autowired MockMvc mockMvc) throws Exception {
-        //mockMvc.perform(getUser());
-    }
-
-    @Test
-    void postUser() {
-        User user = User.builder()
-                .firstName("John")
-                .lastName("Doe")
+    public void setup() {
+        user = User.builder()
+                .user_id(1)
+                .firstName("notJohn")
+                .lastName("notDoe")
                 .age(25)
-                .gender("Male")
-                .emailAddress("johndoe@fakemail.com")
-                //.phoneNumber(new PhoneNumber().setRawInput("123-456-7890"))
+                .gender("notMale")
+                .emailAddress("notjohndoe@fakeemail.com")
+                .phoneNumber(new PhoneNumber("6465471234", "US"))
                 .build();
 
-        userController.postUser(user);
+        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
-    //make dependent on post perhaps?
-    @Test
-    void putUser() {
-        //Test requires DB to have values, so run post first to ensure this.
-        postUser();
-
-        long user_id = 1;
-        User user = User.builder()
-                .firstName("John")
-                .lastName("Doe")
-                .age(25)
-                .gender("Male")
-                .emailAddress("johndoe@fakemail.com")
-                //.phoneNumber(new PhoneNumber().setRawInput("123-456-7890"))
-                .build();
-
-        userController.putUser(user, user_id);
+    @AfterEach
+    void tearDown() {
+        user = null;
     }
 
-    //make dependent on post perhaps?
-    @Test
-    void deleteUser() {
-        //Test requires DB to have values, so run post first to ensure this.
-        postUser();
-
-        long user_id = 1;
-        userController.deleteUser(user_id);
+    //TODO fix post test
+    @Test //currently failing. Issue with asJsonString method, not mapping phoneNumber property of User correctly.
+    public void postTest() throws Exception {
+        when(userService.createUser(any())).thenReturn(user);
+        mockMvc.perform(post("/api/v1/user/post/") //
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(user)))
+                .andExpect(status().isCreated());
+        //Verify the controller's post method called the service's createUser method
+        verify(userService,times(1)).createUser(any());
     }
 
     @Test
-    void getAllUsers() {
-        userController.getAllUsers();
+    public void getAllTest() throws Exception {
+        when(userService.listUsers()).thenReturn(userList);
+        mockMvc.perform(get("/api/v1/user/getAll")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(user)))
+                .andDo(MockMvcResultHandlers.print());
+
+        //Verify that the service called listUsers
+        verify(userService).listUsers();
+        verify(userService,times(1)).listUsers();
+    }
+
+    @Test
+    public void getTest() throws Exception {
+        when(userService.readUser(user.getUser_id())).thenReturn(user);
+        mockMvc.perform(get("/api/v1/user/get/" + user.getUser_id())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(user)))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    //TODO check: not sure this should be passing.
+    @Test
+    public void deleteTest() throws Exception {
+        mockMvc.perform(delete("/api/v1/user/delete/" + user.getUser_id()))
+                .andExpect(status().isNoContent())
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    //Might need to create a custom mapper because of the phoneNumber property
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e){
+            throw new RuntimeException(e);
+        }
     }
 }
