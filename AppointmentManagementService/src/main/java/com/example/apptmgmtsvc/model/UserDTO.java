@@ -43,6 +43,6 @@ public class UserDTO {
             @Column(name = "phone_number_value"),
             @Column(name = "phone_number_locale") })
     @Phone
-    @Type(type = "com.example.userservice.phoneHandling.PhoneNumberType")
+    @Type(type = "com.example.apptmgmtsvc.phonehandler.PhoneNumberType")
     private PhoneNumber phoneNumber;
 }
