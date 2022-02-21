@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.sql.Time;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 public class Appointment {
 
