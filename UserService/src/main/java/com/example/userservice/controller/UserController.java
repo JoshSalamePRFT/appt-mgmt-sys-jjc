@@ -6,11 +6,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
-@RestController()
+@RestController
 @RequestMapping("api/v1/user")
 @RequiredArgsConstructor
 public class UserController {
@@ -26,13 +32,13 @@ public class UserController {
 
     @PostMapping("/post")
     @ResponseStatus(HttpStatus.CREATED)
-    public User postUser(@RequestBody User user) {
+    public User postUser(@Valid @RequestBody User user) {
         return userService.createUser(user);
     }
 
     @PutMapping("/put/{user_id}")
     @ResponseStatus(HttpStatus.OK)
-    public User putUser(@RequestBody User user, @PathVariable("user_id") long user_id) {
+    public User putUser(@Valid @RequestBody User user, @PathVariable("user_id") long user_id) {
         return userService.updateUser(user, user_id);
     }
 
@@ -46,5 +52,17 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public List<User> getAllUsers() {
         return userService.listUsers();
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public List<String> validationError(MethodArgumentNotValidException ex) {
+        List<String> exceptions = new ArrayList<>();
+
+        ex.getFieldErrors().forEach(fieldError -> {
+            exceptions.add(fieldError.getField() + ": " + fieldError.getDefaultMessage());
+                });
+        return exceptions;
     }
 }
