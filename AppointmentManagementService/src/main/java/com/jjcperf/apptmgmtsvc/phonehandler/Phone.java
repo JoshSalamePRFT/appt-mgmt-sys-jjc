@@ -1,4 +1,4 @@
-package com.example.apptmgmtsvc.phonehandler;
+package com.jjcperf.apptmgmtsvc.phonehandler;
 
 //CREDIT TO RAJ https://stackoverflow.com/questions/10631960/validate-mobile-number-using-hibernate-annotation/52003976#52003976
 

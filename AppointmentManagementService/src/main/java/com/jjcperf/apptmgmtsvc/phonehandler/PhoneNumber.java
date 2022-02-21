@@ -1,4 +1,4 @@
-package com.example.apptmgmtsvc.phonehandler;
+package com.jjcperf.apptmgmtsvc.phonehandler;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

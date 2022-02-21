@@ -1,7 +1,7 @@
-package com.example.apptmgmtsvc.web.mappers;
+package com.jjcperf.apptmgmtsvc.web.mappers;
 
-import com.example.apptmgmtsvc.model.Appointment;
-import com.example.apptmgmtsvc.model.AppointmentDTO;
+import com.jjcperf.apptmgmtsvc.model.Appointment;
+import com.jjcperf.apptmgmtsvc.model.AppointmentDTO;
 
 public class ApptMapper {
 

@@ -1,7 +1,7 @@
-package com.example.apptmgmtsvc.model;
+package com.jjcperf.apptmgmtsvc.model;
 
-import com.example.apptmgmtsvc.phonehandler.Phone;
-import com.example.apptmgmtsvc.phonehandler.PhoneNumber;
+import com.jjcperf.apptmgmtsvc.phonehandler.Phone;
+import com.jjcperf.apptmgmtsvc.phonehandler.PhoneNumber;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,27 +14,35 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
 
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@Null
     private long user_id;
 
+    @Column(name = "first_name")
     @NotBlank
     private String firstName;
 
+    @Column(name = "last_name")
     @NotBlank
     private String lastName;
 
+    @Column(name = "gender")
     @NotBlank
     private String gender;
     //consider making enum
 
+    @Column(name = "age")
     @PositiveOrZero
     private int age;
 
+    @Column(name = "email_address")
     @NotBlank
     @Email
     private String emailAddress;
@@ -43,6 +51,6 @@ public class UserDTO {
             @Column(name = "phone_number_value"),
             @Column(name = "phone_number_locale") })
     @Phone
-    @Type(type = "com.example.userservice.phoneHandling.PhoneNumberType")
+    @Type(type = "com.jjcperf.apptmgmtsvc.phonehandler.PhoneNumberType")
     private PhoneNumber phoneNumber;
 }

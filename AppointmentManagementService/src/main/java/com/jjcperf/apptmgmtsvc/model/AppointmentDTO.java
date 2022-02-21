@@ -1,4 +1,4 @@
-package com.example.apptmgmtsvc.model;
+package com.jjcperf.apptmgmtsvc.model;
 
 import lombok.Data;
 
