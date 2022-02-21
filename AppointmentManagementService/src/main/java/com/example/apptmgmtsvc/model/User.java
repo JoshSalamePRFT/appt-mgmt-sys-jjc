@@ -1,8 +1,7 @@
-package com.example.userservice.model;
+package com.example.apptmgmtsvc.model;
 
-import com.example.userservice.phoneHandling.Phone;
-import com.example.userservice.phoneHandling.PhoneNumber;
-
+import com.example.apptmgmtsvc.phonehandler.Phone;
+import com.example.apptmgmtsvc.phonehandler.PhoneNumber;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +12,6 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.PositiveOrZero;
 
 @Data

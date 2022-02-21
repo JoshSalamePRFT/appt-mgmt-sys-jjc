@@ -1,15 +1,19 @@
 package com.example.userservice.controller;
 
 import com.example.userservice.model.User;
-import org.h2.engine.UserBuilder;
+//import com.example.userservice.phoneHandling.PhoneNumber;
+//import com.google.i18n.phonenumbers.Phonenumber;
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class UserControllerTest {
     //TODO
 
@@ -23,20 +27,8 @@ class UserControllerTest {
 
     //make dependent on post perhaps?
     @Test
-    void getUser() {
-        //Test requires DB to have values, so run post first to ensure this.
-        long user_id = 1;
-        User user = User.builder()
-                .firstName("John")
-                .lastName("Doe")
-                .age(25)
-                .gender("Male")
-                .emailAddress("johndoe@fakemail.com")
-                .phoneNumber("123-456-7890")
-                .build();
-        userController.postUser(user);
-
-        userController.getUser(user_id);
+    void getUser(@Autowired MockMvc mockMvc) throws Exception {
+        //mockMvc.perform(getUser());
     }
 
     @Test
@@ -47,7 +39,7 @@ class UserControllerTest {
                 .age(25)
                 .gender("Male")
                 .emailAddress("johndoe@fakemail.com")
-                .phoneNumber("123-456-7890")
+                //.phoneNumber(new PhoneNumber().setRawInput("123-456-7890"))
                 .build();
 
         userController.postUser(user);
@@ -66,7 +58,7 @@ class UserControllerTest {
                 .age(25)
                 .gender("Male")
                 .emailAddress("johndoe@fakemail.com")
-                .phoneNumber("123-456-7890")
+                //.phoneNumber(new PhoneNumber().setRawInput("123-456-7890"))
                 .build();
 
         userController.putUser(user, user_id);
