@@ -4,7 +4,9 @@ import com.apptGroup.ApptApp;
 import com.apptGroup.model.Appointment;
 import com.apptGroup.repository.ApptRepository;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,29 +16,58 @@ class ApptRepositoryTests {
 
     @Autowired
     private ApptRepository apptRepo;
-    private long testIdHolder;
+    private long id;
+    private Appointment appt;
     //private ApptController apptcon;
 
-    @Test
-    public void saveApptTest() {
-        Appointment appt = Appointment.builder()
+    @BeforeEach
+    public void setup() {
+        this.appt = Appointment.builder()
                 .apptName("testAppt")
                 .apptType("testType")
                 .description("Test Description")
                 .build();
 
-        apptRepo.save(appt);
+        apptRepo.save(this.appt);
+        this.id = this.appt.getAppt_id();
+    }
 
-        this.testIdHolder = appt.getAppt_id();
-        Assertions.assertThat(appt.getAppt_id()).isGreaterThan(0);
+    @AfterEach
+    public void takedown() {
+        apptRepo.deleteAll();
+    }
 
+    @Test
+    public void saveApptTest() {
+        Assertions.assertThat(this.appt.getAppt_id()).isEqualTo(this.id);
     }
 
     @Test
     public void getApptTest() {
-        Appointment appt = apptRepo.getById(this.testIdHolder);
+        this.appt = apptRepo.getById(this.id);
 
-        Assertions.assertThat(appt.getAppt_id()).isEqualTo(this.testIdHolder);
+        Assertions.assertThat(this.appt.getAppt_id()).isEqualTo(this.id);
+    }
+
+    @Test
+    public void updateApptTest() {
+        this.appt = Appointment.builder()
+                .appt_id(this.id)
+                .apptName("UpdatedTestName")
+                .apptType("UpdatedTestType")
+                .description("This test has been updated")
+                .build();
+
+        apptRepo.save(this.appt);
+
+        Assertions.assertThat(this.appt.getAppt_id()).isEqualTo(this.id);
+    }
+
+    @Test
+    public void deleteApptTest() {
+        apptRepo.deleteById(this.id);
+
+        Assertions.assertThat(apptRepo.findById(this.id).isPresent()).isFalse();
     }
 
 }
