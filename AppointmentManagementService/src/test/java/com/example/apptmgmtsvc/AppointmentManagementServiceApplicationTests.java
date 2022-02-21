@@ -1,4 +1,4 @@
-package com.example.appointmentmanagementservice;
+package com.example.apptmgmtsvc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
