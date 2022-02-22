@@ -1,4 +1,4 @@
-package com.apptGroup.msg.config;
+/*package com.apptGroup.msg.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,4 +19,4 @@ public class JmsConfig {
         converter.setTypeIdPropertyName("_type");
         return converter;
     }
-}
+}*/
