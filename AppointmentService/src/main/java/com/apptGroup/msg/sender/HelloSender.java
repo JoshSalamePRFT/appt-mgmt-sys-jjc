@@ -1,8 +1,7 @@
-package com.jjcperf.apptmgmtsvc.msg.sender;
+package com.apptGroup.msg.sender;
 
-import com.jjcperf.apptmgmtsvc.msg.HelloMessage;
-import com.jjcperf.apptmgmtsvc.msg.config.JmsConfig;
-
+import com.apptGroup.msg.HelloMessage;
+import com.apptGroup.msg.config.JmsConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +25,7 @@ public class HelloSender {
     private final JmsTemplate jmsTemplate;
     private final ObjectMapper objectMapper;
 
-//    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 2000)
     public void sendMessage(){
 
         HelloMessage message = HelloMessage

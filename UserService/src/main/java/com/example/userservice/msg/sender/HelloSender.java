@@ -1,8 +1,7 @@
-package com.jjcperf.apptmgmtsvc.msg.sender;
+package com.example.userservice.msg.sender;
 
-import com.jjcperf.apptmgmtsvc.msg.HelloMessage;
-import com.jjcperf.apptmgmtsvc.msg.config.JmsConfig;
-
+import com.example.userservice.msg.HelloMessage;
+import com.example.userservice.msg.config.JmsConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +15,7 @@ import javax.jms.Message;
 import javax.jms.Session;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-07-17.
- */
+
 @RequiredArgsConstructor
 @Component
 public class HelloSender {
@@ -26,7 +23,7 @@ public class HelloSender {
     private final JmsTemplate jmsTemplate;
     private final ObjectMapper objectMapper;
 
-//    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 2000)
     public void sendMessage(){
 
         HelloMessage message = HelloMessage
