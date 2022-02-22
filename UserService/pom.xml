@@ -35,6 +35,7 @@
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
+            <version>${spring-restdocs.version}</version>
         </dependency>
 
         <dependency>
