@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.sql.Time;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -39,11 +39,11 @@ public class Appointment {
 
     @Column(name="start_time")
     @JsonProperty("startTime")
-    private Time startTime;
+    private LocalDateTime startTime;
 
     @Column(name="end_time")
     @JsonProperty("endTime")
-    private Time endTime;
+    private LocalDateTime endTime;
 
     @Column(name="meta_data")
     @NotBlank
