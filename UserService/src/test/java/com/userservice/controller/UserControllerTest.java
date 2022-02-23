@@ -1,10 +1,9 @@
-package com.example.userservice.controller;
+package com.userservice.controller;
 
 //CREDIT TO SPRINGFRAMEWORKGURU: https://springframework.guru/testing-spring-boot-restful-services/
 
-import com.example.userservice.model.User;
-import com.example.userservice.phoneHandling.PhoneNumber;
-import com.example.userservice.service.UserService;
+import com.userservice.model.User;
+import com.userservice.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,7 +50,7 @@ class UserControllerTest {
                 .age(25)
                 .gender("notMale")
                 .emailAddress("notjohndoe@fakeemail.com")
-                .phoneNumber(new PhoneNumber("6465471234", "US"))
+                .phoneNumber("6465471234")
                 .build();
 
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();

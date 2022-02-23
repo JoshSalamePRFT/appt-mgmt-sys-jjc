@@ -29,7 +29,7 @@ class ApptRepositoryTests {
                 .build();
 
         apptRepo.save(this.appt);
-        this.id = this.appt.getAppt_id();
+        this.id = this.appt.getAppointment_id();
     }
 
     @AfterEach
@@ -39,20 +39,20 @@ class ApptRepositoryTests {
 
     @Test
     public void saveApptTest() {
-        Assertions.assertThat(this.appt.getAppt_id()).isEqualTo(this.id);
+        Assertions.assertThat(this.appt.getAppointment_id()).isEqualTo(this.id);
     }
 
     @Test
     public void getApptTest() {
         this.appt = apptRepo.getById(this.id);
 
-        Assertions.assertThat(this.appt.getAppt_id()).isEqualTo(this.id);
+        Assertions.assertThat(this.appt.getAppointment_id()).isEqualTo(this.id);
     }
 
     @Test
     public void updateApptTest() {
         this.appt = Appointment.builder()
-                .appt_id(this.id)
+                .appointment_id(this.id)
                 .apptName("UpdatedTestName")
                 .apptType("UpdatedTestType")
                 .description("This test has been updated")
@@ -60,7 +60,7 @@ class ApptRepositoryTests {
 
         apptRepo.save(this.appt);
 
-        Assertions.assertThat(this.appt.getAppt_id()).isEqualTo(this.id);
+        Assertions.assertThat(this.appt.getAppointment_id()).isEqualTo(this.id);
     }
 
     @Test

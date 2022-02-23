@@ -1,8 +1,7 @@
-package com.example.userservice.repository;
+package com.userservice.repository;
 
 
-import com.example.userservice.model.User;
-import com.example.userservice.phoneHandling.PhoneNumber;
+import com.userservice.model.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ class UserRepositoryTest {
                 .age(24)
                 .gender("Male")
                 .emailAddress("john.doe@fakeemail.com")
-                .phoneNumber(new PhoneNumber("6465491234", "US"))
+                .phoneNumber("6465491234")
                 .build();
 
         userRepository.save(this.user);
@@ -58,7 +57,7 @@ class UserRepositoryTest {
                 .age(25)
                 .gender("notMale")
                 .emailAddress("notjohndoe@fakeemail.com")
-                .phoneNumber(new PhoneNumber("6465471234", "US"))
+                .phoneNumber("646547123")
                 .build();
 
         userRepository.save(this.user);

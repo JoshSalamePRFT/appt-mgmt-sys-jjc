@@ -1,4 +1,4 @@
-package com.example.userservice.phoneHandling;
+package com.userservice.phoneHandling;
 
 //CREDIT TO RAJ https://stackoverflow.com/questions/10631960/validate-mobile-number-using-hibernate-annotation/52003976#52003976
 

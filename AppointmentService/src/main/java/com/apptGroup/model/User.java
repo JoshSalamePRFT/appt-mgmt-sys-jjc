@@ -1,4 +1,4 @@
-package com.jjcperf.apptmgmtsvc.model;
+package com.apptGroup.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

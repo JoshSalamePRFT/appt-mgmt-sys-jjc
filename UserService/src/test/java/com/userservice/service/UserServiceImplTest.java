@@ -1,8 +1,7 @@
-package com.example.userservice.service;
+package com.userservice.service;
 
-import com.example.userservice.model.User;
-import com.example.userservice.phoneHandling.PhoneNumber;
-import com.example.userservice.repository.UserRepository;
+import com.userservice.model.User;
+import com.userservice.repository.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +45,7 @@ class UserServiceImplTest {
                 .age(24)
                 .gender("Male")
                 .emailAddress("john.doe@fakeemail.com")
-                .phoneNumber(new PhoneNumber("6465491234", "US"))
+                .phoneNumber("6465491234")
                 .build();
 
         user2 = User.builder()
@@ -56,7 +55,7 @@ class UserServiceImplTest {
                 .age(25)
                 .gender("notMale")
                 .emailAddress("notjohndoe@fakeemail.com")
-                .phoneNumber(new PhoneNumber("6465471234", "US"))
+                .phoneNumber("6465471234")
                 .build();
 
         userList.add(user1);

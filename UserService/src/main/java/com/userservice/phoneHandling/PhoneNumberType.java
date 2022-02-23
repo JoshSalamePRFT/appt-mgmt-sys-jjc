@@ -1,4 +1,4 @@
-package com.example.userservice.phoneHandling;
+package com.userservice.phoneHandling;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

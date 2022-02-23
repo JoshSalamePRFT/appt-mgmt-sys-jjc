@@ -1,4 +1,4 @@
-package com.example.userservice.phoneHandling;
+package com.userservice.phoneHandling;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

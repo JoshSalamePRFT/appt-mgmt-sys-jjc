@@ -3,6 +3,8 @@ package com.jjcperf.apptmgmtsvc.model;
 import lombok.Data;
 
 import java.sql.Time;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 public class AppointmentDTO {
@@ -21,4 +23,5 @@ public class AppointmentDTO {
 
     private String metaData;
 
+    private Set<User> users = new HashSet<>();
 }

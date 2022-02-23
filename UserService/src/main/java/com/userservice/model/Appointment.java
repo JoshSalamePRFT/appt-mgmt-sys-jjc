@@ -1,4 +1,4 @@
-package com.jjcperf.apptmgmtsvc.model;
+package com.userservice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

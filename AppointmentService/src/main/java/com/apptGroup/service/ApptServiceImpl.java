@@ -42,7 +42,7 @@ public class ApptServiceImpl implements ApptService{
     public Appointment updateApptById(Appointment appt, long id) {
         Optional<Appointment> apptOpt = apptRepo.findById(id);
         if (apptOpt.isPresent()) {
-            appt.setAppt_id(id);
+            appt.setAppointment_id(id);
             return apptRepo.save(appt);
         } else {
             throw new NoSuchElementException("The appt_id: " + id + " does not exist.");

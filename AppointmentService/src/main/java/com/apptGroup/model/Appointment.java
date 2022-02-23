@@ -4,18 +4,21 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "Appointments")
 public class Appointment {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(nullable = false)
-    private long appt_id;
+    @Column(nullable = false, name = "appointment_id")
+    private long appointment_id;
 
     @Column(name="appt_name", nullable = false)
     private String apptName;
@@ -34,4 +37,6 @@ public class Appointment {
     @Column(name="meta_data")
     private String metaData;
 
+    @ManyToMany(mappedBy = "appointments")
+    private Set<User> users = new HashSet<>();
 }

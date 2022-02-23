@@ -1,17 +1,12 @@
-package com.example.userservice.controller;
+package com.userservice.controller;
 
-import com.example.userservice.model.User;
-import com.example.userservice.service.UserService;
+import com.userservice.model.User;
+import com.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;

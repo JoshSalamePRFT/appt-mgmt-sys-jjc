@@ -1,7 +1,7 @@
-package com.example.userservice.service;
+package com.userservice.service;
 
-import com.example.userservice.model.User;
-import com.example.userservice.repository.UserRepository;
+import com.userservice.model.User;
+import com.userservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
