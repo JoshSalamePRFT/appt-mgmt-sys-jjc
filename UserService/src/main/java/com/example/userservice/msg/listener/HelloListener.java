@@ -1,7 +1,7 @@
-package com.jjcperf.apptmgmtsvc.msg.listener;
+package com.example.userservice.msg.listener;
 
-import com.jjcperf.apptmgmtsvc.msg.HelloMessage;
-import com.jjcperf.apptmgmtsvc.msg.config.JmsConfig;
+import com.example.userservice.msg.HelloMessage;
+import com.example.userservice.msg.config.JmsConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
@@ -25,7 +25,7 @@ public class HelloListener {
     public void listen(@Payload HelloMessage helloMessage,
                        @Headers MessageHeaders headers, Message message){
 
-        System.out.println("I Got a Manager Message!!!!!");
+        System.out.println("I Got a Message!!!!!");
 
         System.out.println(helloMessage);
 
