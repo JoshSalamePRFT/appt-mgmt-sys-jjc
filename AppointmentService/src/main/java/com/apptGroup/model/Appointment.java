@@ -37,6 +37,8 @@ public class Appointment {
     @JsonProperty("description")
     private String description;
 
+    //startTime and endTime have the format of "YYYY-MM-DDTHH:MM:SS"
+    // i.e. "2022-03-12T14:15:00"
     @Column(name="start_time")
     @JsonProperty("startTime")
     private LocalDateTime startTime;
