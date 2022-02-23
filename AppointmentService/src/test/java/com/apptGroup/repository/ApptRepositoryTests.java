@@ -1,4 +1,4 @@
-package app;
+package com.apptGroup.repository;
 
 import com.apptGroup.ApptApp;
 import com.apptGroup.model.Appointment;
@@ -11,18 +11,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest(classes=ApptApp.class)
 class ApptRepositoryTests {
 
     @Autowired
     private ApptRepository apptRepo;
-    private long id;
     private Appointment appt;
-    //private ApptController apptcon;
 
     @BeforeEach
     public void setup() {
-        this.appt = Appointment.builder()
+        appt = Appointment.builder()
+                .appt_id(1L)
                 .apptName("testAppt")
                 .apptType("testType")
                 .description("Test Description")
@@ -33,41 +34,46 @@ class ApptRepositoryTests {
     }
 
     @AfterEach
-    public void takedown() {
+    public void teardown() {
         apptRepo.deleteAll();
+        appt = null;
     }
 
     @Test
     public void saveApptTest() {
-        Assertions.assertThat(this.appt.getAppointment_id()).isEqualTo(this.id);
+        Appointment appt1 = apptRepo.save(appt);
+        assertEquals(1L, appt1.getAppointment_id());
     }
 
     @Test
     public void getApptTest() {
-        this.appt = apptRepo.getById(this.id);
-
-        Assertions.assertThat(this.appt.getAppointment_id()).isEqualTo(this.id);
+        apptRepo.save(appt);
+        Appointment appt1 = apptRepo.getById(1L);
+        assertEquals(appt.getApptName(), appt1.getApptName());
     }
 
     @Test
     public void updateApptTest() {
-        this.appt = Appointment.builder()
-                .appointment_id(this.id)
+        Appointment appt1 = apptRepo.save(appt);
+        appt = Appointment.builder()
+                .appointment_id(1L)
                 .apptName("UpdatedTestName")
                 .apptType("UpdatedTestType")
                 .description("This test has been updated")
                 .build();
 
-        apptRepo.save(this.appt);
+        Appointment appt2 = apptRepo.save(appt);
 
-        Assertions.assertThat(this.appt.getAppointment_id()).isEqualTo(this.id);
+        assertEquals(appt1.getAppointment_id(), appt2.getAppointment_id());
+        assertNotEquals(appt1.getApptName(), appt2.getApptName());
     }
 
     @Test
     public void deleteApptTest() {
-        apptRepo.deleteById(this.id);
-
-        Assertions.assertThat(apptRepo.findById(this.id).isPresent()).isFalse();
+        apptRepo.save(appt);
+        assertTrue(apptRepo.findById(1L).isPresent());
+        apptRepo.deleteById(1L);
+        assertFalse(apptRepo.findById(1L).isPresent());
     }
 
 }
