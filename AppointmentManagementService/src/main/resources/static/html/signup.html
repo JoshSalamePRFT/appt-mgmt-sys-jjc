@@ -11,17 +11,17 @@
     <title>Signup</title>
 </head>
 <body>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="login.html">Login</a>
-        <a href="signup.html">Signup</a>
-        <a href="manage-appointments.html">Manage Appointments</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="index.html" class="navbar-brand">Home</a>
+        <a href="login.html" class="navbar-brand">Login</a>
+        <a href="signup.html" class="navbar-brand">Signup</a>
+        <a href="manage-appointments.html" class="navbar-brand">Manage Appointments</a>
         <!-- consider merging RSVP with view-appts.
         You should be able to remove yourself from an appt, so you should also be able to see them. -->
-        <a href="rsvp.html">RSVP</a>
+        <a href="rsvp.html" class="navbar-brand">RSVP</a>
         <!-- Perhaps view appts should list the users currently RSVP'ed, whereas RSVP will only show the appts themselves.-->
-        <a href="view-appointments.html">View Your Appointments</a>
-        <a href="view-users.html">View Users</a>
+        <a href="view-appointments.html" class="navbar-brand">View Your Appointments</a>
+        <a href="view-users.html" class="navbar-brand">View Users</a>
     </nav>
 
     <form action="action_page.php" style="border:1px solid #ccc">
@@ -37,13 +37,11 @@
             <input type="password" placeholder="Enter Password" name="psw" required>
 
             <label for="psw-repeat"><b>Repeat Password</b></label>
-            <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+            <input type="password" placeholder="Confirm Password" name="psw-confirm" required>
 
-            <label>
+            <!--<label>
                 <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-            </label>
-
-            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+            </label>-->
 
             <div class="clearfix">
                 <button type="button" class="cancelbtn">Cancel</button>
