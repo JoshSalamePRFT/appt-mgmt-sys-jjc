@@ -23,14 +23,14 @@ class ApptRepositoryTests {
     @BeforeEach
     public void setup() {
         appt = Appointment.builder()
-                .appt_id(1L)
+                .appointment_id(1L)
                 .apptName("testAppt")
                 .apptType("testType")
                 .description("Test Description")
                 .build();
 
         apptRepo.save(this.appt);
-        this.id = this.appt.getAppointment_id();
+        //this.id = this.appt.getAppointment_id();
     }
 
     @AfterEach

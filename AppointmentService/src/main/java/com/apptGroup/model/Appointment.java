@@ -28,7 +28,7 @@ public class Appointment {
 
     @Column(name="appt_name", nullable = false)
     @NotBlank
-    @JsonProperty("apptName")
+    @JsonProperty("apptName") //annotation likely unnecessary.
     private String apptName;
 
     @Column(name="appt_type")

@@ -1,6 +1,6 @@
 package com.jjcperf.apptmgmtsvc.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,34 +24,28 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     //@Null
-    @JsonProperty("user_id")
     private long user_id;
 
     @Column(name = "first_name")
     @NotBlank
-    @JsonProperty("firstName")
     private String firstName;
 
     @Column(name = "last_name")
     @NotBlank
-    @JsonProperty("lastName")
     private String lastName;
 
     @Column(name = "gender")
     @NotBlank
-    @JsonProperty("gender")
     private String gender;
     //consider making enum
 
     @Column(name = "age")
     @PositiveOrZero
-    @JsonProperty("age")
     private int age;
 
     @Column(name = "email_address")
     @NotBlank
     @Email
-    @JsonProperty("emailAddress")
     private String emailAddress;
 
     @Column(name = "phone_number")
@@ -64,6 +58,8 @@ public class User implements Serializable {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "appointment_id")
     )
+    @JsonIgnore /* this annotation is required on either this set of appointments or the set of users in the appt entity.
+                   if you don't you will cause an infinite loop when retrieving info. */
     //This provides the mapping. In the other table, use this variable for the mappedBy value. mappedBy="appointments"
     private Set<Appointment> appointments = new HashSet<>();
 }
