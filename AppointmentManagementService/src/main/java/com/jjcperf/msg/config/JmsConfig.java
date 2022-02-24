@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream:AppointmentService/src/main/java/com/apptGroup/msg/config/JmsConfig.java
-package com.apptGroup.msg.config;
-=======
 package com.jjcperf.msg.config;
->>>>>>> Stashed changes:AppointmentManagementService/src/main/java/com/jjcperf/msg/config/JmsConfig.java
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +19,4 @@ public class JmsConfig {
         converter.setTypeIdPropertyName("_type");
         return converter;
     }
-<<<<<<< Updated upstream:AppointmentService/src/main/java/com/apptGroup/msg/config/JmsConfig.java
 }
-=======
-}
->>>>>>> Stashed changes:AppointmentManagementService/src/main/java/com/jjcperf/msg/config/JmsConfig.java
