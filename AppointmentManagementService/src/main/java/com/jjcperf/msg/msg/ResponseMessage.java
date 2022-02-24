@@ -1,5 +1,6 @@
-package com.jjcperf.msg;
+package com.jjcperf.msg.msg;
 
+import com.jjcperf.apptmgmtsvc.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,16 +14,16 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseMessage implements Serializable {
+public class ResponseMessage<E extends BaseEntity> implements Serializable {
 
     static final long serialVersionUID = -78655435786458L;
 
     private UUID id;
-    private List<Object> objs;
+    private List<E> entities;
 
-    public Object obj() {
-        if(!objs.isEmpty()){
-            return objs.get(0);
+    public E entity() {
+        if(!entities.isEmpty()){
+            return entities.get(0);
         }
         else return null;
     }

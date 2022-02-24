@@ -7,9 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-public class AppointmentDTO {
-
-    private long appt_id;
+public class AppointmentDTO extends BaseDTO {
 
     private String apptName;
 

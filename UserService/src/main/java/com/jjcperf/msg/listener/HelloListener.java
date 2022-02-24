@@ -1,6 +1,6 @@
 //package com.jjcperf.msg.listener;
 //
-//import com.jjcperf.msg.HelloMessage;
+//import com.jjcperf.msg.msg.HelloMessage;
 //import com.jjcperf.msg.config.JmsConfig;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.jms.annotation.JmsListener;

@@ -1,4 +1,4 @@
-package com.jjcperf.msg;
+package com.jjcperf.msg.msg;
 
 import com.jjcperf.msg.enums.CriteriaTypeEnum;
 import lombok.AllArgsConstructor;

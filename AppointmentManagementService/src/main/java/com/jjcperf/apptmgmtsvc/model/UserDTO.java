@@ -19,8 +19,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
-    private long user_id;
+public class UserDTO extends BaseDTO {
 
     @NotBlank
     private String firstName;
