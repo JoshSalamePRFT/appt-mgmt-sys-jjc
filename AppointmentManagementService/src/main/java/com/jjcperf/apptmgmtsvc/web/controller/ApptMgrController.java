@@ -1,5 +1,6 @@
 package com.jjcperf.apptmgmtsvc.web.controller;
 
+import com.jjcperf.apptmgmtsvc.model.Appointment;
 import com.jjcperf.apptmgmtsvc.model.User;
 import com.jjcperf.apptmgmtsvc.service.ApptManagementService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,18 @@ public class ApptMgrController {
         return null;
     }
 
+    @GetMapping("/{user_id}/getappts")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Appointment> getApptsByUser(@PathVariable("user_id") long userId) {
+
+        return null;
+    }
+    @GetMapping("/{appt_id}/getusers")
+    @ResponseStatus(HttpStatus.OK)
+    public List<User> getUsersbyAppt(@PathVariable("appt_id") long apptId) {
+
+        return null;
+    }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
