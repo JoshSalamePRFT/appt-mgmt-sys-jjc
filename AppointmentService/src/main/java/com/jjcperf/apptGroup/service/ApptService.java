@@ -8,13 +8,13 @@ import java.util.List;
 public interface ApptService {
 
     Appointment createAppt(Appointment appt);
-    Appointment readApptById(long id);
-    Appointment updateApptById(Appointment appt, long id);
-    void deleteApptById(long id);
+    Appointment readAppt(long id);
+    Appointment updateAppt(Appointment appt, long id);
+    void deleteAppt(long id);
 
     Appointment getApptByName(String apptName);
 
-    List<Appointment> findAll();
+    List<Appointment> findAllAppts();
     List<Appointment> findByApptType(String apptType);
     List<Appointment> findByStartTime(Time startTime);
     List<Appointment> findByEndTime(Time endTime);

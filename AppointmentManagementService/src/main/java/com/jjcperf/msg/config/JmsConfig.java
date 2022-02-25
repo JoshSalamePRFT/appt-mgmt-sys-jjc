@@ -33,11 +33,8 @@ public class JmsConfig {
     public static final String APPT_DELETE_SEND_QUEUE = "appt-delete-send";
     public static final String APPT_GETALL_SEND_QUEUE = "appt-getall-send";
 
-    public static final String MY_QUEUE = "my-hello-world";
-    public static final String MY_SEND_RCV_QUEUE = "replybacktome";
-
     @Bean
-    public MessageConverter messageConverter(){
+    public MessageConverter messageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
         converter.setTypeIdPropertyName("_type");

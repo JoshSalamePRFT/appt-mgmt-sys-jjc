@@ -2,6 +2,7 @@ package com.jjcperf.msg.listener;
 
 import com.jjcperf.msg.msg.ResponseMessage;
 import com.jjcperf.msg.config.JmsConfig;
+import com.jjcperf.msg.msg.user.UserGetMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.MessageHeaders;

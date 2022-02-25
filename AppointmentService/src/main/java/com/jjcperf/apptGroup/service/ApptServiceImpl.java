@@ -3,6 +3,7 @@ package com.jjcperf.apptGroup.service;
 import com.jjcperf.apptGroup.model.Appointment;
 import com.jjcperf.apptGroup.repository.ApptRepository;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,17 +12,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-@Data
 @Service
-public class ApptServiceImpl implements ApptService{
+@RequiredArgsConstructor
+public class ApptServiceImpl implements ApptService {
     //TODO: Implement all of these.
+
     @Autowired
     private ApptRepository apptRepo;
-
-    public ApptServiceImpl(ApptRepository apptRepo) {
-        super();
-        this.apptRepo = apptRepo;
-    }
 
     @Override
     public Appointment createAppt(Appointment appt) {
@@ -29,7 +26,7 @@ public class ApptServiceImpl implements ApptService{
     }
 
     @Override
-    public Appointment readApptById(long id) {
+    public Appointment readAppt(long id) {
         Optional<Appointment> appt = apptRepo.findById(id);
         if (appt.isPresent()) {
             return appt.get();
@@ -39,7 +36,8 @@ public class ApptServiceImpl implements ApptService{
     }
 
     @Override
-    public Appointment updateApptById(Appointment appt, long id) {
+    public Appointment updateAppt(Appointment appt, long id) {
+        //TODO doesn't seem implemented correctly? If present, should overwrite all values EXCEPT id, not id ONLY.
         Optional<Appointment> apptOpt = apptRepo.findById(id);
         if (apptOpt.isPresent()) {
             appt.setAppointment_id(id);
@@ -50,7 +48,7 @@ public class ApptServiceImpl implements ApptService{
     }
 
     @Override
-    public void deleteApptById(long id) {
+    public void deleteAppt(long id) {
         Optional<Appointment> apptOpt = apptRepo.findById(id);
         if (apptOpt.isPresent()) {
             apptRepo.deleteById(id);
@@ -60,7 +58,7 @@ public class ApptServiceImpl implements ApptService{
     }
 
     @Override
-    public List<Appointment> findAll() {
+    public List<Appointment> findAllAppts() {
         return apptRepo.findAll();
     }
 
@@ -90,9 +88,7 @@ public class ApptServiceImpl implements ApptService{
     }
 
     @Override
-    public void deleteApptByName(String apptName) {
-
-    }
+    public void deleteApptByName(String apptName) {}
 
     @Override
     public void deleteAllAppt() {

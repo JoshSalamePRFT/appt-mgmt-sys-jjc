@@ -126,7 +126,7 @@ public class MgmtSender {
         jmsTemplate.convertAndSend(JmsConfig.APPT_DELETE_REQ_QUEUE, message);
     }
 
-    @Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000)
     public void sendUserGetAllMessage() {
         UserGetAllMessage message = UserGetAllMessage
                 .builder()
@@ -134,7 +134,7 @@ public class MgmtSender {
                 .message("Sending a User Get All Request!")
                 .build();
 
-        System.out.println("Sending a User Get All Request!!");
+        System.out.println("Sending a User Get All Request!");
         jmsTemplate.convertAndSend(JmsConfig.USER_GETALL_REQ_QUEUE, message);
     }
 
@@ -146,7 +146,7 @@ public class MgmtSender {
                 .message("Sending an Appt Get All Request!")
                 .build();
 
-        System.out.println("Sending an Appt Get All Request!!");
+        System.out.println("Sending an Appt Get All Request!");
         jmsTemplate.convertAndSend(JmsConfig.APPT_GETALL_REQ_QUEUE, message);
     }
 }

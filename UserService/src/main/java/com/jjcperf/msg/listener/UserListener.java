@@ -25,7 +25,7 @@ public class UserListener {
                                  @Headers MessageHeaders headers,
                                  Message message) {
 
-        System.out.println("I Got a User Get Request! ID: " + getMessage.getMessage());
+        System.out.println("I Got a User Get Request!");
         System.out.println(getMessage);
 
         userSender.sendGetResponseMessage(Long.parseLong(getMessage.getMessage()));
@@ -36,7 +36,7 @@ public class UserListener {
                                  @Headers MessageHeaders headers,
                                  Message message) {
 
-        System.out.println("I Got a User Post Request! ID: " + postMessage.getMessage());
+        System.out.println("I Got a User Post Request!");
         System.out.println(postMessage);
 
         userSender.sendPostResponseMessage(postMessage.getUser());
@@ -47,7 +47,7 @@ public class UserListener {
                                  @Headers MessageHeaders headers,
                                  Message message) {
 
-        System.out.println("I Got a User Put Request! ID: " + putMessage.getMessage());
+        System.out.println("I Got a User Put Request!");
         System.out.println(putMessage);
 
         userSender.sendPutResponseMessage(putMessage.getId(), putMessage.getUser());
@@ -58,7 +58,7 @@ public class UserListener {
                                  @Headers MessageHeaders headers,
                                  Message message) {
 
-        System.out.println("I Got a User Delete Request! ID: " + deleteMessage.getMessage());
+        System.out.println("I Got a User Delete Request!");
         System.out.println(deleteMessage);
 
         userSender.sendDeleteResponseMessage(deleteMessage.getId());
@@ -69,7 +69,7 @@ public class UserListener {
                                  @Headers MessageHeaders headers,
                                  Message message) {
 
-        System.out.println("I Got a User GetAll Request! ID: " + getAllMessage.getMessage());
+        System.out.println("I Got a User GetAll Request!");
         System.out.println(getAllMessage);
 
         userSender.sendGetAllResponseMessage();

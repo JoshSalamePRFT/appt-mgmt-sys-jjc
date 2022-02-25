@@ -25,6 +25,8 @@ public class UserSender {
     @Autowired
     private UserController userController;
 
+    //TODO convert RepsonseMessage type to specific message type (e.g. UserGetMessage), as well as in MgmtListener side.
+
     public void sendGetResponseMessage(long id) {
         User user = userController.getUser(id);
 

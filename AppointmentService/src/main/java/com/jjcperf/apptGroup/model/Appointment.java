@@ -1,12 +1,14 @@
 package com.jjcperf.apptGroup.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Time;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +21,7 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(name = "Appointments")
-public class Appointment extends BaseEntity {
+public class Appointment extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -44,6 +46,7 @@ public class Appointment extends BaseEntity {
     private String metaData;
 
     @ManyToMany(mappedBy = "appointments")
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
 }
