@@ -1,6 +1,6 @@
 package com.jjcperf.msg.sender;
 
-import com.jjcperf.msg.HelloMessage;
+import com.jjcperf.msg.msg.HelloMessage;
 import com.jjcperf.msg.config.JmsConfig;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,9 +15,6 @@ import javax.jms.Message;
 import javax.jms.Session;
 import java.util.UUID;
 
-/**
- * Created by jt on 2019-07-17.
- */
 @RequiredArgsConstructor
 @Component
 public class HelloSender {

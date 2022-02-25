@@ -9,6 +9,10 @@ import org.springframework.jms.support.converter.MessageType;
 @Configuration
 public class JmsConfig {
 
+    public static final String USER_REQ_QUEUE = "user-req";
+    public static final String APPT_REQ_QUEUE = "appt-req";
+    public static final String USER_SEND_QUEUE = "user-send";
+    public static final String APPT_SEND_QUEUE = "appt-send";
     public static final String MY_QUEUE = "my-hello-world";
     public static final String MY_SEND_RCV_QUEUE = "replybacktome";
 

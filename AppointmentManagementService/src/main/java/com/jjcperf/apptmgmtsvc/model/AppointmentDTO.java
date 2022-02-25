@@ -8,9 +8,7 @@ import java.util.Set;
 
 //TODO Inherit from a parent class to get audit properties
 @Data
-public class AppointmentDTO {
-
-    private long appt_id;
+public class AppointmentDTO extends BaseDTO {
 
     private String apptName;
 
