@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 
+//TODO Inherit from a parent class to get audit properties
+
 @Data
 @Builder
 @NoArgsConstructor

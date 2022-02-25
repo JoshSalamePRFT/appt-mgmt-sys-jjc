@@ -6,6 +6,7 @@ import java.sql.Time;
 import java.util.HashSet;
 import java.util.Set;
 
+//TODO Inherit from a parent class to get audit properties
 @Data
 public class AppointmentDTO {
 
