@@ -3,12 +3,11 @@ package com.jjcperf.msg.sender;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jjcperf.msg.config.JmsConfig;
-import com.jjcperf.msg.enums.CriteriaTypeEnum;
-import com.jjcperf.msg.msg.GetMessage;
 import com.jjcperf.msg.msg.ResponseMessage;
-import com.jjcperf.userservice.model.BaseEntity;
+import com.jjcperf.userservice.controller.UserController;
 import com.jjcperf.userservice.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
@@ -23,27 +22,73 @@ public class UserSender {
     private final JmsTemplate jmsTemplate;
     private final ObjectMapper objectMapper;
 
+    @Autowired
+    private UserController userController;
 
-    public void sendUserResponseMessage (long id) {
-
-        User mockUser = User.builder()
-                .user_id(1)
-                .firstName("Doctor")
-                .lastName("Example")
-                .gender("Male")
-                .age(0)
-                .emailAddress("DrExample@test.com")
-                .phoneNumber("3016137234")
-                .build();
+    public void sendGetResponseMessage(long id) {
+        User user = userController.getUser(id);
 
         ResponseMessage responseMessage = ResponseMessage.builder()
                 .id(UUID.randomUUID())
                 .build();
         List<User> entities = new ArrayList<User>();
-        entities.add(mockUser);
+        entities.add(user);
         responseMessage.setEntities(entities);
 
-        System.out.println("Sending a User Response!!");
-        jmsTemplate.convertAndSend(JmsConfig.USER_SEND_QUEUE, responseMessage);
+        System.out.println("Sending a User Get Response!!");
+        jmsTemplate.convertAndSend(JmsConfig.USER_GET_SEND_QUEUE, responseMessage);
+    }
+
+    public void sendPostResponseMessage (User user) {
+        User returnUser = userController.postUser(user);
+
+        ResponseMessage responseMessage = ResponseMessage.builder()
+                .id(UUID.randomUUID())
+                .build();
+
+        List<User> entities = new ArrayList<User>();
+        entities.add(returnUser);
+        responseMessage.setEntities(entities);
+
+        System.out.println("Sending a User Post Response!");
+        jmsTemplate.convertAndSend(JmsConfig.USER_POST_SEND_QUEUE, responseMessage);
+    }
+
+    public void sendPutResponseMessage(long id, User user) {
+        User returnUser = userController.putUser(user, id);
+
+        ResponseMessage responseMessage = ResponseMessage.builder()
+                .id(UUID.randomUUID())
+                .build();
+        List<User> entities = new ArrayList<User>();
+        entities.add(returnUser);
+        responseMessage.setEntities(entities);
+
+        System.out.println("Sending a User Put Response!");
+        jmsTemplate.convertAndSend(JmsConfig.USER_PUT_SEND_QUEUE, responseMessage);
+    }
+
+    public void sendDeleteResponseMessage(long id) {
+        userController.deleteUser(id);
+
+        ResponseMessage responseMessage = ResponseMessage.builder()
+                .id(UUID.randomUUID())
+                .build();
+
+        System.out.println("Sending a User Delete Response!");
+        jmsTemplate.convertAndSend(JmsConfig.USER_DELETE_SEND_QUEUE, responseMessage);
+    }
+
+    public void sendGetAllResponseMessage() {
+        List<User> userList = userController.getAllUsers();
+
+        ResponseMessage responseMessage = ResponseMessage.builder()
+                .id(UUID.randomUUID())
+                .build();
+
+        responseMessage.setEntities(userList);
+
+        System.out.println("Sending a User GetAll Response!!");
+        jmsTemplate.convertAndSend(JmsConfig.USER_GETALL_SEND_QUEUE, responseMessage);
     }
 }

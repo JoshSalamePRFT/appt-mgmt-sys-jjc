@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.jjcperf.msg")
+@ComponentScan(basePackages = { "com.jjcperf.msg", "com.jjcperf.userservice" } )
 public class UserApplication {
 
     public static void main(String[] args) {

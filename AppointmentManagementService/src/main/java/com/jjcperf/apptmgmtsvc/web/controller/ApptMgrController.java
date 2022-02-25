@@ -28,21 +28,21 @@ public class ApptMgrController {
     @GetMapping("/getusers")
     @ResponseStatus(HttpStatus.OK)
     public List<User> getUsers() {
-        return null;
+        return apptManagementService.listUsers();
     }
 
     @GetMapping("/{user_id}/getappts")
     @ResponseStatus(HttpStatus.OK)
     public List<Appointment> getApptsByUser(@PathVariable("user_id") long userId) {
-
-        return null;
+        return apptManagementService.listApptsByUserId(userId);
     }
+
     @GetMapping("/{appt_id}/getusers")
     @ResponseStatus(HttpStatus.OK)
-    public List<User> getUsersbyAppt(@PathVariable("appt_id") long apptId) {
-
-        return null;
+    public List<User> getUsersByAppt(@PathVariable("appt_id") long apptId) {
+        return apptManagementService.listUsersByApptId(apptId);
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody

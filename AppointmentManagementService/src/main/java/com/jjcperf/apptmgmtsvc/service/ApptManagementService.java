@@ -9,6 +9,7 @@ public interface ApptManagementService {
 
     List<User> listUsers();
     List<Appointment> listAppts();
-    List<Appointment> listApptsByUser();
 
+    List<Appointment> listApptsByUserId(long id);
+    List<User> listUsersByApptId(long id);
 }

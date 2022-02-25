@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.util.UUID;
 
+/**
+ * Created by jt on 2019-07-16.
+ */
 @Data
 @Builder
 @AllArgsConstructor

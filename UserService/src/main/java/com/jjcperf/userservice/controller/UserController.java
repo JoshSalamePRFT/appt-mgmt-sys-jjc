@@ -3,6 +3,7 @@ package com.jjcperf.userservice.controller;
 import com.jjcperf.userservice.model.User;
 import com.jjcperf.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    //@Autowired autowired doesn't seem necessary.
+    @Autowired //autowired doesn't seem necessary?
     private final UserService userService;
 
     @GetMapping("/get/{user_id}")
