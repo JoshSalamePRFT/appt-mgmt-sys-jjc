@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class AppointmentManagementServiceApplicationTests {
 
+    //TODO add tests for...everything.
+
     @Test
     void contextLoads() {
     }

@@ -10,6 +10,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
+//TODO either remove this type and use the request specific types, or find a way to inherit from this class,
+// or use it purely on its own.
+
 @Data
 @Builder
 @AllArgsConstructor

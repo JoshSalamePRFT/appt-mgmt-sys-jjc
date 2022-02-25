@@ -16,6 +16,7 @@ import javax.jms.Message;
 @Component
 public class MgmtListener {
 
+    //TODO change paylood type to specific message for all listeners. See TODO in ResponseMessage.
     @JmsListener(destination = JmsConfig.USER_GET_SEND_QUEUE)
     public void listenForUserGetSvc(@Payload ResponseMessage responseMessage,
                                  @Headers MessageHeaders headers,

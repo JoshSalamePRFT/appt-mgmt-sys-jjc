@@ -8,7 +8,7 @@ import org.springframework.jms.support.converter.MessageType;
 
 @Configuration
 public class JmsConfig {
-
+    //TODO consider removing the assignment, it's never used.
     public static final String USER_GET_REQ_QUEUE = "user-get-req";
     public static final String USER_POST_REQ_QUEUE = "user-post-req";
     public static final String USER_PUT_REQ_QUEUE = "user-put-req";

@@ -126,7 +126,7 @@ public class MgmtSender {
         jmsTemplate.convertAndSend(JmsConfig.APPT_DELETE_REQ_QUEUE, message);
     }
 
-    //@Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000) //TODO remove this code once controller calls work correctly.
     public void sendUserGetAllMessage() {
         UserGetAllMessage message = UserGetAllMessage
                 .builder()
@@ -138,7 +138,7 @@ public class MgmtSender {
         jmsTemplate.convertAndSend(JmsConfig.USER_GETALL_REQ_QUEUE, message);
     }
 
-    @Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000) //TODO remove this code once controller calls work correctly.
     public void sendApptGetAllMessage() {
         ApptGetAllMessage message = ApptGetAllMessage
                 .builder()
