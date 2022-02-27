@@ -33,7 +33,7 @@ public class UserSender {
         ResponseMessage responseMessage = ResponseMessage.builder()
                 .id(UUID.randomUUID())
                 .build();
-        List<User> entities = new ArrayList<User>();
+        List<User> entities = new ArrayList<>();
         entities.add(user);
         responseMessage.setEntities(entities);
 
@@ -48,7 +48,7 @@ public class UserSender {
                 .id(UUID.randomUUID())
                 .build();
 
-        List<User> entities = new ArrayList<User>();
+        List<User> entities = new ArrayList<>();
         entities.add(returnUser);
         responseMessage.setEntities(entities);
 
@@ -62,7 +62,7 @@ public class UserSender {
         ResponseMessage responseMessage = ResponseMessage.builder()
                 .id(UUID.randomUUID())
                 .build();
-        List<User> entities = new ArrayList<User>();
+        List<User> entities = new ArrayList<>();
         entities.add(returnUser);
         responseMessage.setEntities(entities);
 
@@ -91,6 +91,8 @@ public class UserSender {
         responseMessage.setEntities(userList);
 
         System.out.println("Sending a User GetAll Response!!");
+        //System.out.println(userList); //This line causes a lazy loading exception.
+        // Not sure why, but message gets sent back correctly.
         jmsTemplate.convertAndSend(JmsConfig.USER_GETALL_SEND_QUEUE, responseMessage);
     }
 }

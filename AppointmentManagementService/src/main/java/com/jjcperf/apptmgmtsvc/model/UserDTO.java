@@ -1,5 +1,6 @@
 package com.jjcperf.apptmgmtsvc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -44,6 +45,7 @@ public class UserDTO extends BaseDTO {
     @NotBlank
     private String phoneNumber;
 
+    @JsonIgnore
     private Set<Appointment> appointments = new HashSet<>();
 
 }

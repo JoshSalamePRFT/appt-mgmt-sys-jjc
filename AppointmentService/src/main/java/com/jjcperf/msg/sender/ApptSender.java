@@ -81,7 +81,6 @@ public class ApptSender {
         jmsTemplate.convertAndSend(JmsConfig.APPT_DELETE_SEND_QUEUE, responseMessage);
     }
 
-    @Transactional
     public void sendGetAllResponseMessage() {
         List<Appointment> appointmentList = apptController.getAllAppointments();
 

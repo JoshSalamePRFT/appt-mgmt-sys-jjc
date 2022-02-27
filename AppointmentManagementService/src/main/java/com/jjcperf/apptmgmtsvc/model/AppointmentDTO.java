@@ -1,5 +1,6 @@
 package com.jjcperf.apptmgmtsvc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.sql.Time;
@@ -22,5 +23,6 @@ public class AppointmentDTO extends BaseDTO {
 
     private String metaData;
 
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 }

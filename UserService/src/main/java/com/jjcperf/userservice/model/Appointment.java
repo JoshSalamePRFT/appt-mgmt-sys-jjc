@@ -1,5 +1,6 @@
 package com.jjcperf.userservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,6 +42,7 @@ public class Appointment extends BaseEntity {
     private String metaData;
 
     @ManyToMany(mappedBy = "appointments")
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
 }
