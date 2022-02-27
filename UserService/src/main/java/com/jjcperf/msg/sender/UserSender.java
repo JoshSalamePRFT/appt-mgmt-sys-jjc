@@ -7,6 +7,7 @@ import com.jjcperf.msg.msg.ResponseMessage;
 import com.jjcperf.userservice.controller.UserController;
 import com.jjcperf.userservice.model.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class UserSender {
 
     private final JmsTemplate jmsTemplate;
@@ -37,7 +39,8 @@ public class UserSender {
         entities.add(user);
         responseMessage.setEntities(entities);
 
-        System.out.println("Sending a User Get Response!!");
+        log.debug("Sending a User Get Response!");
+
         jmsTemplate.convertAndSend(JmsConfig.USER_GET_SEND_QUEUE, responseMessage);
     }
 
@@ -52,7 +55,8 @@ public class UserSender {
         entities.add(returnUser);
         responseMessage.setEntities(entities);
 
-        System.out.println("Sending a User Post Response!");
+        log.debug("Sending a User Post Response!");
+
         jmsTemplate.convertAndSend(JmsConfig.USER_POST_SEND_QUEUE, responseMessage);
     }
 
@@ -66,7 +70,8 @@ public class UserSender {
         entities.add(returnUser);
         responseMessage.setEntities(entities);
 
-        System.out.println("Sending a User Put Response!");
+        log.debug("Sending a User Put Response!");
+
         jmsTemplate.convertAndSend(JmsConfig.USER_PUT_SEND_QUEUE, responseMessage);
     }
 
@@ -77,7 +82,8 @@ public class UserSender {
                 .id(UUID.randomUUID())
                 .build();
 
-        System.out.println("Sending a User Delete Response!");
+        log.debug("Sending a User Delete Response!");
+
         jmsTemplate.convertAndSend(JmsConfig.USER_DELETE_SEND_QUEUE, responseMessage);
     }
 
@@ -90,9 +96,8 @@ public class UserSender {
 
         responseMessage.setEntities(userList);
 
-        System.out.println("Sending a User GetAll Response!!");
-        //System.out.println(userList); //This line causes a lazy loading exception.
-        // Not sure why, but message gets sent back correctly.
+        log.debug("Sending a User GetAll Response!");
+
         jmsTemplate.convertAndSend(JmsConfig.USER_GETALL_SEND_QUEUE, responseMessage);
     }
 }

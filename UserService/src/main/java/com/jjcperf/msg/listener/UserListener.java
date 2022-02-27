@@ -4,6 +4,7 @@ import com.jjcperf.msg.config.JmsConfig;
 import com.jjcperf.msg.msg.user.*;
 import com.jjcperf.msg.sender.UserSender;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.MessageHeaders;
@@ -15,6 +16,7 @@ import javax.jms.Message;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class UserListener {
 
     @Autowired
@@ -25,8 +27,8 @@ public class UserListener {
                                  @Headers MessageHeaders headers,
                                  Message message) {
 
-        System.out.println("I Got a User Get Request!");
-        System.out.println(getMessage);
+
+        log.debug("I Got a User Get Request!" + getMessage);
 
         userSender.sendGetResponseMessage(Long.parseLong(getMessage.getMessage()));
     }
@@ -36,8 +38,7 @@ public class UserListener {
                                  @Headers MessageHeaders headers,
                                  Message message) {
 
-        System.out.println("I Got a User Post Request!");
-        System.out.println(postMessage);
+        log.debug("I Got a User Post Request!" + postMessage);
 
         userSender.sendPostResponseMessage(postMessage.getUser());
     }
@@ -47,8 +48,7 @@ public class UserListener {
                                  @Headers MessageHeaders headers,
                                  Message message) {
 
-        System.out.println("I Got a User Put Request!");
-        System.out.println(putMessage);
+        log.debug("I Got a User Put Request!" + putMessage);
 
         userSender.sendPutResponseMessage(putMessage.getId(), putMessage.getUser());
     }
@@ -58,8 +58,7 @@ public class UserListener {
                                  @Headers MessageHeaders headers,
                                  Message message) {
 
-        System.out.println("I Got a User Delete Request!");
-        System.out.println(deleteMessage);
+        log.debug("I Got a User Delete Request!" + deleteMessage);
 
         userSender.sendDeleteResponseMessage(deleteMessage.getId());
     }
@@ -69,8 +68,7 @@ public class UserListener {
                                  @Headers MessageHeaders headers,
                                  Message message) {
 
-        System.out.println("I Got a User GetAll Request!");
-        System.out.println(getAllMessage);
+        log.debug("I Got a User GetAll Request!" + getAllMessage);
 
         userSender.sendGetAllResponseMessage();
     }

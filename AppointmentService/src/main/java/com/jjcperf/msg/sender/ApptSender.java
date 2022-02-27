@@ -6,6 +6,7 @@ import com.jjcperf.apptGroup.model.Appointment;
 import com.jjcperf.msg.config.JmsConfig;
 import com.jjcperf.msg.msg.ResponseMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class ApptSender {
     private final JmsTemplate jmsTemplate;
     private final ObjectMapper objectMapper;
@@ -37,7 +39,8 @@ public class ApptSender {
         entities.add(appt);
         responseMessage.setEntities(entities);
 
-        System.out.println("Sending an Appt Get Response!!");
+        log.debug("Sending an Appt Get Response!");
+
         jmsTemplate.convertAndSend(JmsConfig.APPT_GET_SEND_QUEUE, responseMessage);
     }
 
@@ -52,7 +55,8 @@ public class ApptSender {
         entities.add(returnAppt);
         responseMessage.setEntities(entities);
 
-        System.out.println("Sending an Appt Post Response!");
+        log.debug("Sending an Appt Post Response!");
+
         jmsTemplate.convertAndSend(JmsConfig.APPT_POST_SEND_QUEUE, responseMessage);
     }
 
@@ -66,7 +70,8 @@ public class ApptSender {
         entities.add(returnAppt);
         responseMessage.setEntities(entities);
 
-        System.out.println("Sending an Appt Put Response!");
+        log.debug("Sending an Appt Put Response!");
+
         jmsTemplate.convertAndSend(JmsConfig.APPT_PUT_SEND_QUEUE, responseMessage);
     }
 
@@ -77,7 +82,8 @@ public class ApptSender {
                 .id(UUID.randomUUID())
                 .build();
 
-        System.out.println("Sending an Appt Delete Response!");
+        log.debug("Sending an Appt Delete Response!");
+
         jmsTemplate.convertAndSend(JmsConfig.APPT_DELETE_SEND_QUEUE, responseMessage);
     }
 
@@ -90,7 +96,8 @@ public class ApptSender {
 
         responseMessage.setEntities(appointmentList);
 
-        System.out.println("Sending an Appt GetAll Response!!");
+        log.debug("Sending an Appt GetAll Response!");
+
         jmsTemplate.convertAndSend(JmsConfig.APPT_GETALL_SEND_QUEUE, responseMessage);
     }
 }

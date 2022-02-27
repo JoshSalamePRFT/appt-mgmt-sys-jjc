@@ -15,6 +15,7 @@ import com.jjcperf.msg.msg.user.UserGetMessage;
 import com.jjcperf.msg.msg.user.UserPostMessage;
 import com.jjcperf.msg.msg.user.UserPutMessage;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class MgmtSender {
 
     private final JmsTemplate jmsTemplate;
@@ -36,7 +38,8 @@ public class MgmtSender {
                 .message("Sending a User Get Request!")
                 .build();
 
-        System.out.println("Sending a User Get Request!");
+        log.debug("Sending a User Get Request!");
+
         jmsTemplate.convertAndSend(JmsConfig.USER_GET_REQ_QUEUE, message);
     }
 
@@ -48,7 +51,8 @@ public class MgmtSender {
                 .message("Sending an Appt Get Request!")
                 .build();
 
-        System.out.println("Sending an Appt Get Request!");
+        log.debug("Sending an Appt Get Request!");
+
         jmsTemplate.convertAndSend(JmsConfig.APPT_GET_REQ_QUEUE, message);
     }
 
@@ -60,7 +64,8 @@ public class MgmtSender {
                 .message("Sending a User Post Request!")
                 .build();
 
-        System.out.println("Sending a User Post Request!");
+        log.debug("Sending a User Post Request!");
+
         jmsTemplate.convertAndSend(JmsConfig.USER_POST_REQ_QUEUE, message);
     }
 
@@ -72,7 +77,8 @@ public class MgmtSender {
                 .message("Sending a Appt Post Request!")
                 .build();
 
-        System.out.println("Sending a Appt Post Request!");
+        log.debug("Sending an Appt Post Request!");
+
         jmsTemplate.convertAndSend(JmsConfig.APPT_POST_REQ_QUEUE, message);
     }
 
@@ -85,7 +91,8 @@ public class MgmtSender {
                 .message("Sending a User Put Request!")
                 .build();
 
-        System.out.println("Sending a User Put Request!");
+        log.debug("Sending a User Put Request!");
+
         jmsTemplate.convertAndSend(JmsConfig.USER_PUT_REQ_QUEUE, message);
     }
 
@@ -98,7 +105,8 @@ public class MgmtSender {
                 .message("Sending an Appt Put Request!")
                 .build();
 
-        System.out.println("Sending an Appt Put Request!");
+        log.debug("Sending an Appt Put Request!");
+
         jmsTemplate.convertAndSend(JmsConfig.APPT_PUT_REQ_QUEUE, message);
     }
 
@@ -110,7 +118,8 @@ public class MgmtSender {
                 .message("Sending a User Delete Request!")
                 .build();
 
-        System.out.println("Sending a User Delete Request!");
+        log.debug("Sending a User Delete Request!");
+
         jmsTemplate.convertAndSend(JmsConfig.USER_DELETE_REQ_QUEUE, message);
     }
 
@@ -122,7 +131,8 @@ public class MgmtSender {
                 .message("Sending an Appt Delete Request!")
                 .build();
 
-        System.out.println("Sending an Appt Delete Request!");
+        log.debug("Sending an Appt Delete Request!");
+
         jmsTemplate.convertAndSend(JmsConfig.APPT_DELETE_REQ_QUEUE, message);
     }
 
@@ -134,7 +144,8 @@ public class MgmtSender {
                 .message("Sending a User Get All Request!")
                 .build();
 
-        System.out.println("Sending a User Get All Request!");
+        log.debug("Sending a User Get All Request!");
+
         jmsTemplate.convertAndSend(JmsConfig.USER_GETALL_REQ_QUEUE, message);
     }
 
@@ -146,7 +157,8 @@ public class MgmtSender {
                 .message("Sending an Appt Get All Request!")
                 .build();
 
-        System.out.println("Sending an Appt Get All Request!");
+        log.debug("Sending an Appt Get All Request!");
+
         jmsTemplate.convertAndSend(JmsConfig.APPT_GETALL_REQ_QUEUE, message);
     }
 }

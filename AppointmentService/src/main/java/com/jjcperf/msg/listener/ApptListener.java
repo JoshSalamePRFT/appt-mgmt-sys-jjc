@@ -4,6 +4,7 @@ import com.jjcperf.msg.config.JmsConfig;
 import com.jjcperf.msg.msg.appt.*;
 import com.jjcperf.msg.sender.ApptSender;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.messaging.MessageHeaders;
@@ -15,6 +16,7 @@ import javax.jms.Message;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class ApptListener {
 
     @Autowired
@@ -25,8 +27,7 @@ public class ApptListener {
                                     @Headers MessageHeaders headers,
                                     Message message) {
 
-        System.out.println("I Got an Appt Get Request!");
-        System.out.println(getMessage);
+        log.debug("I Got an Appt Get Request!" + getMessage);
 
         apptSender.sendGetResponseMessage(Long.parseLong(getMessage.getMessage()));
     }
@@ -36,8 +37,7 @@ public class ApptListener {
                                      @Headers MessageHeaders headers,
                                      Message message) {
 
-        System.out.println("I Got an Appt Post Request!");
-        System.out.println(postMessage);
+        log.debug("I Got an Appt Post Request!" + postMessage);
 
         apptSender.sendPostResponseMessage(postMessage.getAppt());
     }
@@ -47,8 +47,7 @@ public class ApptListener {
                                     @Headers MessageHeaders headers,
                                     Message message) {
 
-        System.out.println("I Got an Appt Put Request!");
-        System.out.println(putMessage);
+        log.debug("I Got an Appt Put Request!" + putMessage);
 
         apptSender.sendPutResponseMessage(putMessage.getId(), putMessage.getAppt());
     }
@@ -58,8 +57,7 @@ public class ApptListener {
                                        @Headers MessageHeaders headers,
                                        Message message) {
 
-        System.out.println("I Got an Appt Delete Request!");
-        System.out.println(deleteMessage);
+        log.debug("I Got an Appt Delete Request!" + deleteMessage);
 
         apptSender.sendDeleteResponseMessage(deleteMessage.getId());
     }
@@ -69,8 +67,7 @@ public class ApptListener {
                                        @Headers MessageHeaders headers,
                                        Message message) {
 
-        System.out.println("I Got an Appt GetAll Request!");
-        System.out.println(getAllMessage);
+        log.debug("I Got an Appt GetAll Request!" + getAllMessage);
 
         apptSender.sendGetAllResponseMessage();
     }
