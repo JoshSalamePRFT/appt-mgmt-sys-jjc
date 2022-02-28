@@ -9,29 +9,17 @@ import org.springframework.jms.support.converter.MessageType;
 @Configuration
 public class JmsConfig {
     //TODO consider removing the assignment, it's never used.
-    public static final String USER_GET_REQ_QUEUE = "user-get-req";
-    public static final String USER_POST_REQ_QUEUE = "user-post-req";
-    public static final String USER_PUT_REQ_QUEUE = "user-put-req";
-    public static final String USER_DELETE_REQ_QUEUE = "user-delete-req";
-    public static final String USER_GETALL_REQ_QUEUE = "user-getall-req";
+    public static final String USER_GET_QUEUE = "user-get";
+    public static final String USER_POST_QUEUE = "user-post";
+    public static final String USER_PUT_QUEUE = "user-put";
+    public static final String USER_DELETE_QUEUE = "user-delete";
+    public static final String USER_GETALL_QUEUE = "user-getall";
 
-    public static final String APPT_GET_REQ_QUEUE = "appt-get-req";
-    public static final String APPT_POST_REQ_QUEUE = "appt-post-req";
-    public static final String APPT_PUT_REQ_QUEUE = "appt-put-req";
-    public static final String APPT_DELETE_REQ_QUEUE = "appt-delete-req";
-    public static final String APPT_GETALL_REQ_QUEUE = "appt-getall-req";
-
-    public static final String USER_GET_SEND_QUEUE = "user-get-send";
-    public static final String USER_POST_SEND_QUEUE = "user-post-send";
-    public static final String USER_PUT_SEND_QUEUE = "user-put-send";
-    public static final String USER_DELETE_SEND_QUEUE = "user-delete-send";
-    public static final String USER_GETALL_SEND_QUEUE = "user-getall-send";
-
-    public static final String APPT_GET_SEND_QUEUE = "appt-get-send";
-    public static final String APPT_POST_SEND_QUEUE = "appt-post-send";
-    public static final String APPT_PUT_SEND_QUEUE = "appt-put-send";
-    public static final String APPT_DELETE_SEND_QUEUE = "appt-delete-send";
-    public static final String APPT_GETALL_SEND_QUEUE = "appt-getall-send";
+    public static final String APPT_GET_QUEUE = "appt-get";
+    public static final String APPT_POST_QUEUE = "appt-post";
+    public static final String APPT_PUT_QUEUE = "appt-put";
+    public static final String APPT_DELETE_QUEUE = "appt-delete";
+    public static final String APPT_GETALL_QUEUE = "appt-getall";
 
     @Bean
     public MessageConverter messageConverter() {

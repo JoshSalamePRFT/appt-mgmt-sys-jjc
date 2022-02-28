@@ -33,13 +33,13 @@ public class ApptMgrController {
 
     @GetMapping("/{user_id}/getappts")
     @ResponseStatus(HttpStatus.OK)
-    public List<Appointment> getApptsByUser(@PathVariable("user_id") long userId) {
+    public List<Appointment> getAppointmentsByUser(@PathVariable("user_id") long userId) {
         return apptManagementService.listApptsByUserId(userId);
     }
 
     @GetMapping("/{appt_id}/getusers")
     @ResponseStatus(HttpStatus.OK)
-    public List<User> getUsersByAppt(@PathVariable("appt_id") long apptId) {
+    public List<User> getUsersByAppointment(@PathVariable("appt_id") long apptId) {
         return apptManagementService.listUsersByApptId(apptId);
     }
 
