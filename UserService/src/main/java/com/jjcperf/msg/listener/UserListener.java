@@ -12,6 +12,7 @@ import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import javax.jms.JMSException;
 import javax.jms.Message;
 
 @RequiredArgsConstructor
@@ -22,54 +23,54 @@ public class UserListener {
     @Autowired
     private UserSender userSender;
 
-    @JmsListener(destination = JmsConfig.USER_GET_REQ_QUEUE)
+    @JmsListener(destination = JmsConfig.USER_GET_QUEUE)
     public void listenForUserGetReq(@Payload UserGetMessage getMessage,
                                  @Headers MessageHeaders headers,
-                                 Message message) {
+                                 Message message) throws JMSException {
 
 
         log.debug("I Got a User Get Request!" + getMessage);
 
-        userSender.sendGetResponseMessage(Long.parseLong(getMessage.getMessage()));
+        userSender.sendGetReplyMessage(Long.parseLong(getMessage.getMessage()), message.getJMSReplyTo());
     }
 
-    @JmsListener(destination = JmsConfig.USER_POST_REQ_QUEUE)
+    @JmsListener(destination = JmsConfig.USER_POST_QUEUE)
     public void listenForUserPostReq(@Payload UserPostMessage postMessage,
                                  @Headers MessageHeaders headers,
-                                 Message message) {
+                                 Message message) throws JMSException {
 
         log.debug("I Got a User Post Request!" + postMessage);
 
-        userSender.sendPostResponseMessage(postMessage.getUser());
+        userSender.sendPostReplyMessage(postMessage.getUser(), message.getJMSReplyTo());
     }
 
-    @JmsListener(destination = JmsConfig.USER_PUT_REQ_QUEUE)
+    @JmsListener(destination = JmsConfig.USER_PUT_QUEUE)
     public void listenForUserPutReq(@Payload UserPutMessage putMessage,
                                  @Headers MessageHeaders headers,
-                                 Message message) {
+                                 Message message) throws JMSException {
 
         log.debug("I Got a User Put Request!" + putMessage);
 
-        userSender.sendPutResponseMessage(putMessage.getId(), putMessage.getUser());
+        userSender.sendPutReplyMessage(putMessage.getId(), putMessage.getUser(), message.getJMSReplyTo());
     }
 
-    @JmsListener(destination = JmsConfig.USER_DELETE_REQ_QUEUE)
+    @JmsListener(destination = JmsConfig.USER_DELETE_QUEUE)
     public void listenForUserDeleteReq(@Payload UserDeleteMessage deleteMessage,
                                  @Headers MessageHeaders headers,
-                                 Message message) {
+                                 Message message) throws JMSException {
 
         log.debug("I Got a User Delete Request!" + deleteMessage);
 
-        userSender.sendDeleteResponseMessage(deleteMessage.getId());
+        userSender.sendDeleteReplyMessage(deleteMessage.getId(), message.getJMSReplyTo());
     }
 
-    @JmsListener(destination = JmsConfig.USER_GETALL_REQ_QUEUE)
+    @JmsListener(destination = JmsConfig.USER_GETALL_QUEUE)
     public void listenForUserGetAllReq(@Payload UserGetAllMessage getAllMessage,
                                  @Headers MessageHeaders headers,
-                                 Message message) {
+                                 Message message) throws JMSException {
 
         log.debug("I Got a User GetAll Request!" + getAllMessage);
 
-        userSender.sendGetAllResponseMessage();
+        userSender.sendGetAllReplyMessage(message.getJMSReplyTo());
     }
 }

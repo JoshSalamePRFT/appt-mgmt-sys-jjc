@@ -6,6 +6,7 @@ import com.jjcperf.msg.sender.MgmtSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.jms.JMSException;
 import javax.jms.Message;
 import java.util.List;
 
@@ -16,8 +17,7 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     MgmtSender mgmtSender;
 
     @Override
-    public List<User> listUsers() {
-
+    public List<User> listUsers() throws JMSException {
 
         Message message = mgmtSender.sendUserGetAllMessage();
         return null;

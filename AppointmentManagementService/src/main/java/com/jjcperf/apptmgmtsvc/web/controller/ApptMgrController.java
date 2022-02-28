@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jms.JMSException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class ApptMgrController {
 
     @GetMapping("/getusers")
     @ResponseStatus(HttpStatus.OK)
-    public List<User> getUsers() {
+    public List<User> getUsers() throws JMSException {
         return apptManagementService.listUsers();
     }
 

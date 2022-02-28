@@ -46,7 +46,7 @@ public class MgmtSender {
         log.debug("Sending a User Get Request!");
 
         Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_GET_QUEUE,
-                "com/jjcperf/msg/msg/user/UserGetMessage.java", message);
+                "com.jjcperf.msg.msg.user.UserGetMessage", message);
 
         log.debug("I Got a User Get Response!" + responseMessage);
 
@@ -64,7 +64,7 @@ public class MgmtSender {
         log.debug("Sending an Appt Get Request!");
 
         Message responseMessage = sendAndReceiveMessage(JmsConfig.APPT_GET_QUEUE,
-                "com/jjcperf/msg/msg/appt/ApptGetMessage.java", message);
+                "com.jjcperf.msg.msg.appt.ApptGetMessage", message);
 
         log.debug("I Got an Appointment Get Response!" + responseMessage);
 
@@ -82,7 +82,7 @@ public class MgmtSender {
         log.debug("Sending a User Post Request!");
 
         Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_POST_QUEUE,
-                "com/jjcperf/msg/msg/user/UserPostMessage.java", message);
+                "com.jjcperf.msg.msg.user.UserPostMessage", message);
 
         log.debug("I Got a User Post Response!" + responseMessage);
 
@@ -100,7 +100,7 @@ public class MgmtSender {
         log.debug("Sending an Appt Post Request!");
 
         Message responseMessage = sendAndReceiveMessage(JmsConfig.APPT_POST_QUEUE,
-                "com/jjcperf/msg/msg/appt/ApptPostMessage.java", message);
+                "com.jjcperf.msg.msg.appt.ApptPostMessage", message);
 
         log.debug("I Got an Appointment Post Response!" + responseMessage);
 
@@ -119,7 +119,7 @@ public class MgmtSender {
         log.debug("Sending a User Put Request!");
 
         Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_PUT_QUEUE,
-                "com/jjcperf/msg/msg/user/UserPutMessage.java", message);
+                "com.jjcperf.msg.msg.user.UserPutMessage", message);
 
         log.debug("I Got a User Put Response!" + responseMessage);
 
@@ -138,7 +138,7 @@ public class MgmtSender {
         log.debug("Sending an Appt Put Request!");
 
         Message responseMessage = sendAndReceiveMessage(JmsConfig.APPT_PUT_QUEUE,
-                "com/jjcperf/msg/msg/appt/ApptPutMessage.java", message);
+                "com.jjcperf.msg.msg.appt.ApptPutMessage", message);
 
         log.debug("I Got an Appointment Put Response!" + responseMessage);
 
@@ -156,7 +156,7 @@ public class MgmtSender {
         log.debug("Sending a User Delete Request!");
 
         Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_DELETE_QUEUE,
-                "com/jjcperf/msg/msg/user/UserDeleteMessage.java", message);
+                "com.jjcperf.msg.msg.user.UserDeleteMessage", message);
 
         log.debug("I Got a User Delete Response!" + responseMessage);
 
@@ -174,15 +174,15 @@ public class MgmtSender {
         log.debug("Sending an Appt Delete Request!");
 
         Message responseMessage = sendAndReceiveMessage(JmsConfig.APPT_DELETE_QUEUE,
-                "com/jjcperf/msg/msg/appt/ApptDeleteMessage.java", message);
+                "com.jjcperf.msg.msg.appt.ApptDeleteMessage", message);
 
         log.debug("I Got an Appointment Delete Response!" + responseMessage);
 
         return responseMessage;
     }
 
-    //@Scheduled(fixedRate = 5000) //TODO remove this code once controller calls work correctly.
-    public Message sendUserGetAllMessage() {
+    @Scheduled(fixedRate = 5000) //TODO remove this code once controller calls work correctly.
+    public Message sendUserGetAllMessage() throws JMSException {
         UserGetAllMessage message = UserGetAllMessage
                 .builder()
                 .criteriaType(CriteriaTypeEnum.NUMBER)
@@ -192,9 +192,9 @@ public class MgmtSender {
         log.debug("Sending a User Get All Request!");
 
         Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_GETALL_QUEUE,
-                "com/jjcperf/msg/msg/user/UserGetAllMessage.java", message);
+                "com.jjcperf.msg.msg.user.UserGetAllMessage", message);
 
-        log.debug("I Got a User Get All Response!" + responseMessage);
+        log.debug("I Got a User Get All Response!  " + responseMessage.getBody(String.class));
 
         return responseMessage;
     }
@@ -221,7 +221,7 @@ public class MgmtSender {
         Message responseMessage = jmsTemplate.sendAndReceive(queue, new MessageCreator() {
             @Override
             public Message createMessage(Session session) throws JMSException {
-                Message message = null;
+                Message message;
                 try {
                     message = session.createTextMessage(objectMapper.writeValueAsString(messageToSend));
                     message.setStringProperty("_type", type);
