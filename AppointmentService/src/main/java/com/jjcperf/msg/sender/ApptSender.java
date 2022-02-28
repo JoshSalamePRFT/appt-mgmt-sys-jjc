@@ -1,8 +1,8 @@
 package com.jjcperf.msg.sender;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jjcperf.apptGroup.controller.ApptController;
-import com.jjcperf.apptGroup.model.Appointment;
+import com.jjcperf.appointmentservice.controller.ApptController;
+import com.jjcperf.appointmentservice.model.Appointment;
 import com.jjcperf.msg.config.JmsConfig;
 import com.jjcperf.msg.msg.ResponseMessage;
 import lombok.RequiredArgsConstructor;

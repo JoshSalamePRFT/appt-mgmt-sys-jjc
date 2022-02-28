@@ -1,6 +1,6 @@
 package com.jjcperf.msg.msg;
 
-import com.jjcperf.apptGroup.model.BaseEntity;
+import com.jjcperf.appointmentservice.model.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

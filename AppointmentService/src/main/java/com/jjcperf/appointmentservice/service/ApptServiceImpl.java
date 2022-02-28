@@ -1,8 +1,7 @@
-package com.jjcperf.apptGroup.service;
+package com.jjcperf.appointmentservice.service;
 
-import com.jjcperf.apptGroup.model.Appointment;
-import com.jjcperf.apptGroup.repository.ApptRepository;
-import lombok.Data;
+import com.jjcperf.appointmentservice.model.Appointment;
+import com.jjcperf.appointmentservice.repository.ApptRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

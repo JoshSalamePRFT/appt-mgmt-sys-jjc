@@ -1,6 +1,6 @@
-package com.jjcperf.apptGroup.service;
+package com.jjcperf.appointmentservice.service;
 
-import com.jjcperf.apptGroup.model.Appointment;
+import com.jjcperf.appointmentservice.model.Appointment;
 
 import java.sql.Time;
 import java.util.List;

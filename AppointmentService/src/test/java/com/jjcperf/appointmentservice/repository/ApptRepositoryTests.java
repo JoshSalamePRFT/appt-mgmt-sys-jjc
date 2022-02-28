@@ -1,7 +1,7 @@
-package com.jjcperf.apptGroup.repository;
+package com.jjcperf.appointmentservice.repository;
 
-import com.jjcperf.apptGroup.ApptApp;
-import com.jjcperf.apptGroup.model.Appointment;
+import com.jjcperf.appointmentservice.ApptApp;
+import com.jjcperf.appointmentservice.model.Appointment;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

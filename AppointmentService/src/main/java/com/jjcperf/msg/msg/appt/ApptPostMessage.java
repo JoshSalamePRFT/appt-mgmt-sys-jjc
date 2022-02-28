@@ -1,6 +1,6 @@
 package com.jjcperf.msg.msg.appt;
 
-import com.jjcperf.apptGroup.model.Appointment;
+import com.jjcperf.appointmentservice.model.Appointment;
 import com.jjcperf.msg.enums.CriteriaTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

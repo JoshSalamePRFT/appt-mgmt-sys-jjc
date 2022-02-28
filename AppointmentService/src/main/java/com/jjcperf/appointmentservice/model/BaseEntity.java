@@ -1,4 +1,4 @@
-package com.jjcperf.apptGroup.model;
+package com.jjcperf.appointmentservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;

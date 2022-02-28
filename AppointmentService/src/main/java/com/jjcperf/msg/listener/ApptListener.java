@@ -1,10 +1,8 @@
 package com.jjcperf.msg.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.jjcperf.apptGroup.controller.ApptController;
-import com.jjcperf.apptGroup.model.Appointment;
+import com.jjcperf.appointmentservice.controller.ApptController;
 import com.jjcperf.msg.config.JmsConfig;
-import com.jjcperf.msg.msg.ResponseMessage;
 import com.jjcperf.msg.msg.appt.*;
 import com.jjcperf.msg.sender.ApptSender;
 import lombok.RequiredArgsConstructor;
@@ -19,9 +17,6 @@ import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.Session;
-import java.util.List;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component

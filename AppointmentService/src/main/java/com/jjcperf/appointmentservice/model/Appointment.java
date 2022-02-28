@@ -1,19 +1,16 @@
-package com.jjcperf.apptGroup.model;
+package com.jjcperf.appointmentservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.HashSet;
 import java.util.Set;
-import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor

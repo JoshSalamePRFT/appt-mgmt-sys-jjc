@@ -1,11 +1,10 @@
-package com.jjcperf.apptGroup.controller;
+package com.jjcperf.appointmentservice.controller;
 
-import com.jjcperf.apptGroup.model.Appointment;
-import com.jjcperf.apptGroup.service.ApptService;
+import com.jjcperf.appointmentservice.model.Appointment;
+import com.jjcperf.appointmentservice.service.ApptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
