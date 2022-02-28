@@ -3,6 +3,7 @@ package com.jjcperf.apptmgmtsvc.web.controller;
 import com.jjcperf.apptmgmtsvc.model.Appointment;
 import com.jjcperf.apptmgmtsvc.model.User;
 import com.jjcperf.apptmgmtsvc.service.ApptManagementService;
+import com.jjcperf.apptmgmtsvc.web.DataBootstrap;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.jms.JMSException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,7 @@ import java.util.List;
 @RequestMapping("api/v1/mgr")
 @RequiredArgsConstructor
 public class ApptMgrController {
+
 
     @Autowired
     private final ApptManagementService apptManagementService;
@@ -29,8 +32,16 @@ public class ApptMgrController {
     @GetMapping("/getusers")
     @ResponseStatus(HttpStatus.OK)
     public List<User> getUsers() throws JMSException {
-        return apptManagementService.listUsers();
+//        return apptManagementService.listUsers();
+        return DataBootstrap.testUsers();
     }
+    @GetMapping("/getappts")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Appointment> getAppts() throws JMSException {
+//        return null;
+        return DataBootstrap.testAppts();
+    }
+
 
     @GetMapping("/{user_id}/getappts")
     @ResponseStatus(HttpStatus.OK)
