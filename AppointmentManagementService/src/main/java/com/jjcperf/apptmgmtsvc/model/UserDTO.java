@@ -41,7 +41,6 @@ public class UserDTO extends BaseDTO {
     @Email
     private String emailAddress;
 
-    @Column(name = "phone_number")
     @NotBlank
     private String phoneNumber;
 
