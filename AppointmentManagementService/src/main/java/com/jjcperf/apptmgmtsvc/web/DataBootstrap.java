@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataBootstrap {
-    public static List<User> testUsers() {
+    /*public static List<User> testUsers() {
         List<User> users = new ArrayList<User>();
         User user1 = User.builder()
                 .user_id(1)
@@ -59,5 +59,5 @@ public class DataBootstrap {
         appts.add(appt2);
         appts.add(appt3);
         return appts;
-    }
+    }*/
 }

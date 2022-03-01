@@ -31,7 +31,7 @@ public class UserListener {
 
         log.debug("I Got a User Get Request!" + getMessage);
 
-        userSender.sendGetReplyMessage(Long.parseLong(getMessage.getMessage()), message.getJMSReplyTo());
+        userSender.sendGetReplyMessage(getMessage.getId(), message.getJMSReplyTo());
     }
 
     @JmsListener(destination = JmsConfig.USER_POST_QUEUE)

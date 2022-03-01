@@ -40,6 +40,7 @@
         <com.googlecode.libphonenumber.version>8.12.43</com.googlecode.libphonenumber.version>
         <spring-jms.version>5.3.15</spring-jms.version>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -87,12 +88,25 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
-            <version>5.3.15</version>
+            <version>${spring-jms.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-artemis</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson</groupId>
+            <artifactId>jackson-bom</artifactId>
+            <version>2.13.1</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

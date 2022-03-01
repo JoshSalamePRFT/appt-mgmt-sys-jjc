@@ -37,7 +37,7 @@ public class ApptListener {
 
         log.debug("I Got an Appt Get Request!" + getMessage);
 
-        apptSender.sendGetResponseMessage(Long.parseLong(getMessage.getMessage()), message.getJMSReplyTo());
+        apptSender.sendGetReplyMessage(getMessage.getId(), message.getJMSReplyTo());
     }
 
     @JmsListener(destination = JmsConfig.APPT_POST_QUEUE)
@@ -47,7 +47,7 @@ public class ApptListener {
 
         log.debug("I Got an Appt Post Request!" + postMessage);
 
-        apptSender.sendPostResponseMessage(postMessage.getAppt(), message.getJMSReplyTo());
+        apptSender.sendPostReplyMessage(postMessage.getAppt(), message.getJMSReplyTo());
     }
 
     @JmsListener(destination = JmsConfig.APPT_PUT_QUEUE)
@@ -57,7 +57,7 @@ public class ApptListener {
 
         log.debug("I Got an Appt Put Request!" + putMessage);
 
-        apptSender.sendPutResponseMessage(putMessage.getId(), putMessage.getAppt(), message.getJMSReplyTo());
+        apptSender.sendPutReplyMessage(putMessage.getId(), putMessage.getAppt(), message.getJMSReplyTo());
     }
 
     @JmsListener(destination = JmsConfig.APPT_DELETE_QUEUE)
@@ -67,7 +67,7 @@ public class ApptListener {
 
         log.debug("I Got an Appt Delete Request!" + deleteMessage);
 
-        apptSender.sendDeleteResponseMessage(deleteMessage.getId(), message.getJMSReplyTo());
+        apptSender.sendDeleteReplyMessage(deleteMessage.getId(), message.getJMSReplyTo());
     }
 
     @JmsListener(destination = JmsConfig.APPT_GETALL_QUEUE)
@@ -77,6 +77,6 @@ public class ApptListener {
 
         log.debug("I Got an Appt GetAll Request!  " + getAllMessage);
 
-        apptSender.sendGetAllResponseMessage(message.getJMSReplyTo());
+        apptSender.sendGetAllReplyMessage(message.getJMSReplyTo());
     }
 }

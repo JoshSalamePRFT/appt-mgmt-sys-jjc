@@ -1,5 +1,6 @@
 package com.jjcperf.appointmentservice.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +10,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -34,10 +37,12 @@ public class Appointment extends BaseEntity implements Serializable {
     private String description;
 
     @Column(name="start_time")
-    private Time startTime;
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", shape=JsonFormat.Shape.STRING)
+    private LocalDateTime startTime;
 
     @Column(name="end_time")
-    private Time endTime;
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", shape=JsonFormat.Shape.STRING)
+    private LocalDateTime endTime;
 
     @Column(name="meta_data")
     private String metaData;

@@ -40,7 +40,6 @@ public class MgmtSender {
                 .builder()
                 .id(id)
                 .criteriaType(CriteriaTypeEnum.NUMBER)
-                .message("Sending a User Get Request!")
                 .build();
 
         log.debug("Sending a User Get Request!");
@@ -48,7 +47,7 @@ public class MgmtSender {
         Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_GET_QUEUE,
                 "com.jjcperf.msg.msg.user.UserGetMessage", message);
 
-        log.debug("I Got a User Get Response!" + responseMessage);
+        log.debug("I Got a User Get Response!  " + responseMessage);
 
         return responseMessage;
     }
@@ -58,7 +57,6 @@ public class MgmtSender {
                 .builder()
                 .id(id)
                 .criteriaType(CriteriaTypeEnum.NUMBER)
-                .message("Sending an Appt Get Request!")
                 .build();
 
         log.debug("Sending an Appt Get Request!");
@@ -66,7 +64,7 @@ public class MgmtSender {
         Message responseMessage = sendAndReceiveMessage(JmsConfig.APPT_GET_QUEUE,
                 "com.jjcperf.msg.msg.appt.ApptGetMessage", message);
 
-        log.debug("I Got an Appointment Get Response!" + responseMessage);
+        log.debug("I Got an Appointment Get Response!  " + responseMessage);
 
         return responseMessage;
     }
@@ -76,7 +74,6 @@ public class MgmtSender {
                 .builder()
                 .user(user)
                 .criteriaType(CriteriaTypeEnum.NUMBER)
-                .message("Sending a User Post Request!")
                 .build();
 
         log.debug("Sending a User Post Request!");
@@ -84,7 +81,7 @@ public class MgmtSender {
         Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_POST_QUEUE,
                 "com.jjcperf.msg.msg.user.UserPostMessage", message);
 
-        log.debug("I Got a User Post Response!" + responseMessage);
+        log.debug("I Got a User Post Response!  " + responseMessage);
 
         return responseMessage;
     }
@@ -94,7 +91,6 @@ public class MgmtSender {
                 .builder()
                 .appt(appt)
                 .criteriaType(CriteriaTypeEnum.NUMBER)
-                .message("Sending a Appt Post Request!")
                 .build();
 
         log.debug("Sending an Appt Post Request!");
@@ -102,7 +98,7 @@ public class MgmtSender {
         Message responseMessage = sendAndReceiveMessage(JmsConfig.APPT_POST_QUEUE,
                 "com.jjcperf.msg.msg.appt.ApptPostMessage", message);
 
-        log.debug("I Got an Appointment Post Response!" + responseMessage);
+        log.debug("I Got an Appointment Post Response!  " + responseMessage);
 
         return responseMessage;
     }
@@ -113,7 +109,6 @@ public class MgmtSender {
                 .id(id)
                 .user(user)
                 .criteriaType(CriteriaTypeEnum.NUMBER)
-                .message("Sending a User Put Request!")
                 .build();
 
         log.debug("Sending a User Put Request!");
@@ -121,7 +116,7 @@ public class MgmtSender {
         Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_PUT_QUEUE,
                 "com.jjcperf.msg.msg.user.UserPutMessage", message);
 
-        log.debug("I Got a User Put Response!" + responseMessage);
+        log.debug("I Got a User Put Response!  " + responseMessage);
 
         return responseMessage;
     }
@@ -132,7 +127,6 @@ public class MgmtSender {
                 .id(id)
                 .appt(appt)
                 .criteriaType(CriteriaTypeEnum.NUMBER)
-                .message("Sending an Appt Put Request!")
                 .build();
 
         log.debug("Sending an Appt Put Request!");
@@ -140,7 +134,7 @@ public class MgmtSender {
         Message responseMessage = sendAndReceiveMessage(JmsConfig.APPT_PUT_QUEUE,
                 "com.jjcperf.msg.msg.appt.ApptPutMessage", message);
 
-        log.debug("I Got an Appointment Put Response!" + responseMessage);
+        log.debug("I Got an Appointment Put Response!  " + responseMessage);
 
         return responseMessage;
     }
@@ -150,7 +144,6 @@ public class MgmtSender {
                 .builder()
                 .id(id)
                 .criteriaType(CriteriaTypeEnum.NUMBER)
-                .message("Sending a User Delete Request!")
                 .build();
 
         log.debug("Sending a User Delete Request!");
@@ -158,7 +151,7 @@ public class MgmtSender {
         Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_DELETE_QUEUE,
                 "com.jjcperf.msg.msg.user.UserDeleteMessage", message);
 
-        log.debug("I Got a User Delete Response!" + responseMessage);
+        log.debug("I Got a User Delete Response!  " + responseMessage);
 
         return responseMessage;
     }
@@ -168,7 +161,6 @@ public class MgmtSender {
                 .builder()
                 .id(id)
                 .criteriaType(CriteriaTypeEnum.NUMBER)
-                .message("Sending an Appt Delete Request!")
                 .build();
 
         log.debug("Sending an Appt Delete Request!");
@@ -176,7 +168,7 @@ public class MgmtSender {
         Message responseMessage = sendAndReceiveMessage(JmsConfig.APPT_DELETE_QUEUE,
                 "com.jjcperf.msg.msg.appt.ApptDeleteMessage", message);
 
-        log.debug("I Got an Appointment Delete Response!" + responseMessage);
+        log.debug("I Got an Appointment Delete Response!  " + responseMessage);
 
         return responseMessage;
     }
@@ -186,7 +178,6 @@ public class MgmtSender {
         UserGetAllMessage message = UserGetAllMessage
                 .builder()
                 .criteriaType(CriteriaTypeEnum.NUMBER)
-                .message("Sending a User Get All Request!")
                 .build();
 
         log.debug("Sending a User Get All Request!");
@@ -204,7 +195,6 @@ public class MgmtSender {
         ApptGetAllMessage message = ApptGetAllMessage
                 .builder()
                 .criteriaType(CriteriaTypeEnum.NUMBER)
-                .message("Sending an Appt Get All Request!")
                 .build();
 
         log.debug("Sending an Appt Get All Request!");

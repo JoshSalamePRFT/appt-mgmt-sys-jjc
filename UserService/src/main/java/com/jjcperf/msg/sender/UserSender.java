@@ -22,7 +22,6 @@ import java.util.UUID;
 public class UserSender {
 
     private final JmsTemplate jmsTemplate;
-    private final ObjectMapper objectMapper;
 
     @Autowired
     private UserController userController;
