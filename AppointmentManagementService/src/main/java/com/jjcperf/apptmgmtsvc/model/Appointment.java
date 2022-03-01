@@ -19,7 +19,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
+@Entity(name = "Appointment")
 @Table(name = "Appointments")
 public class Appointment extends BaseEntity {
 

@@ -7,20 +7,12 @@ import com.jjcperf.apptmgmtsvc.model.Appointment;
 import com.jjcperf.apptmgmtsvc.model.User;
 import com.jjcperf.msg.config.JmsConfig;
 import com.jjcperf.msg.enums.CriteriaTypeEnum;
-import com.jjcperf.msg.msg.ResponseMessage;
-import com.jjcperf.msg.msg.appt.ApptGetAllMessage;
-import com.jjcperf.msg.msg.appt.ApptGetMessage;
-import com.jjcperf.msg.msg.appt.ApptPostMessage;
-import com.jjcperf.msg.msg.appt.ApptPutMessage;
-import com.jjcperf.msg.msg.user.UserGetAllMessage;
-import com.jjcperf.msg.msg.user.UserGetMessage;
-import com.jjcperf.msg.msg.user.UserPostMessage;
-import com.jjcperf.msg.msg.user.UserPutMessage;
+import com.jjcperf.msg.msg.appt.*;
+import com.jjcperf.msg.msg.user.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
@@ -30,7 +22,7 @@ import javax.jms.Session;
 @RequiredArgsConstructor
 @Component
 @Slf4j
-public class MgmtSender {
+public class MgmtSenderAndReceiver {
 
     private final JmsTemplate jmsTemplate;
     private final ObjectMapper objectMapper;
@@ -207,6 +199,40 @@ public class MgmtSender {
         return responseMessage;
     }
 
+    public Message sendAppointmentGetAllByUserIdMessage(long user_id) throws JMSException {
+        ApptGetAllByUserIDMessage message = ApptGetAllByUserIDMessage
+                .builder()
+                .criteriaType(CriteriaTypeEnum.NUMBER)
+                .user_id(user_id)
+                .build();
+
+        log.debug("Sending an Appt Get All By User ID Request!");
+
+        Message responseMessage = sendAndReceiveMessage(JmsConfig.APPT_GETALLBYUSERID_QUEUE,
+                "com.jjcperf.msg.msg.appt.ApptGetAllByUserIDMessage", message);
+
+        log.debug("I Got an Appointment GetAllByUserID Response!  " + responseMessage.getBody(String.class));
+
+        return responseMessage;
+    }
+
+    public Message sendUserGetAllByAppointmentIdMessage(long appt_id) throws JMSException {
+        UserGetAllByApptIDMessage message = UserGetAllByApptIDMessage
+                .builder()
+                .criteriaType(CriteriaTypeEnum.NUMBER)
+                .appt_id(appt_id)
+                .build();
+
+        log.debug("Sending a User Get All By Appt ID Request!");
+
+        Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_GETALLBYAPPTID_QUEUE,
+                "com.jjcperf.msg.msg.appt.ApptGetAllByUserIDMessage", message);
+
+        log.debug("I Got a User GetAllByApptID Response!  " + responseMessage.getBody(String.class));
+
+        return responseMessage;
+    }
+
     private Message sendAndReceiveMessage(String queue, String type, Object messageToSend) {
         Message responseMessage = jmsTemplate.sendAndReceive(queue, new MessageCreator() {
             @Override
@@ -226,5 +252,7 @@ public class MgmtSender {
 
         return responseMessage;
     }
+
+
 
 }
