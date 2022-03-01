@@ -1,5 +1,6 @@
 package com.jjcperf.apptmgmtsvc.web.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jjcperf.apptmgmtsvc.model.Appointment;
 import com.jjcperf.apptmgmtsvc.model.User;
 import com.jjcperf.apptmgmtsvc.service.ApptManagementService;
@@ -31,15 +32,13 @@ public class ApptMgrController {
 
     @GetMapping("/getusers")
     @ResponseStatus(HttpStatus.OK)
-    public List<User> getUsers() throws JMSException {
-//        return apptManagementService.listUsers();
-        return DataBootstrap.testUsers();
+    public List<User> getUsers() throws JMSException, JsonProcessingException {
+        return apptManagementService.listUsers();
     }
     @GetMapping("/getappts")
     @ResponseStatus(HttpStatus.OK)
-    public List<Appointment> getAppts() throws JMSException {
-//        return null;
-        return DataBootstrap.testAppts();
+    public List<Appointment> getAppts() throws JMSException, JsonProcessingException {
+        return apptManagementService.listAppts();
     }
 
 

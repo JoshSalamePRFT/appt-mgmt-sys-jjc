@@ -181,7 +181,7 @@ public class MgmtSender {
         return responseMessage;
     }
 
-    @Scheduled(fixedRate = 5000) //TODO remove this code once controller calls work correctly.
+    //@Scheduled(fixedRate = 5000) //TODO remove this code once controller calls work correctly.
     public Message sendUserGetAllMessage() throws JMSException {
         UserGetAllMessage message = UserGetAllMessage
                 .builder()
@@ -199,7 +199,7 @@ public class MgmtSender {
         return responseMessage;
     }
 
-    @Scheduled(fixedRate = 5000) //TODO remove this code once controller calls work correctly.
+    //@Scheduled(fixedRate = 5000) //TODO remove this code once controller calls work correctly.
     public Message sendAppointmentGetAllMessage() throws JMSException {
         ApptGetAllMessage message = ApptGetAllMessage
                 .builder()
