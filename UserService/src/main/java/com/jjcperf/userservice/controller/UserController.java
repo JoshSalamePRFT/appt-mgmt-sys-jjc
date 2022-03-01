@@ -54,6 +54,12 @@ public class UserController {
         return userService.listUsers();
     }
 
+    @GetMapping("/get-users-by-appt/{appt_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<User> getUsersByApptId(@PathVariable("appt_id") long appt_id) {
+        return userService.listUsersByApptId(appt_id);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody

@@ -109,4 +109,9 @@ public class ApptServiceImpl implements ApptService {
 
     }
 
+    @Override
+    public List<Appointment> listAppointmentsByUserId(long user_id) {
+        return null;
+    }
+
 }

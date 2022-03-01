@@ -53,4 +53,10 @@ public class ApptController {
     public List<Appointment> getAllAppointments() {
         return apptService.findAllAppts();
     }
+
+    @GetMapping("/get-appts-by-user/{user_id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Appointment> listAppointmentsByUserId(@PathVariable("user_id") long user_id) {
+        return apptService.listAppointmentsByUserId(user_id);
+    }
 }

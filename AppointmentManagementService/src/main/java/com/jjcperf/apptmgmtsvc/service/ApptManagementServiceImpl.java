@@ -42,6 +42,8 @@ public class ApptManagementServiceImpl implements ApptManagementService {
         return responseMessage.getEntities();
     }
 
+
+    //TODO implement methods
     @Override
     public List<Appointment> listApptsByUserId(long id) {
         return null;
@@ -51,6 +53,12 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     public List<User> listUsersByApptId(long id) {
         return null;
     }
+
+    @Override
+    public void addUserToAppt(long user_id, long appt_id) {
+
+    }
+
 
     //CRUD FOR USER & APPT
     //TODO code cleanup

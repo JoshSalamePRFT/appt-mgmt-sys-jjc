@@ -10,4 +10,6 @@ public interface UserService {
     User updateUser(User user, long id);
     void deleteUser(long id);
     List<User> listUsers();
+
+    List<User> listUsersByApptId(long appt_id);
 }

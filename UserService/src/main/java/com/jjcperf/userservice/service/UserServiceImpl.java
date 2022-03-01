@@ -51,4 +51,9 @@ public class UserServiceImpl implements UserService {
     public List<User> listUsers() {
         return userRepository.findAll();
     }
+
+    @Override
+    public List<User> listUsersByApptId(long appt_id) {
+        return null;
+    }
 }
