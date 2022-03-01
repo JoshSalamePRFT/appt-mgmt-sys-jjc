@@ -1,15 +1,17 @@
 let userList = [];
+let $table;
+let loggedInID;
 
 $(document).ready(function () {
+    $table = $('table');
+    loggedInID = parseInt(sessionStorage.getItem('user-id'));
     $.getJSON('/api/v1/mgr/getusers', function (json) {
-        let trs = [];
         for (let i = 0; i < json.length; i++) {
             let user = new User(json[i]);
-            trs.push(user.toTableRow());
             // console.log(user.toJSON());
+            $table.append(user.toTableRow(false));
             userList.push(user);
         }
-        $('table').append($(trs.join('')));
         console.log(userList);
     });
 
