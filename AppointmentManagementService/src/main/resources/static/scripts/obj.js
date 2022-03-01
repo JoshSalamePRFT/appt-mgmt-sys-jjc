@@ -21,7 +21,7 @@ class User {
         return `${this.user_id} ${this.firstName} ${this.lastName}`;
     }
 
-    toTableRow(includeButtons = false) {
+    toTableRow(editDelete = false) {
         let tr = [];
         tr.push(`<tr>`);
         tr.push(`<td>${this.user_id}</td>`);
@@ -31,7 +31,7 @@ class User {
         tr.push(`<td>${this.age}</td>`);
         tr.push(`<td>${this.emailAddress}</td>`);
         tr.push(`<td>${this.phoneNumber}</td>`);
-        if (includeButtons) {
+        if (editDelete) {
             // tr.push(`<td>`);
             // tr.push(`<button class='edit-user'>Edit</button>`);
             // tr.push(`<button class='delete-user' id=${this.user_id}>Delete</button>`);
@@ -40,7 +40,7 @@ class User {
 
         }
         tr.push(`</tr>`);
-        return tr;
+        return tr.join('');
     }
 
     toJSON() {
@@ -57,7 +57,7 @@ class User {
 }
 
 class Appointment {
-    appt_id;
+    appointment_id;
     apptName;
     apptType;
     description;
@@ -66,43 +66,47 @@ class Appointment {
     metaData;
 
     constructor(json) {
-        this.appt_id = json.appt_id;
+        this.appointment_id = json.appointment_id;
         this.apptName = json.apptName;
         this.apptType = json.apptType;
         this.description = json.description;
-        this.startTime = json.startTime;
-        this.endTime = json.endTime;
+        this.startTime = json.startTime.split('T')[1];
+        this.endTime = json.endTime.split('T')[1];
         this.metaData = json.metaData;
     }
 
     toString() {
-        return `${this.appt_id} ${this.apptName} ${this.startTime} ${this.endTime}`;
+        return `${this.appointment_id} ${this.apptName} ${this.startTime} ${this.endTime}`;
     }
 
-    toTableRow(includeButtons = false) {
+    toTableRow(editDelete = false, includeInviteRSVP = false) {
         let tr = [];
         tr.push(`<tr>`);
-        tr.push(`<td>${this.appt_id}</td>`);
+        tr.push(`<td>${this.appointment_id}</td>`);
         tr.push(`<td>${this.apptName}</td>`);
         tr.push(`<td>${this.apptType}</td>`);
         tr.push(`<td>${this.description}</td>`);
         tr.push(`<td>${this.startTime}</td>`);
         tr.push(`<td>${this.endTime}</td>`);
         tr.push(`<td>${this.metaData}</td>`);
-        if (includeButtons) {
-            // tr.push(`<td>`);
-            // tr.push(`<button class='edit-appt'>Edit</button>`);
-            // tr.push(`<button class='delete-appt' id=${this.appt_id}>Delete</button>`);
-            // tr.push(`</td>`);
-            tr.push(`<td><button class='edit-appt'>Edit</button><button class='delete-appt' id=${this.appt_id}>Delete</button></td>`);
+        tr.push(`<td>`);
+        if (editDelete) {
+            tr.push(`<button class='edit-appt'>Edit</button>`);
+            tr.push(`<button class='delete-appt' id=${this.appointment_id}>Delete</button>`);
+            // tr.push(`<td><button class='edit-appt'>Edit</button><button class='delete-appt' id=${this.appointment_id}>Delete</button></td>`);
         }
+        if (includeInviteRSVP) {
+            tr.push(`<button class='rsvp-appt' id=${this.appointment_id}>RSVP</button>`);
+            tr.push(`<button class='invite-appt' id=${this.appointment_id}>Invite</button>`);
+        }
+        tr.push(`</td>`);
         tr.push(`</tr>`);
-        return tr;
+        return tr.join('');
     }
 
     toJSON() {
         return JSON.stringify({
-            'appt_id': this.appt_id,
+            'appointment_id': this.appointment_id,
             'apptName': this.apptName,
             'apptType': this.apptType,
             'description': this.description,
