@@ -12,8 +12,8 @@ public interface ApptManagementService {
     List<User> listUsers() throws JMSException, JsonProcessingException;
     List<Appointment> listAppts() throws JMSException, JsonProcessingException;
 
-    List<Appointment> listApptsByUserId(long id);
-    List<User> listUsersByApptId(long id);
+    List<Appointment> listApptsByUserId(long id) throws JMSException, JsonProcessingException;
+    List<User> listUsersByApptId(long id) throws JsonProcessingException, JMSException;
 
     void addUserToAppt(long user_id, long appt_id);
 

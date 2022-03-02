@@ -40,13 +40,13 @@ public class ApptMgrController {
 
     @GetMapping("/{user_id}/getappts")
     @ResponseStatus(HttpStatus.OK)
-    public List<Appointment> getAppointmentsByUser(@PathVariable("user_id") long userId) {
+    public List<Appointment> getAppointmentsByUser(@PathVariable("user_id") long userId) throws JMSException, JsonProcessingException {
         return apptManagementService.listApptsByUserId(userId);
     }
 
     @GetMapping("/{appt_id}/getusers")
     @ResponseStatus(HttpStatus.OK)
-    public List<User> getUsersByAppointment(@PathVariable("appt_id") long apptId) {
+    public List<User> getUsersByAppointment(@PathVariable("appt_id") long apptId) throws JMSException, JsonProcessingException {
         return apptManagementService.listUsersByApptId(apptId);
     }
 
@@ -99,6 +99,8 @@ public class ApptMgrController {
     public void deleteAppointment(@PathVariable("appt_id") long appt_id) {
         apptManagementService.deleteAppointment(appt_id);
     }
+
+
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

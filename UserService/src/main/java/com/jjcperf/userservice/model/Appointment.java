@@ -8,9 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Time;
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +19,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "Appointments")
-public class Appointment extends BaseEntity {
+public class Appointment extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -46,7 +45,7 @@ public class Appointment extends BaseEntity {
     @Column(name="meta_data")
     private String metaData;
 
-    @ManyToMany(mappedBy = "appointments")
+    @ManyToMany(mappedBy = "appointments", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<User> users = new HashSet<>();
 

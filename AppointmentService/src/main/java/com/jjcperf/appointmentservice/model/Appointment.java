@@ -47,7 +47,7 @@ public class Appointment extends BaseEntity implements Serializable {
     @Column(name="meta_data")
     private String metaData;
 
-    @ManyToMany(mappedBy = "appointments")
+    @ManyToMany(mappedBy = "appointments", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<User> users = new HashSet<>();
 
