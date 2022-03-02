@@ -46,30 +46,13 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     //TODO implement methods
 
     @Override
-    public List<Appointment> listApptsByUserId(long id) throws JMSException, JsonProcessingException {
-        /*//retrieve all entries with specific user_id
-        List<Wrapper> wrapperList = apptAndUserRepository.findWrappersByUser_id(id);
-
-        List<Appointment> appointmentList = new ArrayList<>();
-
-        //for each entry, get the appointment_id and do a get request to retrieve the full appointment.
-        wrapperList.forEach(wrapper -> {
-            long appt_id = wrapper.getAppointment_id();
-            try {
-                appointmentList.add(readAppointment(appt_id));
-            } catch (JMSException e) {
-                e.printStackTrace();
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        });
-        return appointmentList;*/
-
+    public List<Appointment> listApptsByUserId(long user_id) {
         //retrieve list of appointment ids from database
-        List<Long> appointment_idList = userRepository.getAppointmentsByUserId();
+        List<Long> appointment_idList = userRepository.getAppointmentsByUserId(user_id);
 
         List<Appointment> appointmentList = new ArrayList<>();
 
+        //retrieve appointment entries by id for each id in the list.
         appointment_idList.forEach(appointment_id -> {
             try {
                 appointmentList.add(readAppointment(appointment_id));
@@ -83,15 +66,14 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     }
 
     @Override
-    public List<User> listUsersByApptId(long id) throws JsonProcessingException, JMSException {
-        /*//retrieve all entries with specific user_id
-        List<Wrapper> wrapperList = apptAndUserRepository.findWrappersByAppointment_id(id);
+    public List<User> listUsersByApptId(long appointment_id) {
+        //retrieve list of user ids from database
+        List<Long> user_idList = apptRepository.getUsersByAppointmentId(appointment_id);
 
         List<User> userList = new ArrayList<>();
 
-        //for each entry, get the appointment_id and do a get request to retrieve the full appointment.
-        wrapperList.forEach(wrapper -> {
-            long user_id = wrapper.getUser_id();
+        //retrieve appointment entries by id for each id in the list.
+        user_idList.forEach(user_id -> {
             try {
                 userList.add(readUser(user_id));
             } catch (JMSException e) {
@@ -100,8 +82,7 @@ public class ApptManagementServiceImpl implements ApptManagementService {
                 e.printStackTrace();
             }
         });
-        return userList;*/
-        return null;
+        return userList;
     }
 
     //same thing as addApptToUser, both should just add an entry to the join table. Only implementing this version.

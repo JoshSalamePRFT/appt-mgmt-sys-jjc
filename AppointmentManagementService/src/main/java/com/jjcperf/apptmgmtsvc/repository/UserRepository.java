@@ -14,6 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "from users, appointments, users_appointments\n" +
             "where users.user_id = users_appointments.user_id\n" +
             "    and appointments.appointment_id = users_appointments.appointment_id\n" +
-            "    and users.user_id = 1;", nativeQuery = true)
-    List<Long> getAppointmentsByUserId();
+            "    and users.user_id = ?1", nativeQuery = true)
+    List<Long> getAppointmentsByUserId(long id);
 }
