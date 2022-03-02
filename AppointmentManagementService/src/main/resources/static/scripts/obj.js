@@ -31,14 +31,12 @@ class User {
         tr.push(`<td>${this.age}</td>`);
         tr.push(`<td>${this.emailAddress}</td>`);
         tr.push(`<td>${this.phoneNumber}</td>`);
+        tr.push(`<td>`);
         if (editDelete) {
-            // tr.push(`<td>`);
-            // tr.push(`<button class='edit-user'>Edit</button>`);
-            // tr.push(`<button class='delete-user' id=${this.user_id}>Delete</button>`);
-            // tr.push(`</td>`);
-            tr.push(`<td><button class='edit-user'>Edit</button><button class='delete-user' id=${this.user_id}>Delete</button></td>`);
-
+            tr.push(`<button class='edit-user'>Edit</button>`);
+            tr.push(`<button class='delete-user' id=${this.user_id}>Delete</button>`);
         }
+        tr.push(`</td>`);
         tr.push(`</tr>`);
         return tr.join('');
     }

@@ -19,9 +19,24 @@ $(document).ready(function () {
 $(document).delegate('.edit-appt', 'click', function (e) {
     e.preventDefault();
 });
+$(document).delegate('.delete-appt', 'click', function (e) {
+    e.preventDefault();
+    let apptID = e.target.id;
+    $.ajax({
+        type: "DELETE",
+        url: "/api/v1/mgr/delete/appt/" + apptID,
+        cache: false,
+        success: function(result) {
+            console.log(result);
+            location.reload(true);
+        },
+        error: function() {
+        }
+    });
+
+});
 $(document).delegate('#add-appt', 'click', function (e) {
     e.preventDefault();
-    console.log('adding appt');
     let newAppt = new Appointment({
         'appointment_id': null,
         'apptName': 'testAdd',
@@ -38,10 +53,7 @@ $(document).delegate('#add-appt', 'click', function (e) {
         data: newAppt.toJSON(),
         cache: false,
         success: function(result) {
-            // $("#msg").html( "<span style='color: green'>Company added successfully</span>" );
-            // window.setTimeout(function(){location.reload()},1000)
             console.log(result);
-            // location.reload();
         },
         error: function(err) {
         }

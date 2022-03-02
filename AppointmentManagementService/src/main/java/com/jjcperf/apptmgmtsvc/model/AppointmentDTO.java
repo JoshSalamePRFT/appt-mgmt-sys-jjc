@@ -14,7 +14,7 @@ import java.util.Set;
 @Data
 public class AppointmentDTO extends BaseDTO {
 
-    private long appointment_id;
+    private long appointment_id = -1;
     private String apptName;
 
     private String apptType;
