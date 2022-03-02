@@ -65,7 +65,21 @@ public class ApptManagementServiceImpl implements ApptManagementService {
         });
         return appointmentList;*/
 
-        return userRepository.getAppointmentsByUserId();
+        //retrieve list of appointment ids from database
+        List<Long> appointment_idList = userRepository.getAppointmentsByUserId();
+
+        List<Appointment> appointmentList = new ArrayList<>();
+
+        appointment_idList.forEach(appointment_id -> {
+            try {
+                appointmentList.add(readAppointment(appointment_id));
+            } catch (JMSException e) {
+                e.printStackTrace();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        });
+        return appointmentList;
     }
 
     @Override

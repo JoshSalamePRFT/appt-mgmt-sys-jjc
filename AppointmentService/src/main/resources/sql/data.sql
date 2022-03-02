@@ -12,14 +12,17 @@ values
 
 insert into users_appointments (user_id, appointment_id)
 values
-    (1, 93),
-    (7, 93),
-    (4, 93),
-    (2, 93),
-    (1, 104),
-    (1, 105),
-    (1, 112),
-    (1, 115)
+    (1, 33),
+    (7, 33),
+    (4, 33),
+    (2, 33),
+    (1, 4),
+    (1, 5),
+    (1, 12),
+    (1, 15);
+
+select * from users;
+select * from appt_mgmt_sys.appointments;
 
 drop table appointments;
 
