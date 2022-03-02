@@ -3,8 +3,10 @@ package com.jjcperf.apptmgmtsvc.web.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jjcperf.apptmgmtsvc.model.Appointment;
 import com.jjcperf.apptmgmtsvc.model.User;
+import com.jjcperf.apptmgmtsvc.model.UserDTO;
 import com.jjcperf.apptmgmtsvc.service.ApptManagementService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/v1/mgr")
 @RequiredArgsConstructor
+@Slf4j
 public class ApptMgrController {
 
     @Autowired
@@ -66,8 +69,12 @@ public class ApptMgrController {
 
     @PostMapping("/post/user/")
     @ResponseStatus(HttpStatus.CREATED)
-    public User postUser(@RequestBody User user) throws JMSException, JsonProcessingException {
-        return apptManagementService.createUser(user);
+    public User postUser(@RequestBody String userJSON) throws JMSException, JsonProcessingException {
+        System.out.println(userJSON);
+        UserDTO userDTO = new UserDTO();
+        userDTO.SetValues(userJSON);
+        System.out.println(userDTO);
+        return apptManagementService.createUser(userDTO);
     }
 
     @PostMapping("/post/appt/")

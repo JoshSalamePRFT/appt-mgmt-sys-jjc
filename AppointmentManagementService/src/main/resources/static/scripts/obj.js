@@ -70,8 +70,10 @@ class Appointment {
         this.apptName = json.apptName;
         this.apptType = json.apptType;
         this.description = json.description;
-        this.startTime = json.startTime.split('T')[1];
-        this.endTime = json.endTime.split('T')[1];
+        // this.startTime = json.startTime.split('T')[1];
+        // this.endTime = json.endTime.split('T')[1];
+        this.startTime = json.startTime;
+        this.endTime = json.endTime;
         this.metaData = json.metaData;
     }
 
@@ -93,7 +95,6 @@ class Appointment {
         if (editDelete) {
             tr.push(`<button class='edit-appt'>Edit</button>`);
             tr.push(`<button class='delete-appt' id=${this.appointment_id}>Delete</button>`);
-            // tr.push(`<td><button class='edit-appt'>Edit</button><button class='delete-appt' id=${this.appointment_id}>Delete</button></td>`);
         }
         if (includeInviteRSVP) {
             tr.push(`<button class='rsvp-appt' id=${this.appointment_id}>RSVP</button>`);

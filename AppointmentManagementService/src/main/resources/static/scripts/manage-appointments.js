@@ -16,3 +16,5 @@ $(document).ready(function () {
         console.log(apptList);
     });
 });
+$(document).delegate('.edit-appt', 'click', function(e) {
+});

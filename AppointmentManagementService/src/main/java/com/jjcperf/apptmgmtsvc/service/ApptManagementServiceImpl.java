@@ -6,16 +6,20 @@ import com.jjcperf.apptmgmtsvc.model.Appointment;
 //import com.jjcperf.apptmgmtsvc.model.Wrapper;
 import com.jjcperf.apptmgmtsvc.model.User;
 //import com.jjcperf.apptmgmtsvc.repository.ApptAndUserRepository;
+import com.jjcperf.apptmgmtsvc.model.UserDTO;
 import com.jjcperf.apptmgmtsvc.repository.ApptRepository;
 import com.jjcperf.apptmgmtsvc.repository.UserRepository;
+import com.jjcperf.apptmgmtsvc.web.mappers.UserMapperImpl;
 import com.jjcperf.msg.msg.ResponseMessage;
 import com.jjcperf.msg.sender.MgmtSenderAndReceiver;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.jms.JMSException;
 import javax.persistence.EntityManager;
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +33,7 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     ApptRepository apptRepository;
     @Autowired
     UserRepository userRepository;
+
     //@Autowired
     //ApptAndUserRepository apptAndUserRepository;
 
@@ -36,10 +41,11 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     EntityManager entityManager;
 
     ObjectMapper mapper;
-
+    UserMapperImpl userMapper;
     public ApptManagementServiceImpl() {
         mapper = new ObjectMapper();
         mapper.findAndRegisterModules();
+        userMapper = new UserMapperImpl();
     }
 
 
@@ -126,7 +132,10 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     }
 
     @Override
-    public User createUser(User user) throws JsonProcessingException, JMSException {
+    public User createUser(UserDTO dto) throws JsonProcessingException, JMSException {
+//        User user = mapper.convertValue(dto, User.class);
+        User user = userMapper.dtoToUser(dto);
+        System.out.println(user);
         String message = mgmtSenderAndReceiver.sendUserPostMessage(user).getBody(String.class);
         ResponseMessage responseMessage = mapper.readValue(message, ResponseMessage.class);
         return (User) responseMessage.getEntities().get(0);

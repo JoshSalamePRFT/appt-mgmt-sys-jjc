@@ -8,7 +8,11 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <link href="../styles/signup.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+    <script src="../scripts/obj.js"></script>
+    <script src="../scripts/state.js"></script>
+    <script src="../scripts/signup.js"></script>
     <title>Signup</title>
 </head>
 <body>
@@ -22,7 +26,7 @@
     <a href="view-users.html" class="navbar-brand">View Users</a>
 </nav>
 
-<form action="action_page.php" style="border:1px solid #ccc">
+<form id="signup-form" style="border:1px solid #ccc">
     <div class="container">
         <h1>Sign Up</h1>
         <p>Please fill in this form to create an account.</p>
@@ -31,13 +35,26 @@
         <label><b>Email</b>
             <input type="text" placeholder="Enter Email" name="email" required>
         </label>
-        <label><b>Password</b>
-            <input type="password" placeholder="Enter Password" name="psw" required>
-        </label>
-        <label><b>Repeat Password</b>
-            <input type="password" placeholder="Confirm Password" name="psw-confirm" required>
+        <label><b>Phone Number</b>
+            <input type="tel" placeholder="XXX-XXX-XXXX" name="phone" required>
         </label>
 
+        <label><b>First Name</b>
+            <input type="text" placeholder="First" name="first-name" required>
+        </label>
+        <label><b>Last Name</b>
+            <input type="text" placeholder="Last" name="last-name" required>
+        </label>
+        <label><b>Date of Birth</b>
+            <input type="date" name="birthday" required>
+        </label>
+        <label><b>Gender</b>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </label>
         <div class="clearfix">
             <button type="button" class="cancelbtn">Cancel</button>
             <button type="submit" class="signupbtn">Sign Up</button>
