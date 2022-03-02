@@ -18,7 +18,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "User")
+@Entity
 @Table(name = "Users")
 public class User extends BaseEntity implements Serializable  {
     @Id
@@ -52,7 +52,7 @@ public class User extends BaseEntity implements Serializable  {
     @NotBlank
     private String phoneNumber;
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.ALL) //TODO this fixes a LazyInitializationException, but is possibly bad practice
     @JoinTable(
             name = "users_appointments",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -63,3 +63,4 @@ public class User extends BaseEntity implements Serializable  {
     //This provides the mapping. In the other table, use this variable for the mappedBy value. mappedBy="appointments"
     private Set<Appointment> appointments = new HashSet<>();
 }
+

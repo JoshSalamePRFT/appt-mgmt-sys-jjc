@@ -52,7 +52,7 @@ public class User extends BaseEntity implements Serializable  {
     @NotBlank
     private String phoneNumber;
 
-    @ManyToMany() //TODO this fixes a LazyInitializationException, but is possibly bad practice
+    @ManyToMany(cascade = CascadeType.ALL) //TODO this fixes a LazyInitializationException, but is possibly bad practice
     @JoinTable(
             name = "users_appointments",
             joinColumns = @JoinColumn(name = "user_id"),
