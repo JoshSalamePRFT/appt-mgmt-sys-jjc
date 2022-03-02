@@ -1,7 +1,9 @@
 package com.jjcperf.apptmgmtsvc.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jjcperf.apptmgmtsvc.model.Appointment;
+import com.jjcperf.apptmgmtsvc.model.AppointmentDTO;
 import com.jjcperf.apptmgmtsvc.model.User;
 import com.jjcperf.apptmgmtsvc.model.UserDTO;
 import com.jjcperf.apptmgmtsvc.service.ApptManagementService;
@@ -24,6 +26,8 @@ public class ApptMgrController {
 
     @Autowired
     private final ApptManagementService apptManagementService;
+
+    private final ObjectMapper mapper;
 
     @GetMapping("/hello")
     public String hello() {
@@ -71,16 +75,18 @@ public class ApptMgrController {
     @ResponseStatus(HttpStatus.CREATED)
     public User postUser(@RequestBody String userJSON) throws JMSException, JsonProcessingException {
         System.out.println(userJSON);
-        UserDTO userDTO = new UserDTO();
-        userDTO.SetValues(userJSON);
+        UserDTO userDTO = mapper.readValue(userJSON, UserDTO.class);
         System.out.println(userDTO);
         return apptManagementService.createUser(userDTO);
     }
 
     @PostMapping("/post/appt/")
     @ResponseStatus(HttpStatus.CREATED)
-    public Appointment postAppointment(@RequestBody Appointment appointment) throws JMSException, JsonProcessingException {
-        return apptManagementService.createAppointment(appointment);
+    public Appointment postAppointment(@RequestBody String apptJSON) throws JMSException, JsonProcessingException {
+        System.out.println(apptJSON);
+        AppointmentDTO apptDTO = mapper.readValue(apptJSON, AppointmentDTO.class);
+        System.out.println(apptDTO);
+        return apptManagementService.createAppointment(apptDTO);
     }
 
     @PutMapping("/put/user/{user_id}")

@@ -30,7 +30,6 @@ public class    UserDTO extends BaseDTO {
     private long user_id = -1;
 
     @NotBlank
-    @JsonProperty()
     private String firstName;
 
     @NotBlank
@@ -51,15 +50,4 @@ public class    UserDTO extends BaseDTO {
     private String phoneNumber;
 
     private Set<Appointment> appointments = new HashSet<>();
-
-    public void SetValues(String json) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        UserDTO dummy = mapper.readValue(json, UserDTO.class);
-        firstName = dummy.firstName;
-        lastName = dummy.lastName;
-        gender = dummy.gender;
-        age = dummy.age;
-        emailAddress= dummy.emailAddress;
-        phoneNumber = dummy.phoneNumber;
-    }
 }

@@ -2,14 +2,12 @@ package com.jjcperf.apptmgmtsvc.web.mappers;
 
 import com.jjcperf.apptmgmtsvc.model.Appointment;
 import com.jjcperf.apptmgmtsvc.model.AppointmentDTO;
+import org.mapstruct.Mapper;
 
-public class ApptMapper {
+@Mapper
+public interface ApptMapper {
 
-    public AppointmentDTO apptToDTO(Appointment appt) {
-        return null;
-    }
+    public AppointmentDTO apptToDTO(Appointment appt);
 
-    public Appointment dtoToAppt(AppointmentDTO dto) {
-        return null;
-    }
+    public Appointment dtoToAppt(AppointmentDTO dto);
 }

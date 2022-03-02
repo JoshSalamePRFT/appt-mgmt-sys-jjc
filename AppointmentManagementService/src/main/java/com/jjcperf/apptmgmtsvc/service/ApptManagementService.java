@@ -2,6 +2,7 @@ package com.jjcperf.apptmgmtsvc.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jjcperf.apptmgmtsvc.model.Appointment;
+import com.jjcperf.apptmgmtsvc.model.AppointmentDTO;
 import com.jjcperf.apptmgmtsvc.model.User;
 import com.jjcperf.apptmgmtsvc.model.UserDTO;
 
@@ -22,7 +23,7 @@ public interface ApptManagementService {
     Appointment readAppointment(long appt_id) throws JMSException, JsonProcessingException;
 
     User createUser(UserDTO user) throws JsonProcessingException, JMSException;
-    Appointment createAppointment(Appointment appointment) throws JMSException, JsonProcessingException;
+    Appointment createAppointment(AppointmentDTO appointment) throws JMSException, JsonProcessingException;
 
     User updateUser(long user_id, User user) throws JMSException, JsonProcessingException;
     Appointment updateAppointment(long appt_id, Appointment appointment) throws JMSException, JsonProcessingException;
