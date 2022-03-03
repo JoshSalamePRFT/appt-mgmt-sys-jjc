@@ -2,17 +2,16 @@ package com.jjcperf.apptmgmtsvc.web.mappers;
 
 import com.jjcperf.apptmgmtsvc.model.User;
 import com.jjcperf.apptmgmtsvc.model.UserDTO;
-import com.jjcperf.apptmgmtsvc.service.ApptManagementService;
-import org.apache.catalina.realm.UserDatabaseRealm;
+import com.jjcperf.apptmgmtsvc.service.AppointmentManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class UserMapperDecorator implements UserMapper {
-    private ApptManagementService apptManagementService;
+    private AppointmentManagementService appointmentManagementService;
     private UserMapper mapper;
 
     @Autowired
-    public void setApptManagementService(ApptManagementService apptManagementService) {
-        this.apptManagementService = apptManagementService;
+    public void setAppointmentManagementService(AppointmentManagementService appointmentManagementService) {
+        this.appointmentManagementService = appointmentManagementService;
     }
 
     @Autowired
@@ -22,8 +21,7 @@ public abstract class UserMapperDecorator implements UserMapper {
 
     @Override
     public UserDTO userToDTO(User user) {
-        UserDTO dto = mapper.userToDTO(user);
-        return dto;
+        return mapper.userToDTO(user);
     }
 
     @Override

@@ -234,7 +234,7 @@ public class MgmtSenderAndReceiver {
     }
 
     private Message sendAndReceiveMessage(String queue, String type, Object messageToSend) {
-        Message responseMessage = jmsTemplate.sendAndReceive(queue, new MessageCreator() {
+        return jmsTemplate.sendAndReceive(queue, new MessageCreator() {
             @Override
             public Message createMessage(Session session) throws JMSException {
                 Message message;
@@ -249,8 +249,6 @@ public class MgmtSenderAndReceiver {
                 return message;
             }
         });
-
-        return responseMessage;
     }
 
 

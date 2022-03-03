@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;

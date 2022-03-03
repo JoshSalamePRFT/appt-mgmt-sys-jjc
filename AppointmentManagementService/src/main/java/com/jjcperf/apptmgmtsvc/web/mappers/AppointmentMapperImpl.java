@@ -2,19 +2,18 @@ package com.jjcperf.apptmgmtsvc.web.mappers;
 
 import com.jjcperf.apptmgmtsvc.model.Appointment;
 import com.jjcperf.apptmgmtsvc.model.AppointmentDTO;
-import com.jjcperf.apptmgmtsvc.model.UserDTO;
 
-public class ApptMapperImpl implements ApptMapper {
+public class AppointmentMapperImpl implements AppointmentMapper {
     @Override
-    public AppointmentDTO apptToDTO(Appointment appt) {
-        return new AppointmentDTO(appt.getAppointment_id(),
-                appt.getApptName(),
-                appt.getApptType(),
-                appt.getDescription(),
-                appt.getStartTime(),
-                appt.getEndTime(),
-                appt.getMetaData(),
-                appt.getUsers()
+    public AppointmentDTO apptToDTO(Appointment appointment) {
+        return new AppointmentDTO(appointment.getAppointment_id(),
+                appointment.getApptName(),
+                appointment.getApptType(),
+                appointment.getDescription(),
+                appointment.getStartTime(),
+                appointment.getEndTime(),
+                appointment.getMetaData(),
+                appointment.getUsers()
         );
     }
 

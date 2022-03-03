@@ -3,60 +3,52 @@ package com.jjcperf.apptmgmtsvc.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jjcperf.apptmgmtsvc.model.Appointment;
-//import com.jjcperf.apptmgmtsvc.model.Wrapper;
 import com.jjcperf.apptmgmtsvc.model.AppointmentDTO;
 import com.jjcperf.apptmgmtsvc.model.User;
-//import com.jjcperf.apptmgmtsvc.repository.ApptAndUserRepository;
 import com.jjcperf.apptmgmtsvc.model.UserDTO;
-import com.jjcperf.apptmgmtsvc.repository.ApptRepository;
+import com.jjcperf.apptmgmtsvc.repository.AppointmentRepository;
 import com.jjcperf.apptmgmtsvc.repository.UserRepository;
-import com.jjcperf.apptmgmtsvc.web.mappers.ApptMapperImpl;
+import com.jjcperf.apptmgmtsvc.web.mappers.AppointmentMapperImpl;
 import com.jjcperf.apptmgmtsvc.web.mappers.UserMapperImpl;
 import com.jjcperf.msg.msg.ResponseMessage;
 import com.jjcperf.msg.sender.MgmtSenderAndReceiver;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.jms.JMSException;
 import javax.persistence.EntityManager;
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ApptManagementServiceImpl implements ApptManagementService {
+public class AppointmentManagementServiceImpl implements AppointmentManagementService {
 
     @Autowired
     MgmtSenderAndReceiver mgmtSenderAndReceiver;
 
     @Autowired
-    ApptRepository apptRepository;
+    AppointmentRepository appointmentRepository;
     @Autowired
     UserRepository userRepository;
-
-    //@Autowired
-    //ApptAndUserRepository apptAndUserRepository;
 
     @Autowired
     EntityManager entityManager;
 
     ObjectMapper mapper;
     UserMapperImpl userMapper;
-    ApptMapperImpl apptMapper;
-    public ApptManagementServiceImpl() {
+    AppointmentMapperImpl appointmentMapper;
+    public AppointmentManagementServiceImpl() {
         mapper = new ObjectMapper();
         mapper.findAndRegisterModules();
         userMapper = new UserMapperImpl();
-        apptMapper = new ApptMapperImpl();
+        appointmentMapper = new AppointmentMapperImpl();
     }
 
 
     //TODO implement methods
 
     @Override
-    public List<Appointment> listApptsByUserId(long user_id) {
+    public List<Appointment> listAppointmentsByUserId(long user_id) {
         //retrieve list of appointment ids from database
         List<Long> appointment_idList = userRepository.getAppointmentsByUserId(user_id);
 
@@ -76,9 +68,9 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     }
 
     @Override
-    public List<User> listUsersByApptId(long appointment_id) {
+    public List<User> listUsersByAppointmentId(long appointment_id) {
         //retrieve list of user ids from database
-        List<Long> user_idList = apptRepository.getUsersByAppointmentId(appointment_id);
+        List<Long> user_idList = appointmentRepository.getUsersByAppointmentId(appointment_id);
 
         List<User> userList = new ArrayList<>();
 
@@ -95,15 +87,15 @@ public class ApptManagementServiceImpl implements ApptManagementService {
         return userList;
     }
 
-    //same thing as addApptToUser, both should just add an entry to the join table. Only implementing this version.
+    //same thing as addAppointmentToUser, both should just add an entry to the join table. Only implementing this version.
     //TODO maybe add some sort of success response. Could do in the controller instead, just "Success" if no error was thrown.
     @Override
-    public void addUserToAppt(long user_id, long appt_id) {
-        userRepository.addUserToAppointment(user_id, appt_id);
+    public void addUserToAppointment(long user_id, long appointment_id) {
+        userRepository.addUserToAppointment(user_id, appointment_id);
     }
 
 
-    //CRUD FOR USER & APPT
+    //CRUD FOR USER & APPOINTMENT
     //TODO code cleanup
 
     @Override
@@ -111,15 +103,15 @@ public class ApptManagementServiceImpl implements ApptManagementService {
         //Conversion from Message to String to ResponseMessage to List
         String message = mgmtSenderAndReceiver.sendUserGetAllMessage().getBody(String.class);
         ResponseMessage responseMessage = mapper.readValue(message, ResponseMessage.class);
-        return responseMessage.getEntities();
+        return (List<User>) responseMessage.getEntities();
     }
 
     @Override
-    public List<Appointment> listAppts() throws JMSException, JsonProcessingException {
+    public List<Appointment> listAppointments() throws JMSException, JsonProcessingException {
         //Conversion from Message to String to ResponseMessage to List
         String message = mgmtSenderAndReceiver.sendAppointmentGetAllMessage().getBody(String.class);
         ResponseMessage responseMessage = mapper.readValue(message, ResponseMessage.class);
-        return responseMessage.getEntities();
+        return (List<Appointment>) responseMessage.getEntities();
     }
 
     @Override
@@ -130,8 +122,8 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     }
 
     @Override
-    public Appointment readAppointment(long appt_id) throws JMSException, JsonProcessingException {
-        String message = mgmtSenderAndReceiver.sendAppointmentGetMessage(appt_id).getBody(String.class);
+    public Appointment readAppointment(long appointment_id) throws JMSException, JsonProcessingException {
+        String message = mgmtSenderAndReceiver.sendAppointmentGetMessage(appointment_id).getBody(String.class);
         ResponseMessage responseMessage = mapper.readValue(message, ResponseMessage.class);
         return (Appointment) responseMessage.getEntities().get(0);
     }
@@ -147,9 +139,9 @@ public class ApptManagementServiceImpl implements ApptManagementService {
 
     @Override
     public Appointment createAppointment(AppointmentDTO dto) throws JMSException, JsonProcessingException {
-        Appointment appt = apptMapper.dtoToAppt(dto);
-        System.out.println(appt);
-        String message = mgmtSenderAndReceiver.sendAppointmentPostMessage(appt).getBody(String.class);
+        Appointment appointment = appointmentMapper.dtoToAppt(dto);
+        System.out.println(appointment);
+        String message = mgmtSenderAndReceiver.sendAppointmentPostMessage(appointment).getBody(String.class);
         ResponseMessage responseMessage = mapper.readValue(message, ResponseMessage.class);
         return (Appointment) responseMessage.getEntities().get(0);
     }
@@ -162,8 +154,8 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     }
 
     @Override
-    public Appointment updateAppointment(long appt_id, Appointment appointment) throws JMSException, JsonProcessingException {
-        String message = mgmtSenderAndReceiver.sendAppointmentPutMessage(appt_id, appointment).getBody(String.class);
+    public Appointment updateAppointment(long appointment_id, Appointment appointment) throws JMSException, JsonProcessingException {
+        String message = mgmtSenderAndReceiver.sendAppointmentPutMessage(appointment_id, appointment).getBody(String.class);
         ResponseMessage responseMessage = mapper.readValue(message, ResponseMessage.class);
         return (Appointment) responseMessage.getEntities().get(0);
     }
@@ -174,7 +166,7 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     }
 
     @Override
-    public void deleteAppointment(long appt_id) {
-        mgmtSenderAndReceiver.sendAppointmentDeleteMessage(appt_id);
+    public void deleteAppointment(long appointment_id) {
+        mgmtSenderAndReceiver.sendAppointmentDeleteMessage(appointment_id);
     }
 }

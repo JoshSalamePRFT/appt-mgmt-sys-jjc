@@ -5,9 +5,9 @@ import com.jjcperf.apptmgmtsvc.model.AppointmentDTO;
 import org.mapstruct.Mapper;
 
 @Mapper
-public interface ApptMapper {
+public interface AppointmentMapper {
 
-    public AppointmentDTO apptToDTO(Appointment appt);
+    AppointmentDTO apptToDTO(Appointment appointment);
 
-    public Appointment dtoToAppt(AppointmentDTO dto);
+    Appointment dtoToAppt(AppointmentDTO dto);
 }

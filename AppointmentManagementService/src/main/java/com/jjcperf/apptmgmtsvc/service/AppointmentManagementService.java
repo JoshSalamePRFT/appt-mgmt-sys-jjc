@@ -9,25 +9,25 @@ import com.jjcperf.apptmgmtsvc.model.UserDTO;
 import javax.jms.JMSException;
 import java.util.List;
 
-public interface ApptManagementService {
+public interface AppointmentManagementService {
 
     List<User> listUsers() throws JMSException, JsonProcessingException;
-    List<Appointment> listAppts() throws JMSException, JsonProcessingException;
+    List<Appointment> listAppointments() throws JMSException, JsonProcessingException;
 
-    List<Appointment> listApptsByUserId(long id) throws JMSException, JsonProcessingException;
-    List<User> listUsersByApptId(long id) throws JsonProcessingException, JMSException;
+    List<Appointment> listAppointmentsByUserId(long id);
+    List<User> listUsersByAppointmentId(long id);
 
-    void addUserToAppt(long user_id, long appt_id);
+    void addUserToAppointment(long user_id, long appointment_id);
 
     User readUser(long user_id) throws JMSException, JsonProcessingException;
-    Appointment readAppointment(long appt_id) throws JMSException, JsonProcessingException;
+    Appointment readAppointment(long appointment_id) throws JMSException, JsonProcessingException;
 
     User createUser(UserDTO user) throws JsonProcessingException, JMSException;
     Appointment createAppointment(AppointmentDTO appointment) throws JMSException, JsonProcessingException;
 
     User updateUser(long user_id, User user) throws JMSException, JsonProcessingException;
-    Appointment updateAppointment(long appt_id, Appointment appointment) throws JMSException, JsonProcessingException;
+    Appointment updateAppointment(long appointment_id, Appointment appointment) throws JMSException, JsonProcessingException;
 
-    void deleteUser(long user_id) throws JMSException;
-    void deleteAppointment(long appt_id);
+    void deleteUser(long user_id);
+    void deleteAppointment(long appointment_id);
 }
