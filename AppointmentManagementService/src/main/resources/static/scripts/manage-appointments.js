@@ -24,7 +24,7 @@ $(document).delegate('.edit-appt', 'click', function (e) {
     //TODO
 });
 
-
+//TODO change mapping to delete from users_appts
 $(document).delegate('.delete-appt', 'click', function (e) {
     e.preventDefault();
     let apptID = e.target.value;
