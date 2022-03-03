@@ -67,6 +67,7 @@ public class ApptControllerTests {
     @Test
     public void postTest() throws Exception {
         when(apptService.createAppt(any())).thenReturn(appt);
+        System.out.println("Just before asJson call");
         mockMvc.perform(post("/api/v1/appt/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(appt)))
