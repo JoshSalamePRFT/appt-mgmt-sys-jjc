@@ -1,4 +1,4 @@
-package com.jjcperf.appointmentservice.repository;
+/*package com.jjcperf.appointmentservice.repository;
 
 import com.jjcperf.appointmentservice.ApptApp;
 import com.jjcperf.appointmentservice.model.Appointment;
@@ -74,3 +74,4 @@ class ApptRepositoryTests {
     }
 
 }
+*/
