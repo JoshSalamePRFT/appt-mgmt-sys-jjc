@@ -18,6 +18,8 @@ import javax.jms.JMSException;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO perhaps split controllers and services into MgmtService related stuff and Appt/User related stuff.
+
 @RestController
 @RequestMapping("api/v1/mgr")
 @RequiredArgsConstructor
@@ -57,12 +59,13 @@ public class ApptMgrController {
         return apptManagementService.listUsersByApptId(apptId);
     }
 
+    /* TODO perhaps change to use a request body instead of path variables.
+     * Also perhaps change return type to string or something to indicate success (though responsestatus might be ok. */
     @PostMapping("/add-user-to-appt/{user_id}/{appt_id}")
     @ResponseStatus(HttpStatus.CREATED)
     public void addUserToAppointment(@PathVariable("user_id") long user_id, @PathVariable("appt_id") long appt_id) {
         apptManagementService.addUserToAppt(user_id, appt_id);
     }
-
 
     //CRUD FOR USER & APPT BELOW
     @GetMapping("/get/user/{user_id}")
