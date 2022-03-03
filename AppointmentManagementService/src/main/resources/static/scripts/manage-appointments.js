@@ -27,6 +27,7 @@ $(document).delegate('.edit-appt', 'click', function (e) {
 
 
 $(document).delegate('.unrsvp-appt', 'click', function (e) {
+//TODO change mapping to delete from users_appts
     e.preventDefault();
     let apptID = e.target.value;
     $.ajax({
