@@ -57,6 +57,12 @@ public class ApptMgrController {
         return apptManagementService.listUsersByApptId(apptId);
     }
 
+    @PostMapping("/add-user-to-appt/{user_id}/{appt_id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addUserToAppointment(@PathVariable("user_id") long user_id, @PathVariable("appt_id") long appt_id) {
+        apptManagementService.addUserToAppt(user_id, appt_id);
+    }
+
 
     //CRUD FOR USER & APPT BELOW
     @GetMapping("/get/user/{user_id}")

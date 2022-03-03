@@ -96,9 +96,10 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     }
 
     //same thing as addApptToUser, both should just add an entry to the join table. Only implementing this version.
+    //TODO maybe add some sort of success response. Could do in the controller instead, just "Success" if no error was thrown.
     @Override
     public void addUserToAppt(long user_id, long appt_id) {
-
+        userRepository.addUserToAppointment(user_id, appt_id);
     }
 
 

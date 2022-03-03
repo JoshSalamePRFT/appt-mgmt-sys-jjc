@@ -13,6 +13,7 @@ public interface ApptRepository extends JpaRepository<Appointment, Long> {
             "from users, appointments, users_appointments\n" +
             "where users.user_id = users_appointments.user_id\n" +
             "    and appointments.appointment_id = users_appointments.appointment_id\n" +
-            "    and appointments.appointment_id = ?1", nativeQuery = true)
+            "    and appointments.appointment_id = ?1",
+            nativeQuery = true)
     List<Long> getUsersByAppointmentId(long id);
 }
