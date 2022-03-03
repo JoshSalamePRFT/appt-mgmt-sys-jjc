@@ -1,8 +1,10 @@
 $(document).delegate('#login-form', 'submit', function(e) {
     e.preventDefault();
     // console.log('hi i did a thing');
+
+    //TODO call rest endpoint to getUserByEmail (or getUserByPhone)
     let user = new User({
-        'user_id': 111,
+        'user_id': 1,
         'firstName': "Guy",
         'lastName': "Incognito",
         'gender': "Who's askin",

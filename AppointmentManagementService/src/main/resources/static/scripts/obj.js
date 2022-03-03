@@ -29,7 +29,7 @@ class User {
         tr.push(`<td>${this.lastName}</td>`);
         tr.push(`<td>${this.gender}</td>`);
         tr.push(`<td>${this.age}</td>`);
-        tr.push(`<td>${this.emailAddress}</td>`);
+        tr.push(`<td>${this.emailAddress}</td>`);   
         tr.push(`<td>${this.phoneNumber}</td>`);
         tr.push(`<td>`);
         if (editDelete) {
@@ -68,8 +68,8 @@ class Appointment {
         this.apptName = json.apptName;
         this.apptType = json.apptType;
         this.description = json.description;
-        // this.startTime = json.startTime.split('T')[1];
-        // this.endTime = json.endTime.split('T')[1];
+        // this.startTime = json.startTime.split('T')[1]; //only shows time, not date
+        // this.endTime = json.endTime.split('T')[1]; //only shows time, not date
         this.startTime = json.startTime;
         this.endTime = json.endTime;
         this.metaData = json.metaData;
