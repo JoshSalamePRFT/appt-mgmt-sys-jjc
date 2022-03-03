@@ -16,10 +16,15 @@ $(document).ready(function () {
 });
 $(document).delegate('.edit-appt', 'click', function (e) {
     e.preventDefault();
+    const apptID = e.target.value;
+    const appt = apptList.find<Appointment>(a => a.appointment_id == apptID);
+    const row = document.getElementById(apptID);
+    console.log(`${apptID} :: ${appt} :: ${row}`);
+
 });
 $(document).delegate('.delete-appt', 'click', function (e) {
     e.preventDefault();
-    let apptID = e.target.id;
+    let apptID = e.target.value;
     $.ajax({
         type: "DELETE",
         url: "/api/v1/mgr/delete/appt/" + apptID,

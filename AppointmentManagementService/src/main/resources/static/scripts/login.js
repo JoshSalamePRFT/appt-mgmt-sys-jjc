@@ -9,6 +9,7 @@ $(document).delegate('#login-form', 'submit', function(e) {
         'age': 47,
         'emailAddress': "aa@aa.com",
         'phoneNumber': "795-112-3345"
-    })
+    });
     State.LiveID = user.user_id;
+
 });
