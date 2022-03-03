@@ -29,7 +29,7 @@ class User {
         tr.push(`<td>${this.lastName}</td>`);
         tr.push(`<td>${this.gender}</td>`);
         tr.push(`<td>${this.age}</td>`);
-        tr.push(`<td>${this.emailAddress}</td>`);   
+        tr.push(`<td>${this.emailAddress}</td>`);
         tr.push(`<td>${this.phoneNumber}</td>`);
         tr.push(`<td>`);
         if (editDelete) {
@@ -92,7 +92,7 @@ class Appointment {
         tr.push(`<td>`);
         if (editDelete) {
             tr.push(`<button class='edit-appt' value=${this.appointment_id}>Edit</button>`);
-            tr.push(`<button class='delete-appt' value=${this.appointment_id}>Delete</button>`);
+            tr.push(`<button class='unrsvp-appt' value=${this.appointment_id}>UnRSVP</button>`);
         }
         if (inviteRSVP) {
             tr.push(`<button class='rsvp-appt' value=${this.appointment_id}>RSVP</button>`);
