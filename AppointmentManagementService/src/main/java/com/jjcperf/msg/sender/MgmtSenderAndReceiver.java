@@ -165,7 +165,6 @@ public class MgmtSenderAndReceiver {
         return responseMessage;
     }
 
-    //@Scheduled(fixedRate = 5000) //TODO remove this code once controller calls work correctly.
     public Message sendUserGetAllMessage() throws JMSException {
         UserGetAllMessage message = UserGetAllMessage
                 .builder()
@@ -182,7 +181,6 @@ public class MgmtSenderAndReceiver {
         return responseMessage;
     }
 
-    //@Scheduled(fixedRate = 5000) //TODO remove this code once controller calls work correctly.
     public Message sendAppointmentGetAllMessage() throws JMSException {
         ApptGetAllMessage message = ApptGetAllMessage
                 .builder()
@@ -195,40 +193,6 @@ public class MgmtSenderAndReceiver {
                 "com.jjcperf.msg.msg.appt.ApptGetAllMessage", message);
 
         log.debug("I Got an Appointment GetAll Response!  " + responseMessage.getBody(String.class));
-
-        return responseMessage;
-    }
-
-    public Message sendAppointmentGetAllByUserIdMessage(long user_id) throws JMSException {
-        ApptGetAllByUserIDMessage message = ApptGetAllByUserIDMessage
-                .builder()
-                .criteriaType(CriteriaTypeEnum.NUMBER)
-                .user_id(user_id)
-                .build();
-
-        log.debug("Sending an Appt Get All By User ID Request!");
-
-        Message responseMessage = sendAndReceiveMessage(JmsConfig.APPT_GETALLBYUSERID_QUEUE,
-                "com.jjcperf.msg.msg.appt.ApptGetAllByUserIDMessage", message);
-
-        log.debug("I Got an Appointment GetAllByUserID Response!  " + responseMessage.getBody(String.class));
-
-        return responseMessage;
-    }
-
-    public Message sendUserGetAllByAppointmentIdMessage(long appt_id) throws JMSException {
-        UserGetAllByApptIDMessage message = UserGetAllByApptIDMessage
-                .builder()
-                .criteriaType(CriteriaTypeEnum.NUMBER)
-                .appt_id(appt_id)
-                .build();
-
-        log.debug("Sending a User Get All By Appt ID Request!");
-
-        Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_GETALLBYAPPTID_QUEUE,
-                "com.jjcperf.msg.msg.appt.ApptGetAllByUserIDMessage", message);
-
-        log.debug("I Got a User GetAllByApptID Response!  " + responseMessage.getBody(String.class));
 
         return responseMessage;
     }
