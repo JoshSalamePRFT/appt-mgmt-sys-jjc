@@ -79,7 +79,7 @@ class Appointment {
         return `${this.appointment_id} ${this.apptName} ${this.startTime} ${this.endTime}`;
     }
 
-    toTableRow(editDelete = false, includeInviteRSVP = false) {
+    toTableRow(editDelete = false, inviteRSVP = false) {
         let tr = [];
         tr.push(`<tr>`);
         tr.push(`<td>${this.appointment_id}</td>`);
@@ -91,10 +91,10 @@ class Appointment {
         tr.push(`<td>${this.metaData}</td>`);
         tr.push(`<td>`);
         if (editDelete) {
-            tr.push(`<button class='edit-appt'>Edit</button>`);
+            tr.push(`<button class='edit-appt' id=${this.appointment_id}>Edit</button>`);
             tr.push(`<button class='delete-appt' id=${this.appointment_id}>Delete</button>`);
         }
-        if (includeInviteRSVP) {
+        if (inviteRSVP) {
             tr.push(`<button class='rsvp-appt' id=${this.appointment_id}>RSVP</button>`);
             tr.push(`<button class='invite-appt' id=${this.appointment_id}>Invite</button>`);
         }

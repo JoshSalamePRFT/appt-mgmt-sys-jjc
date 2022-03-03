@@ -1,10 +1,9 @@
 let apptList = [];
 let $table;
-let loggedInID;
 
 $(document).ready(function () {
     $table = $('table');
-    loggedInID = parseInt(sessionStorage.getItem('user-id'));
+    console.log(State.LiveID);
     $.getJSON('/api/v1/mgr/getappts', function (json) {
         var trs = [];
         for (var i = 0; i < json.length; i++) {
