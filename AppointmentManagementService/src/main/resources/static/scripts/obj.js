@@ -33,7 +33,7 @@ class User {
         tr.push(`<td>${this.phoneNumber}</td>`);
         tr.push(`<td>`);
         if (editDelete) {
-            tr.push(`<button class='edit-user'>Edit</button>`);
+            tr.push(`<button class='edit-user' id=${this.user_id}>Edit</button>`);
             tr.push(`<button class='delete-user' id=${this.user_id}>Delete</button>`);
         }
         tr.push(`</td>`);
@@ -68,8 +68,8 @@ class Appointment {
         this.apptName = json.apptName;
         this.apptType = json.apptType;
         this.description = json.description;
-        // this.startTime = json.startTime.split('T')[1];
-        // this.endTime = json.endTime.split('T')[1];
+        // this.startTime = json.startTime.split('T')[1]; //only shows time, not date
+        // this.endTime = json.endTime.split('T')[1]; //only shows time, not date
         this.startTime = json.startTime;
         this.endTime = json.endTime;
         this.metaData = json.metaData;

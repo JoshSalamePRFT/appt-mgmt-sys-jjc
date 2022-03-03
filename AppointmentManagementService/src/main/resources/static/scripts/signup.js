@@ -20,6 +20,7 @@ $(document).delegate('#signup-form', 'submit', function (e) {
         cache: false,
         success: function(result) {
             console.log(result);
+            //TODO redirect to Manage Appointments page.
         },
         error: function(err) {
         }
