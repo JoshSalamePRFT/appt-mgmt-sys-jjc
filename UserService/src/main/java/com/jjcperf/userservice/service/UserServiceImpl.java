@@ -26,6 +26,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User readUserByEmail(String email) {
+        return userRepository.findByEmailAddress(email);
+    }
+
+    @Override
     public User updateUser(User user, long user_id) {
         //Check whether that entry actually exists. If not, throw an error.
         User oldUser = userRepository.findById(user_id).orElseThrow();
@@ -56,4 +61,6 @@ public class UserServiceImpl implements UserService {
     public List<User> listUsersByApptId(long appt_id) {
         return null;
     }
+
+
 }

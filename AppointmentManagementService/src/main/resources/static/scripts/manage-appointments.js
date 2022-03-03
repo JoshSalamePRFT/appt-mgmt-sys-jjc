@@ -1,12 +1,11 @@
 let apptList = [];
-let loggedInID = -1;
 let $table;
 
 $(document).ready(function () {
     $table = $('table');
-    loggedInID = parseInt(sessionStorage.getItem('user-id'));
-    console.log(loggedInID);
-    $.getJSON('/api/v1/mgr/getappts', function (json) {
+    console.log(State.LiveID);
+    $.getJSON(`/api/v1/mgr/${State.LiveID}/getappts`, function (json) {
+        console.log(json);
         for (var i = 0; i < json.length; i++) {
             let appt = new Appointment(json[i]);
             // console.log(appt.toJSON());
@@ -18,10 +17,19 @@ $(document).ready(function () {
 });
 $(document).delegate('.edit-appt', 'click', function (e) {
     e.preventDefault();
+    const apptID = e.target.value;
+    const appt = apptList.find<Appointment>(a => a.appointment_id == apptID);
+    const row = document.getElementById(apptID);
+    console.log(`${apptID} :: ${appt} :: ${row}`);
+
+    //TODO
 });
-$(document).delegate('.delete-appt', 'click', function (e) {
+
+
+$(document).delegate('.unrsvp-appt', 'click', function (e) {
+//TODO change mapping to delete from users_appts
     e.preventDefault();
-    let apptID = e.target.id;
+    let apptID = e.target.value;
     $.ajax({
         type: "DELETE",
         url: "/api/v1/mgr/delete/appt/" + apptID,
@@ -31,31 +39,6 @@ $(document).delegate('.delete-appt', 'click', function (e) {
             location.reload(true);
         },
         error: function() {
-        }
-    });
-
-});
-$(document).delegate('#add-appt', 'click', function (e) {
-    e.preventDefault();
-    let newAppt = new Appointment({
-        'appointment_id': null,
-        'apptName': 'testAdd',
-        'apptType': 'experimental',
-        'description': 'there is nothing to fear',
-        'startTime': '2018-12-12T13:30:30',
-        'endTime': '2018-12-12T14:30:30',
-        'metaData': null
-    });
-    $.ajax({
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        url: "/api/v1/mgr/post/appt/",
-        data: newAppt.toJSON(),
-        cache: false,
-        success: function(result) {
-            console.log(result);
-        },
-        error: function(err) {
         }
     });
 });

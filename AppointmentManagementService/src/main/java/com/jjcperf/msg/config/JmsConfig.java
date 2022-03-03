@@ -15,14 +15,13 @@ public class JmsConfig {
     public static final String USER_PUT_QUEUE = "user-put";
     public static final String USER_DELETE_QUEUE = "user-delete";
     public static final String USER_GETALL_QUEUE = "user-getall";
-    public static final String USER_GETALLBYAPPTID_QUEUE = "user-getall-by-apptID";
+    public static final String USER_GETBYEMAIL_QUEUE = "user-get-by-email";
 
     public static final String APPT_GET_QUEUE = "appt-get";
     public static final String APPT_POST_QUEUE = "appt-post";
     public static final String APPT_PUT_QUEUE = "appt-put";
     public static final String APPT_DELETE_QUEUE = "appt-delete";
     public static final String APPT_GETALL_QUEUE = "appt-getall";
-    public static final String APPT_GETALLBYUSERID_QUEUE = "appt-getall-by-userID";
 
     @Bean
     public MessageConverter messageConverter(ObjectMapper objectMapper) {

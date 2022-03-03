@@ -2,7 +2,7 @@ $(document).delegate('#signup-form', 'submit', function (e) {
     e.preventDefault();
     console.log(e);
     const birthday = new Date(e.target[4].value);
-    var age = new Date(Date.now() - new Date(birthday)).getFullYear() - 1970;
+    const age = new Date(Date.now() - new Date(birthday)).getFullYear() - 1970;
     let newUser = new User({
         'user_id': null,
         'emailAddress': e.target[0].value,
@@ -18,10 +18,13 @@ $(document).delegate('#signup-form', 'submit', function (e) {
         url: "/api/v1/mgr/post/user/",
         data: newUser.toJSON(),
         cache: false,
-        success: function(result) {
-            // $("#msg").html( "<span style='color: green'>Company added successfully</span>" );
-            // window.setTimeout(function(){location.reload()},1000)
-            console.log(result);
+        success: function(json) {
+            console.log(json);
+            //TODO redirect to Manage Appointments page.
+            // location.replace('http://localhost:8080/');
+            let user = new User(json);
+            State.LiveID = user.user_id;
+            location.replace('http://localhost:8080/html/manage-appointments.html');
         },
         error: function(err) {
         }
