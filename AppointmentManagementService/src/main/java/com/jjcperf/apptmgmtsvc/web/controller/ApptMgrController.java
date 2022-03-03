@@ -1,7 +1,9 @@
 package com.jjcperf.apptmgmtsvc.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jjcperf.apptmgmtsvc.model.Appointment;
+import com.jjcperf.apptmgmtsvc.model.AppointmentDTO;
 import com.jjcperf.apptmgmtsvc.model.User;
 import com.jjcperf.apptmgmtsvc.model.UserDTO;
 import com.jjcperf.apptmgmtsvc.service.ApptManagementService;
@@ -16,6 +18,8 @@ import javax.jms.JMSException;
 import java.util.ArrayList;
 import java.util.List;
 
+//TODO perhaps split controllers and services into MgmtService related stuff and Appt/User related stuff.
+
 @RestController
 @RequestMapping("api/v1/mgr")
 @RequiredArgsConstructor
@@ -24,6 +28,8 @@ public class ApptMgrController {
 
     @Autowired
     private final ApptManagementService apptManagementService;
+
+    private final ObjectMapper mapper;
 
     @GetMapping("/hello")
     public String hello() {
@@ -53,6 +59,13 @@ public class ApptMgrController {
         return apptManagementService.listUsersByApptId(apptId);
     }
 
+    /* TODO perhaps change to use a request body instead of path variables.
+     * Also perhaps change return type to string or something to indicate success (though responsestatus might be ok. */
+    @PostMapping("/add-user-to-appt/{user_id}/{appt_id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void addUserToAppointment(@PathVariable("user_id") long user_id, @PathVariable("appt_id") long appt_id) {
+        apptManagementService.addUserToAppt(user_id, appt_id);
+    }
 
     //CRUD FOR USER & APPT BELOW
     @GetMapping("/get/user/{user_id}")
@@ -71,16 +84,18 @@ public class ApptMgrController {
     @ResponseStatus(HttpStatus.CREATED)
     public User postUser(@RequestBody String userJSON) throws JMSException, JsonProcessingException {
         System.out.println(userJSON);
-        UserDTO userDTO = new UserDTO();
-        userDTO.SetValues(userJSON);
+        UserDTO userDTO = mapper.readValue(userJSON, UserDTO.class);
         System.out.println(userDTO);
         return apptManagementService.createUser(userDTO);
     }
 
     @PostMapping("/post/appt/")
     @ResponseStatus(HttpStatus.CREATED)
-    public Appointment postAppointment(@RequestBody Appointment appointment) throws JMSException, JsonProcessingException {
-        return apptManagementService.createAppointment(appointment);
+    public Appointment postAppointment(@RequestBody String apptJSON) throws JMSException, JsonProcessingException {
+        System.out.println(apptJSON);
+        AppointmentDTO apptDTO = mapper.readValue(apptJSON, AppointmentDTO.class);
+        System.out.println(apptDTO);
+        return apptManagementService.createAppointment(apptDTO);
     }
 
     @PutMapping("/put/user/{user_id}")

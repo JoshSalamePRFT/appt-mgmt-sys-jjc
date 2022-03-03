@@ -38,7 +38,7 @@ public class User extends BaseEntity implements Serializable  {
     @Column(name = "gender")
     @NotBlank
     private String gender;
-    //consider making enum
+    //TODO consider making enum
 
     @Column(name = "age")
     @PositiveOrZero

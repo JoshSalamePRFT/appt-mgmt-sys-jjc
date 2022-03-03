@@ -4,11 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jjcperf.apptmgmtsvc.model.Appointment;
 //import com.jjcperf.apptmgmtsvc.model.Wrapper;
+import com.jjcperf.apptmgmtsvc.model.AppointmentDTO;
 import com.jjcperf.apptmgmtsvc.model.User;
 //import com.jjcperf.apptmgmtsvc.repository.ApptAndUserRepository;
 import com.jjcperf.apptmgmtsvc.model.UserDTO;
 import com.jjcperf.apptmgmtsvc.repository.ApptRepository;
 import com.jjcperf.apptmgmtsvc.repository.UserRepository;
+import com.jjcperf.apptmgmtsvc.web.mappers.ApptMapperImpl;
 import com.jjcperf.apptmgmtsvc.web.mappers.UserMapperImpl;
 import com.jjcperf.msg.msg.ResponseMessage;
 import com.jjcperf.msg.sender.MgmtSenderAndReceiver;
@@ -42,10 +44,12 @@ public class ApptManagementServiceImpl implements ApptManagementService {
 
     ObjectMapper mapper;
     UserMapperImpl userMapper;
+    ApptMapperImpl apptMapper;
     public ApptManagementServiceImpl() {
         mapper = new ObjectMapper();
         mapper.findAndRegisterModules();
         userMapper = new UserMapperImpl();
+        apptMapper = new ApptMapperImpl();
     }
 
 
@@ -92,9 +96,10 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     }
 
     //same thing as addApptToUser, both should just add an entry to the join table. Only implementing this version.
+    //TODO maybe add some sort of success response. Could do in the controller instead, just "Success" if no error was thrown.
     @Override
     public void addUserToAppt(long user_id, long appt_id) {
-
+        userRepository.addUserToAppointment(user_id, appt_id);
     }
 
 
@@ -133,7 +138,6 @@ public class ApptManagementServiceImpl implements ApptManagementService {
 
     @Override
     public User createUser(UserDTO dto) throws JsonProcessingException, JMSException {
-//        User user = mapper.convertValue(dto, User.class);
         User user = userMapper.dtoToUser(dto);
         System.out.println(user);
         String message = mgmtSenderAndReceiver.sendUserPostMessage(user).getBody(String.class);
@@ -142,8 +146,10 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     }
 
     @Override
-    public Appointment createAppointment(Appointment appointment) throws JMSException, JsonProcessingException {
-        String message = mgmtSenderAndReceiver.sendAppointmentPostMessage(appointment).getBody(String.class);
+    public Appointment createAppointment(AppointmentDTO dto) throws JMSException, JsonProcessingException {
+        Appointment appt = apptMapper.dtoToAppt(dto);
+        System.out.println(appt);
+        String message = mgmtSenderAndReceiver.sendAppointmentPostMessage(appt).getBody(String.class);
         ResponseMessage responseMessage = mapper.readValue(message, ResponseMessage.class);
         return (Appointment) responseMessage.getEntities().get(0);
     }

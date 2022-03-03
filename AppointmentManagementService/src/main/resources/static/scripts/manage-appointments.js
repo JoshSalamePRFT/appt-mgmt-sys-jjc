@@ -16,5 +16,46 @@ $(document).ready(function () {
         console.log(apptList);
     });
 });
-$(document).delegate('.edit-appt', 'click', function(e) {
+$(document).delegate('.edit-appt', 'click', function (e) {
+    e.preventDefault();
+});
+$(document).delegate('.delete-appt', 'click', function (e) {
+    e.preventDefault();
+    let apptID = e.target.id;
+    $.ajax({
+        type: "DELETE",
+        url: "/api/v1/mgr/delete/appt/" + apptID,
+        cache: false,
+        success: function(result) {
+            console.log(result);
+            location.reload(true);
+        },
+        error: function() {
+        }
+    });
+
+});
+$(document).delegate('#add-appt', 'click', function (e) {
+    e.preventDefault();
+    let newAppt = new Appointment({
+        'appointment_id': null,
+        'apptName': 'testAdd',
+        'apptType': 'experimental',
+        'description': 'there is nothing to fear',
+        'startTime': '2018-12-12T13:30:30',
+        'endTime': '2018-12-12T14:30:30',
+        'metaData': null
+    });
+    $.ajax({
+        type: "POST",
+        contentType: "application/json; charset=utf-8",
+        url: "/api/v1/mgr/post/appt/",
+        data: newAppt.toJSON(),
+        cache: false,
+        success: function(result) {
+            console.log(result);
+        },
+        error: function(err) {
+        }
+    });
 });
