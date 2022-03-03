@@ -5,6 +5,7 @@ $(document).ready(function () {
     $table = $('table');
     console.log(State.LiveID);
     $.getJSON(`/api/v1/mgr/${State.LiveID}/getappts`, function (json) {
+        console.log(json);
         for (var i = 0; i < json.length; i++) {
             let appt = new Appointment(json[i]);
             // console.log(appt.toJSON());
@@ -24,8 +25,9 @@ $(document).delegate('.edit-appt', 'click', function (e) {
     //TODO
 });
 
+
+$(document).delegate('.unrsvp-appt', 'click', function (e) {
 //TODO change mapping to delete from users_appts
-$(document).delegate('.delete-appt', 'click', function (e) {
     e.preventDefault();
     let apptID = e.target.value;
     $.ajax({

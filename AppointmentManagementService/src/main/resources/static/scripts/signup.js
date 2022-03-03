@@ -18,9 +18,13 @@ $(document).delegate('#signup-form', 'submit', function (e) {
         url: "/api/v1/mgr/post/user/",
         data: newUser.toJSON(),
         cache: false,
-        success: function(result) {
-            console.log(result);
+        success: function(json) {
+            console.log(json);
             //TODO redirect to Manage Appointments page.
+            // location.replace('http://localhost:8080/');
+            let user = new User(json);
+            State.LiveID = user.user_id;
+            location.replace('http://localhost:8080/html/manage-appointments.html');
         },
         error: function(err) {
         }
