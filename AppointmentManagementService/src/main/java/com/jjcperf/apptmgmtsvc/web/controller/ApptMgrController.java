@@ -74,7 +74,11 @@ public class ApptMgrController {
         return apptManagementService.readUser(user_id);
     }
 
-    //@GetMapping("/get-by-email/user/{emailAddress}")
+    //TODO make email addresses unique so this doesn't break if there's a duplicate.
+    @GetMapping("/get-by-email/user/{emailAddress}")
+    public User getUserByEmailAddress(@PathVariable("emailAddress") String emailAddress) throws JMSException, JsonProcessingException {
+        return apptManagementService.readUserByEmailAddress(emailAddress);
+    }
 
     @GetMapping("/get/appt/{appt_id}")
     @ResponseStatus(HttpStatus.OK)
@@ -123,9 +127,6 @@ public class ApptMgrController {
     public void deleteAppointment(@PathVariable("appt_id") long appt_id) {
         apptManagementService.deleteAppointment(appt_id);
     }
-
-
-
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

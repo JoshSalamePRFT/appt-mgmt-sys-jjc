@@ -36,9 +36,6 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     @Autowired
     UserRepository userRepository;
 
-    //@Autowired
-    //ApptAndUserRepository apptAndUserRepository;
-
     @Autowired
     EntityManager entityManager;
 
@@ -130,6 +127,13 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     }
 
     @Override
+    public User readUserByEmailAddress(String emailAddress) throws JMSException, JsonProcessingException {
+        String message = mgmtSenderAndReceiver.sendUserGetByEmailMessage(emailAddress).getBody(String.class);
+        ResponseMessage responseMessage = mapper.readValue(message, ResponseMessage.class);
+        return (User) responseMessage.getEntities().get(0);
+    }
+
+    @Override
     public Appointment readAppointment(long appt_id) throws JMSException, JsonProcessingException {
         String message = mgmtSenderAndReceiver.sendAppointmentGetMessage(appt_id).getBody(String.class);
         ResponseMessage responseMessage = mapper.readValue(message, ResponseMessage.class);
@@ -177,4 +181,6 @@ public class ApptManagementServiceImpl implements ApptManagementService {
     public void deleteAppointment(long appt_id) {
         mgmtSenderAndReceiver.sendAppointmentDeleteMessage(appt_id);
     }
+
+
 }
