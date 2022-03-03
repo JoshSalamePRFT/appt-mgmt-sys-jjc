@@ -1,6 +1,8 @@
 package com.jjcperf.appointmentservice.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import com.jjcperf.appointmentservice.model.Appointment;
 import com.jjcperf.appointmentservice.service.ApptService;
 import org.junit.jupiter.api.AfterEach;
@@ -33,9 +35,9 @@ public class ApptControllerTests {
     private ApptService apptService;
 
     private Appointment appt;
-    private List<Appointment> apptList; //not used?
+    private List<Appointment> apptList;
 
-    @InjectMocks //injects the userService mock into the controller
+    @InjectMocks
     private ApptController apptController;
 
     @Autowired
@@ -62,21 +64,20 @@ public class ApptControllerTests {
     }
 
     //TODO fix post test
-    @Test //currently failing. Issue with asJsonString method, not mapping phoneNumber property of User correctly.
+    @Test
     public void postTest() throws Exception {
         when(apptService.createAppt(any())).thenReturn(appt);
-        mockMvc.perform(post("/api/v1/appt/post/") //
+        mockMvc.perform(post("/api/v1/appt/create")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(appt)))
                 .andExpect(status().isCreated());
-        //Verify the controller's post method called the service's createUser method
         verify(apptService,times(1)).createAppt(any());
     }
 
     @Test
     public void getAllTest() throws Exception {
         when(apptService.findAllAppts()).thenReturn(apptList);
-        mockMvc.perform(get("/api/v1/appt/getAll")
+        mockMvc.perform(get("/api/v1/appt/findAll")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(appt)))
                 .andDo(MockMvcResultHandlers.print());
@@ -89,7 +90,7 @@ public class ApptControllerTests {
     @Test
     public void getTest() throws Exception {
         when(apptService.readAppt(appt.getAppointment_id())).thenReturn(appt);
-        mockMvc.perform(get("/api/v1/appt/get/" + appt.getAppointment_id())
+        mockMvc.perform(get("/api/v1/appt/read/" + appt.getAppointment_id())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(appt)))
                 .andExpect(status().isOk())
@@ -105,9 +106,12 @@ public class ApptControllerTests {
     }
 
     //Might need to create a custom mapper because of the phoneNumber property
-    public static String asJsonString(final Object obj) {
+    public static String asJsonString(final Object obj) throws JsonProcessingException {
+        System.out.println("Debug Print: " + new ObjectMapper().writeValueAsString(obj));
         try {
-            return new ObjectMapper().writeValueAsString(obj);
+            ObjectMapper om = new ObjectMapper();
+            om.findAndRegisterModules();
+            return om.writeValueAsString(obj);
         } catch (Exception e){
             throw new RuntimeException(e);
         }
