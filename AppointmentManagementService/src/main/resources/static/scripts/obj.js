@@ -23,18 +23,18 @@ class User {
 
     toTableRow(editDelete = false) {
         let tr = [];
-        tr.push(`<tr>`);
+        tr.push(`<tr id=${this.user_id}>`);
         tr.push(`<td>${this.user_id}</td>`);
         tr.push(`<td>${this.firstName}</td>`);
         tr.push(`<td>${this.lastName}</td>`);
         tr.push(`<td>${this.gender}</td>`);
         tr.push(`<td>${this.age}</td>`);
-        tr.push(`<td>${this.emailAddress}</td>`);
+        tr.push(`<td>${this.emailAddress}</td>`);   
         tr.push(`<td>${this.phoneNumber}</td>`);
         tr.push(`<td>`);
         if (editDelete) {
-            tr.push(`<button class='edit-user' id=${this.user_id}>Edit</button>`);
-            tr.push(`<button class='delete-user' id=${this.user_id}>Delete</button>`);
+            tr.push(`<button class='edit-user' value=${this.user_id}>Edit</button>`);
+            tr.push(`<button class='delete-user' value=${this.user_id}>Delete</button>`);
         }
         tr.push(`</td>`);
         tr.push(`</tr>`);
@@ -81,7 +81,7 @@ class Appointment {
 
     toTableRow(editDelete = false, inviteRSVP = false) {
         let tr = [];
-        tr.push(`<tr>`);
+        tr.push(`<tr id=${this.appointment_id}>`);
         tr.push(`<td>${this.appointment_id}</td>`);
         tr.push(`<td>${this.apptName}</td>`);
         tr.push(`<td>${this.apptType}</td>`);
@@ -91,12 +91,12 @@ class Appointment {
         tr.push(`<td>${this.metaData}</td>`);
         tr.push(`<td>`);
         if (editDelete) {
-            tr.push(`<button class='edit-appt' id=${this.appointment_id}>Edit</button>`);
-            tr.push(`<button class='delete-appt' id=${this.appointment_id}>Delete</button>`);
+            tr.push(`<button class='edit-appt' value=${this.appointment_id}>Edit</button>`);
+            tr.push(`<button class='delete-appt' value=${this.appointment_id}>Delete</button>`);
         }
         if (inviteRSVP) {
-            tr.push(`<button class='rsvp-appt' id=${this.appointment_id}>RSVP</button>`);
-            tr.push(`<button class='invite-appt' id=${this.appointment_id}>Invite</button>`);
+            tr.push(`<button class='rsvp-appt' value=${this.appointment_id}>RSVP</button>`);
+            tr.push(`<button class='invite-appt' value=${this.appointment_id}>Invite</button>`);
         }
         tr.push(`</td>`);
         tr.push(`</tr>`);
