@@ -43,6 +43,21 @@ public class UserSender {
         jmsTemplate.convertAndSend(destination, responseMessage);
     }
 
+    public void sendGetByEmailReplyMessage(String emailAddress, Destination destination) {
+        User user = userController.getUserByEmail(emailAddress);
+
+        ResponseMessage responseMessage = ResponseMessage.builder()
+                .id(UUID.randomUUID())
+                .build();
+        List<User> entities = new ArrayList<>();
+        entities.add(user);
+        responseMessage.setEntities(entities);
+
+        log.debug("Sending a User Get By Email Response!");
+
+        jmsTemplate.convertAndSend(destination, responseMessage);
+    }
+
     public void sendPostReplyMessage(User user, Destination destination) {
         User returnUser = userController.postUser(user);
 

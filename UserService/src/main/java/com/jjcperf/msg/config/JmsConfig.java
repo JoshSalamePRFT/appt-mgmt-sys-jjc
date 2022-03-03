@@ -14,6 +14,7 @@ public class JmsConfig {
     public static final String USER_PUT_QUEUE = "user-put";
     public static final String USER_DELETE_QUEUE = "user-delete";
     public static final String USER_GETALL_QUEUE = "user-getall";
+    public static final String USER_GETBYEMAIL_QUEUE = "user-get-by-email";
 
     @Bean
     public MessageConverter messageConverter(ObjectMapper objectMapper) {

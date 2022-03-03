@@ -1,6 +1,5 @@
 package com.jjcperf.msg.sender;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jjcperf.apptmgmtsvc.model.Appointment;
@@ -40,6 +39,23 @@ public class MgmtSenderAndReceiver {
                 "com.jjcperf.msg.msg.user.UserGetMessage", message);
 
         log.debug("I Got a User Get Response!  " + responseMessage);
+
+        return responseMessage;
+    }
+
+    public Message sendUserGetByEmailMessage(String emailAddress) {
+        UserGetByEmailMessage message = UserGetByEmailMessage
+                .builder()
+                .emailAddress(emailAddress)
+                .criteriaType(CriteriaTypeEnum.NUMBER)
+                .build();
+
+        log.debug("Sending a User Get By Email Request!");
+
+        Message responseMessage = sendAndReceiveMessage(JmsConfig.USER_GETBYEMAIL_QUEUE,
+                "com.jjcperf.msg.msg.user.UserGetByEmailMessage", message);
+
+        log.debug("I Got a User Get By Email Response!  " + responseMessage);
 
         return responseMessage;
     }

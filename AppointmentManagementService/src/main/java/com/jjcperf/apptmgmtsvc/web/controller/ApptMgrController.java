@@ -74,6 +74,8 @@ public class ApptMgrController {
         return apptManagementService.readUser(user_id);
     }
 
+    //@GetMapping("/get-by-email/user/{emailAddress}")
+
     @GetMapping("/get/appt/{appt_id}")
     @ResponseStatus(HttpStatus.OK)
     public Appointment getAppointment(@PathVariable("appt_id") long appt_id) throws JMSException, JsonProcessingException {

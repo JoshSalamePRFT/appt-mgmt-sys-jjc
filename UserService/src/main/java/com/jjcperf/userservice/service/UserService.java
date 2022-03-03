@@ -12,4 +12,6 @@ public interface UserService {
     List<User> listUsers();
 
     List<User> listUsersByApptId(long appt_id);
+
+    User readUserByEmail(String email);
 }

@@ -34,6 +34,16 @@ public class UserListener {
         userSender.sendGetReplyMessage(getMessage.getId(), message.getJMSReplyTo());
     }
 
+    @JmsListener(destination = JmsConfig.USER_GETBYEMAIL_QUEUE)
+    public void listenForUserGetByEmailReq(@Payload UserGetByEmailMessage getByEmailMessage,
+                                           @Headers MessageHeaders headers,
+                                           Message message) throws JMSException {
+
+        log.debug("I Got a User Get By Email Request!" + getByEmailMessage);
+
+        userSender.sendGetByEmailReplyMessage(getByEmailMessage.getEmailAddress(), message.getJMSReplyTo());
+    }
+
     @JmsListener(destination = JmsConfig.USER_POST_QUEUE)
     public void listenForUserPostReq(@Payload UserPostMessage postMessage,
                                  @Headers MessageHeaders headers,

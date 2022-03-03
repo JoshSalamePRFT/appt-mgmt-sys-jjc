@@ -26,6 +26,11 @@ public class UserController {
         return userService.readUser(user_id);
     }
 
+    @GetMapping("/get-by-email/{email}")
+    public User getUserByEmail(@PathVariable("email") String email) {
+        return userService.readUserByEmail(email);
+    }
+
     @PostMapping("/post")
     @ResponseStatus(HttpStatus.CREATED)
     public User postUser(
