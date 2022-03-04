@@ -60,11 +60,17 @@ public class ApptMgrController {
     }
 
     /* TODO perhaps change to use a request body instead of path variables.
-     * Also perhaps change return type to string or something to indicate success (though responsestatus might be ok. */
+     * Also perhaps change return type to string or something to indicate success (though responsestatus might be ok.) */
     @PostMapping("/add-user-to-appt/{user_id}/{appt_id}")
     @ResponseStatus(HttpStatus.CREATED)
     public void addUserToAppointment(@PathVariable("user_id") long user_id, @PathVariable("appt_id") long appt_id) {
         apptManagementService.addUserToAppt(user_id, appt_id);
+    }
+
+    @DeleteMapping("/remove-user-from-appt/{user_id}/{appt_id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removeUserFromAppointment(@PathVariable("user_id") long user_id, @PathVariable("appt_id") long appt_id) {
+        apptManagementService.deleteUserFromAppointment(user_id, appt_id);
     }
 
     //CRUD FOR USER & APPT BELOW

@@ -26,4 +26,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "values (?1, ?2)",
             nativeQuery = true)
     void addUserToAppointment(long user_id, long appt_id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from users_appointments " +
+            "where user_id = ?1 " +
+            "and appointment_id = ?2"
+            , nativeQuery = true)
+    void deleteUserFromAppointment(long user_id, long appt_id);
 }

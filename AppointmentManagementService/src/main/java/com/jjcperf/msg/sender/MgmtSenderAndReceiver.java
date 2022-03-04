@@ -232,7 +232,4 @@ public class MgmtSenderAndReceiver {
 
         return responseMessage;
     }
-
-
-
 }

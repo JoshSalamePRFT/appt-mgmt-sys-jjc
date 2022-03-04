@@ -32,4 +32,6 @@ public interface ApptManagementService {
     void deleteAppointment(long appt_id);
 
     User readUserByEmailAddress(String emailAddress) throws JMSException, JsonProcessingException;
+
+    void deleteUserFromAppointment(long user_id, long appt_id);
 }
