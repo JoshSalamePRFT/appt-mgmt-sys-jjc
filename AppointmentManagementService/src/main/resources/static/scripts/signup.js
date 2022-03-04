@@ -1,6 +1,8 @@
 $(document).delegate('#signup-form', 'submit', function (e) {
     e.preventDefault();
     console.log(e);
+
+    //create user from form info
     const birthday = new Date(e.target[4].value);
     const age = new Date(Date.now() - new Date(birthday)).getFullYear() - 1970;
     let newUser = new User({
@@ -12,6 +14,8 @@ $(document).delegate('#signup-form', 'submit', function (e) {
         'age': age,
         'gender': e.target[5].value,
     });
+
+    //post call
     $.ajax({
         type: "POST",
         contentType: "application/json; charset=utf-8",

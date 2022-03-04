@@ -21,15 +21,19 @@
         <a href="../index.html" class="navbar-brand">Home</a>
         <a href="login.html" class="navbar-brand">Login</a>
         <a href="signup.html" class="navbar-brand">Signup</a>
+        <a href="view-users.html" class="navbar-brand">View Users</a>
         <a href="manage-appointments.html" class="navbar-brand">Manage Appointments</a>
+        <a href="add-appointment.html" class="navbar-brand">Add Appointment</a>
         <!-- Perhaps view appts should list the users currently RSVP'ed, whereas RSVP will only show the appts themselves.-->
         <a href="view-all-appointments.html" class="navbar-brand">View All Appointments</a>
-        <a href="view-users.html" class="navbar-brand">View Users</a>
     </nav>
 
-    <form id="login-form">
-
+    <form id="login-form" style="border:1px solid #ccc">
         <div class="container">
+            <h1>Log In</h1>
+            <p>Please fill in this form to log in.</p>
+            <hr>
+
             <label ><b>Email</b>
             <input type="email" placeholder="Enter Email" name="email" required>
             </label>
@@ -38,14 +42,6 @@
             </label>
 
             <button type="submit">Login</button>
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
-        </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-            <button type="button" class="cancelbtn">Cancel</button>
-            <span class="psw">Forgot <a href="#">password?</a></span>
         </div>
     </form>
 

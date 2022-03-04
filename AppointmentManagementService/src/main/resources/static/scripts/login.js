@@ -14,9 +14,10 @@ $(document).delegate('#login-form', 'submit', function(e) {
         //if user matches, set the state's user to this one and redirect.
         if (user.emailAddress == formEmail && user.phoneNumber == formPhone) {
             State.LiveID = user.user_id;
+            //TODO remove hardcoding domain name
             location.replace('http://localhost:8080/html/manage-appointments.html');
         }
-        //no matching user, display error?
+        //no matching user, display error
         else {
             //TODO display error. Maybe in a nicer way (though this works)
             alert("Invalid login (phone doesn't match user with email address)")

@@ -9,35 +9,48 @@ $(document).ready(function () {
         for (var i = 0; i < json.length; i++) {
             let appt = new Appointment(json[i]);
             // console.log(appt.toJSON());
-            $table.append(appt.toTableRow(false, true));
+            $table.append(appt.toTableRow(true, false, false, true, true));
             apptList.push(appt);
         }
         console.log(apptList);
     });
 });
 
+$(document).delegate('.edit-appt', 'click', function (e) {
+    //TODO. Currently does nothing.
+});
 
-$(document).delegate('#add-appt', 'click', function (e) {
+$(document).delegate('.rsvp-appt', 'click', function (e) {
     e.preventDefault();
-    let newAppt = new Appointment({
-        'appointment_id': null,
-        'apptName': 'testAdd',
-        'apptType': 'experimental',
-        'description': 'there is nothing to fear',
-        'startTime': '2018-12-12T13:30:30',
-        'endTime': '2018-12-12T14:30:30',
-        'metaData': null
-    });
+    let apptID = e.target.value;
     $.ajax({
         type: "POST",
-        contentType: "application/json; charset=utf-8",
-        url: "/api/v1/mgr/post/appt/",
-        data: newAppt.toJSON(),
+        url: "/api/v1/mgr/add-user-to-appt/" + State.LiveID + "/" + apptID,
         cache: false,
-        success: function(result) {
-            console.log(result);
+        success: function() {
+            //TODO make more elegant message.
+            alert("RSVP success.")
         },
-        error: function(err) {
+        error: function() {
+            //TODO make more elegant message.
+            alert("RSVP failed.")
+        }
+    });
+});
+//TODO add check that this user has the right to delete said appt. (Need to implement owner_id in model first).
+$(document).delegate('.delete-appt', 'click', function (e) {
+    e.preventDefault();
+    let apptID = e.target.value;
+    $.ajax({
+        type: "DELETE",
+        url: "/api/v1/mgr/delete/appt/" + apptID,
+        cache: false,
+        success: function() {
+            location.reload();
+        },
+        error: function() {
+            //TODO make more elegant. Also...uh, it doesn't appear. Need some sort of timeout for the request.
+            alert("Delete failed. Likely cause: This appointment has a user RSVP'ed. User must first remove their RSVP to delete.")
         }
     });
 });
