@@ -3,10 +3,8 @@ package com.jjcperf.apptmgmtsvc.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jjcperf.apptmgmtsvc.model.Appointment;
-//import com.jjcperf.apptmgmtsvc.model.Wrapper;
 import com.jjcperf.apptmgmtsvc.model.AppointmentDTO;
 import com.jjcperf.apptmgmtsvc.model.User;
-//import com.jjcperf.apptmgmtsvc.repository.ApptAndUserRepository;
 import com.jjcperf.apptmgmtsvc.model.UserDTO;
 import com.jjcperf.apptmgmtsvc.repository.ApptRepository;
 import com.jjcperf.apptmgmtsvc.repository.UserRepository;
@@ -14,14 +12,11 @@ import com.jjcperf.apptmgmtsvc.web.mappers.ApptMapperImpl;
 import com.jjcperf.apptmgmtsvc.web.mappers.UserMapperImpl;
 import com.jjcperf.msg.msg.ResponseMessage;
 import com.jjcperf.msg.sender.MgmtSenderAndReceiver;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import javax.jms.JMSException;
 import javax.persistence.EntityManager;
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,6 +94,10 @@ public class ApptManagementServiceImpl implements ApptManagementService {
         userRepository.addUserToAppointment(user_id, appt_id);
     }
 
+    @Override
+    public void deleteUserFromAppointment(long user_id, long appt_id) {
+        userRepository.deleteUserFromAppointment(user_id, appt_id);
+    }
 
     //CRUD FOR USER & APPT
     //TODO code cleanup
@@ -132,6 +131,8 @@ public class ApptManagementServiceImpl implements ApptManagementService {
         ResponseMessage responseMessage = mapper.readValue(message, ResponseMessage.class);
         return (User) responseMessage.getEntities().get(0);
     }
+
+
 
     @Override
     public Appointment readAppointment(long appt_id) throws JMSException, JsonProcessingException {

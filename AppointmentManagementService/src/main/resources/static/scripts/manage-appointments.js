@@ -15,6 +15,7 @@ $(document).ready(function () {
         console.log(apptList);
     });
 });
+
 $(document).delegate('.edit-appt', 'click', function (e) {
     e.preventDefault();
     const apptID = e.target.value;
@@ -22,9 +23,8 @@ $(document).delegate('.edit-appt', 'click', function (e) {
     const row = document.getElementById(apptID);
     console.log(`${apptID} :: ${appt} :: ${row}`);
 
-    //TODO
+    //TODO remove function and buttons (doesn't make sense to edit entry in join table. Should only have delete/unrsvp.
 });
-
 
 $(document).delegate('.unrsvp-appt', 'click', function (e) {
 //TODO change mapping to delete from users_appts
@@ -32,13 +32,13 @@ $(document).delegate('.unrsvp-appt', 'click', function (e) {
     let apptID = e.target.value;
     $.ajax({
         type: "DELETE",
-        url: "/api/v1/mgr/delete/appt/" + apptID,
+        url: "/api/v1/mgr/remove-user-from-appt/" + State.LiveID + "/" + apptID,
         cache: false,
-        success: function(result) {
-            console.log(result);
-            location.reload(true);
+        success: function() {
+            location.reload();
         },
         error: function() {
+            //This shouldn't happen, as it only shows you values in the table, hence they should be deletable. But, fill anyway.
         }
     });
 });
