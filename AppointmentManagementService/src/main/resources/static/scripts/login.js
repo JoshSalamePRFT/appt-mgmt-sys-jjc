@@ -6,7 +6,7 @@ $(document).delegate('#login-form', 'submit', function(e) {
 
     //get user by email
     $.getJSON(`/api/v1/mgr/get-by-email/user/${formEmail}`, function (json) {
-        console.log(json); //uh, so...if phoneNumber is the password...and json contains the phoneNumber...
+        console.log(json); //TODO uh, so...if phoneNumber is the password...and json contains the phoneNumber...
         // probably shouldn't log this
 
         let user = new User(json);

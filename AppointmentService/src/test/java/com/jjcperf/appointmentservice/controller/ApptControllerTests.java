@@ -42,7 +42,7 @@ public class ApptControllerTests {
 
     @BeforeEach
     public void setup() {
-        System.out.println("Performing setup.");
+        System.out.println("Performing setup."); //TODO change to log.debug with SLF4J
         appt = Appointment.builder()
                 .appointment_id(1)
                 .apptName("Doctor")

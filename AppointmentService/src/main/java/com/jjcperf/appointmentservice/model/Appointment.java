@@ -38,7 +38,7 @@ public class Appointment extends BaseEntity implements Serializable {
 
     @Column(name="start_time")
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", shape=JsonFormat.Shape.STRING)
-    private LocalDateTime startTime;
+    private LocalDateTime startTime; //TODO consider offsetdatetime or some other solution for timezone handling
 
     @Column(name="end_time")
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", shape=JsonFormat.Shape.STRING)

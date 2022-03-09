@@ -23,6 +23,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,7 +34,7 @@ class UserControllerTest {
     private UserService userService;
 
     private User user;
-    private List<User> userList; //not used?
+    private List<User> userList;
 
     @InjectMocks //injects the userService mock into the controller
     private UserController userController;
@@ -44,7 +45,7 @@ class UserControllerTest {
     @BeforeEach
     public void setup() {
         user = User.builder()
-                .user_id(1)
+                .user_id(3)
                 .firstName("notJohn")
                 .lastName("notDoe")
                 .age(25)
@@ -61,15 +62,23 @@ class UserControllerTest {
         user = null;
     }
 
-    //TODO fix post test
-    @Test //currently failing. Issue with asJsonString method, not mapping phoneNumber property of User correctly.
+
+    @Test
     public void postTest() throws Exception {
         when(userService.createUser(any())).thenReturn(user);
-        mockMvc.perform(post("/api/v1/user/post/") //
+
+        String jsonContent = asJsonString(user); //expected returned content
+
+        mockMvc.perform(post("/api/v1/user/post/")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(user)))
-                .andExpect(status().isCreated());
-        //Verify the controller's post method called the service's createUser method
+                        .content(jsonContent))
+                .andExpect(status().isCreated())
+                /* yes, I know the service is for sure returning this user.
+                 * This confirms the controller is returning that same value as well.
+                 * Probably unnecessary, but for learning purposes it works. */
+                .andExpect(content().json(jsonContent))
+                .andDo(MockMvcResultHandlers.print());
+
         verify(userService,times(1)).createUser(any());
     }
 
@@ -81,7 +90,6 @@ class UserControllerTest {
                         .content(asJsonString(user)))
                 .andDo(MockMvcResultHandlers.print());
 
-        //Verify that the service called listUsers
         verify(userService).listUsers();
         verify(userService,times(1)).listUsers();
     }
@@ -96,12 +104,12 @@ class UserControllerTest {
                 .andDo(MockMvcResultHandlers.print());
     }
 
-    //TODO check: not sure this should be passing.
     @Test
     public void deleteTest() throws Exception {
         mockMvc.perform(delete("/api/v1/user/delete/" + user.getUser_id()))
                 .andExpect(status().isNoContent())
                 .andDo(MockMvcResultHandlers.print());
+        verify(userService, times(1)).deleteUser(user.getUser_id());
     }
 
     //Might need to create a custom mapper because of the phoneNumber property
