@@ -29,8 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
-    //TODO add missing tests: getApptById.
-    //TODO add tests for unhappy paths for: get, post, put, delete, getAll, getApptById
+    //TODO add tests for unhappy paths for: get, post, put, delete, getAll, getApptById, getByEmail
 
     @Mock
     private UserService userService;
@@ -82,7 +81,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void getTest() throws Exception {
+    public void getUserTest() throws Exception {
         when(userService.readUser(user.getUser_id())).thenReturn(user);
         mockMvc.perform(get("/api/v1/user/get/" + user.getUser_id()))
                 .andExpect(status().isOk())
@@ -93,7 +92,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void postTest() throws Exception {
+    public void postUserTest() throws Exception {
         when(userService.createUser(any())).thenReturn(user);
 
         String jsonContent = asJsonString(user); //expected returned content
@@ -109,7 +108,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void putTest() throws Exception {
+    public void putUserTest() throws Exception {
         long id = 3;
 
         when(userService.updateUser(any(), eq(id))).thenReturn(user);
@@ -127,7 +126,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void deleteTest() throws Exception {
+    public void deleteUserTest() throws Exception {
         doNothing().when(userService).deleteUser(user.getUser_id());
         mockMvc.perform(delete("/api/v1/user/delete/" + user.getUser_id()))
                 .andExpect(status().isNoContent())
@@ -137,7 +136,7 @@ class UserControllerTest {
     }
 
     @Test
-    public void getAllTest() throws Exception {
+    public void getAllUsersTest() throws Exception {
         when(userService.listUsers()).thenReturn(userList);
         mockMvc.perform(get("/api/v1/user/getAll"))
                 .andExpect(status().isOk())
@@ -146,6 +145,32 @@ class UserControllerTest {
 
         verify(userService,times(1)).listUsers();
     }
+
+    @Test
+    public void getUserByEmailTest() throws Exception {
+        when(userService.readUserByEmail(user.getEmailAddress())).thenReturn(user);
+        mockMvc.perform(get("/api/v1/user/get-by-email/" + user.getEmailAddress()))
+                .andExpect(status().isOk())
+                .andExpect(content().json(asJsonString(user)))
+                .andDo(MockMvcResultHandlers.print());
+
+        verify(userService,times(1)).readUserByEmail(user.getEmailAddress());
+    }
+
+    @Test
+    public void getUsersByAppointmentIdTest() throws Exception {
+        long appt_id = 1;
+
+        when(userService.listUsersByApptId(appt_id)).thenReturn(userList);
+        mockMvc.perform(get("/api/v1/user/get-users-by-appt/" + appt_id))
+                .andExpect(status().isOk())
+                .andExpect(content().json(asJsonString(userList)))
+                .andDo(MockMvcResultHandlers.print());
+
+        verify(userService,times(1)).listUsersByApptId(appt_id);
+    }
+
+
 
     //Might need to create a custom mapper because of the phoneNumber property
     public static String asJsonString(final Object obj) {
