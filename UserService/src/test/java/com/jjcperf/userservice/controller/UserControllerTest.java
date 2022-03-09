@@ -29,7 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
-    //TODO add more tests
+    //TODO add missing tests: getApptById.
+    //TODO add tests for unhappy paths for: get, post, put, delete, getAll, getApptById
 
     @Mock
     private UserService userService;
@@ -80,6 +81,16 @@ class UserControllerTest {
         userList = null;
     }
 
+    @Test
+    public void getTest() throws Exception {
+        when(userService.readUser(user.getUser_id())).thenReturn(user);
+        mockMvc.perform(get("/api/v1/user/get/" + user.getUser_id()))
+                .andExpect(status().isOk())
+                .andExpect(content().json(asJsonString(user)))
+                .andDo(MockMvcResultHandlers.print());
+
+        verify(userService, times(1)).readUser(user.getUser_id());
+    }
 
     @Test
     public void postTest() throws Exception {
@@ -91,9 +102,6 @@ class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonContent))
                 .andExpect(status().isCreated())
-                /* yes, I know the service is for sure returning this user.
-                 * This confirms the controller is returning that same value as well.
-                 * Probably unnecessary, but for learning purposes it works. */
                 .andExpect(content().json(jsonContent))
                 .andDo(MockMvcResultHandlers.print());
 
@@ -101,32 +109,42 @@ class UserControllerTest {
     }
 
     @Test
-    public void getAllTest() throws Exception {
-        when(userService.listUsers()).thenReturn(userList);
-        mockMvc.perform(get("/api/v1/user/getAll"))
-                .andExpect(content().json(asJsonString(userList)))
-                .andDo(MockMvcResultHandlers.print());
+    public void putTest() throws Exception {
+        long id = 3;
 
-        verify(userService).listUsers();
-        verify(userService,times(1)).listUsers();
-    }
+        when(userService.updateUser(any(), eq(id))).thenReturn(user);
 
-    @Test
-    public void getTest() throws Exception {
-        when(userService.readUser(user.getUser_id())).thenReturn(user);
-        mockMvc.perform(get("/api/v1/user/get/" + user.getUser_id())
+        String jsonContent = asJsonString(user); //expected returned content
+
+        mockMvc.perform(put("/api/v1/user/put/" + id)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(user)))
+                        .content(jsonContent))
                 .andExpect(status().isOk())
+                .andExpect(content().json(jsonContent))
                 .andDo(MockMvcResultHandlers.print());
+
+        verify(userService,times(1)).updateUser(any(), eq(id));
     }
 
     @Test
     public void deleteTest() throws Exception {
+        doNothing().when(userService).deleteUser(user.getUser_id());
         mockMvc.perform(delete("/api/v1/user/delete/" + user.getUser_id()))
                 .andExpect(status().isNoContent())
                 .andDo(MockMvcResultHandlers.print());
+
         verify(userService, times(1)).deleteUser(user.getUser_id());
+    }
+
+    @Test
+    public void getAllTest() throws Exception {
+        when(userService.listUsers()).thenReturn(userList);
+        mockMvc.perform(get("/api/v1/user/getAll"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(asJsonString(userList)))
+                .andDo(MockMvcResultHandlers.print());
+
+        verify(userService,times(1)).listUsers();
     }
 
     //Might need to create a custom mapper because of the phoneNumber property
