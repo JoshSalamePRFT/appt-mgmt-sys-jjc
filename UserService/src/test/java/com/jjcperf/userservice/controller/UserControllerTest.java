@@ -6,6 +6,7 @@ import com.jjcperf.userservice.model.User;
 import com.jjcperf.userservice.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,9 +18,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.util.NestedServletException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -79,6 +82,8 @@ class UserControllerTest {
         user2 = null;
         userList = null;
     }
+
+    // BASIC CRUD TESTS
 
     @Test
     public void getUserTest() throws Exception {
@@ -146,6 +151,8 @@ class UserControllerTest {
         verify(userService,times(1)).listUsers();
     }
 
+    // OTHER REQUESTS TESTS
+
     @Test
     public void getUserByEmailTest() throws Exception {
         when(userService.readUserByEmail(user.getEmailAddress())).thenReturn(user);
@@ -169,6 +176,27 @@ class UserControllerTest {
 
         verify(userService,times(1)).listUsersByApptId(appt_id);
     }
+
+
+    // UNHAPPY PATH TESTS
+
+    /* TODO um. Currently, the controller gets a NoSuchElementException from the service layer if the user to delete
+        isn't found. It doesn't handle it at all, which results in a 500 interval server error status. Consider handling
+        this by returning 400 Bad Request instead. If switch is made, this test will likely need to change.
+     */
+    @Test
+    public void deleteUserTest_givenUserNotFound() throws Exception {
+        doThrow(new NoSuchElementException()).when(userService).deleteUser(user.getUser_id());
+
+        NestedServletException thrown = Assertions.assertThrows(NestedServletException.class, () -> {
+            mockMvc.perform(delete("/api/v1/user/delete/" + user.getUser_id()))
+                    //.andExpect(status().isBadRequest())
+                    .andDo(MockMvcResultHandlers.print());
+        });
+
+        verify(userService, times(1)).deleteUser(user.getUser_id());
+    }
+
 
 
 
