@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -34,6 +35,7 @@ class UserControllerTest {
     private UserService userService;
 
     private User user;
+    private User user2;
     private List<User> userList;
 
     @InjectMocks //injects the userService mock into the controller
@@ -54,12 +56,28 @@ class UserControllerTest {
                 .phoneNumber("6465471234")
                 .build();
 
+        user2 = User.builder()
+                .user_id(45)
+                .firstName("John")
+                .lastName("Doe")
+                .age(63)
+                .gender("Male")
+                .emailAddress("johndoe@fakeemail.com")
+                .phoneNumber("6465477890")
+                .build();
+
+        userList = new ArrayList<>();
+        userList.add(user);
+        userList.add(user2);
+
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
     @AfterEach
     void tearDown() {
         user = null;
+        user2 = null;
+        userList = null;
     }
 
 
@@ -85,9 +103,8 @@ class UserControllerTest {
     @Test
     public void getAllTest() throws Exception {
         when(userService.listUsers()).thenReturn(userList);
-        mockMvc.perform(get("/api/v1/user/getAll")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(user)))
+        mockMvc.perform(get("/api/v1/user/getAll"))
+                .andExpect(content().json(asJsonString(userList)))
                 .andDo(MockMvcResultHandlers.print());
 
         verify(userService).listUsers();
