@@ -95,13 +95,14 @@ class UserServiceImplTest {
     //TODO split test for happy path + exception for value not present
     @Test
     void deleteUserTest() {
-        //Use when method to indicate the return value, even for 'null' value.
-        //when(userRepository.)
-        //Only testing delete service function, so service is bypassed and repo is called directly.
-        userRepository.save(user1);
+        doNothing().when(userRepository).deleteById(user1.getUser_id());
+        //TODO Probably bad practice: this when call knows the implementation details of the method being tested.
+        when(userRepository.findById(user1.getUser_id())).thenReturn(Optional.ofNullable(user1));
+
         //Test service delete function. Just checks that it doesn't throw an error
         userService.deleteUser(user1.getUser_id());
-        //Use an assert to check the return value is correct.
+
+        verify(userRepository, times(1)).deleteById(user1.getUser_id());
     }
 
     @Test
